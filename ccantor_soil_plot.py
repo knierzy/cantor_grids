@@ -570,7 +570,6 @@ plot_bgcolor="white",  # Set plot background to white
         linecolor="gray",
         tickfont=dict(size=25, color="black"),
        title=dict(
-    text="Humus (%) /// Difference between height of AB rectangle and the Humus content (%) equals Clay content (%)",
     font=dict(size=21, color="black")
 )
 
