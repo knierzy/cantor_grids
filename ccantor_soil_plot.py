@@ -572,8 +572,6 @@ plot_bgcolor="white",  # Set plot background to white
     color="black",
     linecolor="gray",
     tickfont=dict(size=25, color="black")
-),
-
 
     ),
     autosize=False,  # Disable automatic sizing
