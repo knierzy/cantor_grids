@@ -313,26 +313,31 @@ for (herkunft, ab_value), points in grouped_points.items():
 
 # Layout anpassen, um den Plot zu zentrieren und um 90 Grad zu drehen
 fig.update_layout(
-    plot_bgcolor="white",  # Hintergrund des Plots auf Weiß setzen
-    paper_bgcolor="white",  # Hintergrund des gesamten Diagramms auf Weiß setzen
     xaxis=dict(
-        title="Sum of Almandine (%) + Spessartine (%)",  # Neue X-Achsenbeschriftung
-        range=[0, rechtecke[-1][0] + rechtecke[-1][1]],  # Bereich der neuen X-Achse
+        title=dict(
+            text="Sum of Almandine (%) + Spessartine (%)",
+            font=dict(size=25, color="black")
+        ),
+        range=[0, rechtecke[-1][0] + rechtecke[-1][1]],
         tickformat=".0f",
-        tickfont=dict(size=24, color="black"),
-        titlefont=dict(size=25, color="black")
+        tickfont=dict(size=24, color="black")
     ),
-    yaxis=dict(
-        title="Pyrope (%) /// Difference between height of AB rectangle and Pyrope content (%) equals Grossular content (%)",
-        range=[0, 100],  # Stelle sicher, dass es nicht über 100 hinausgeht
-        constrain="domain",
-        tickformat=".0f",
-        dtick=10,
-        color="black",  # Farbe der Achsenbeschriftung und Achsenlinien auf Schwarz setzen
-        linecolor="gray",
-        tickfont=dict(size=24, color="black"),
-        titlefont=dict(size=20, color="black")
+
+yaxis=dict(
+    title=dict(
+        text="Pyrope (%) /// Difference between height of AB rectangle and Pyrope content (%) equals Grossular content (%)",
+        font=dict(size=20, color="black")
     ),
+    range=[0, 100],  # Stelle sicher, dass es nicht über 100 hinausgeht
+    constrain="domain",
+    tickformat=".0f",
+    dtick=10,
+    color="black",  # Farbe der Achsenbeschriftung und Achsenlinien auf Schwarz setzen
+    linecolor="gray",
+    tickfont=dict(size=24, color="black")
+),
+
+
     autosize=False,  # Deaktiviere automatische Größenanpassung
     width=2100,  # Setze die Breite des Plots größer
     height=1200,  # Setze die Höhe des Plots größer
