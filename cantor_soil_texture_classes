@@ -4,22 +4,21 @@ import plotly.express as px
 from scipy.spatial import ConvexHull
 import numpy as np
 
-# file path
-
-convex_hulls_file_1 = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\export\Test_lücken\conv_Anpassung\convex_hull_SandigerTon_STEPS_Anpassung.xlsx"
-convex_hulls_file_2 = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\export\Test_lücken\conv_Anpassung\convex_hull_TonigerSand_STEPS_Anpassung.xlsx"
-convex_hulls_file_3 = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\export\Test_lücken\conv_Anpassung\convex_hull_SandigerLehnm_STEPS_Anpassung.xlsx"
-convex_hulls_file_4 = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\export\Test_lücken\conv_Anpassung\convex_hull_LehmigerSchluff_STEPS_Anpassung.xlsx"
-convex_hulls_file_5 = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\export\Test_lücken\conv_Anpassung\convex_hull_Schluff_STEPS_allereduziert.xlsx"
-convex_hulls_file_6 = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\export\Test_lücken\conv_Anpassung\convex_hull_sandigerSchluff_STEPS_Anpassung.xlsx"
+# file path (relative to repo root)
+convex_hulls_file_1 = "data/convex_hull_SandigerTon_STEPS_Anpassung.xlsx"
+convex_hulls_file_2 = "data/convex_hull_TonigerSand_STEPS_Anpassung.xlsx"
+convex_hulls_file_3 = "data/convex_hull_SandigerLehnm_STEPS_Anpassung.xlsx"
+convex_hulls_file_4 = "data/convex_hull_LehmigerSchluff_STEPS_Anpassung.xlsx"
+convex_hulls_file_5 = "data/convex_hull_Schluff_STEPS_allereduziert.xlsx"
+convex_hulls_file_6 = "data/convex_hull_sandigerSchluff_STEPS_Anpassung.xlsx"
 convex_hulls_file_7 = "data/convex_hull_Lehm_STEPS_Anpassung.xlsx"
-convex_hulls_file_8 = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\export\Test_lücken\conv_Anpassung\convex_hull_lehmigerSand_STEPS_Anpassung.xlsx"
-convex_hulls_file_9 = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\export\Test_lücken\conv_Anpassung\convex_hull_schluffigerSand_STEPS_Anpassung.xlsx"
-convex_hulls_file_10 = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\export\Test_lücken\conv_Anpassung\convex_hull_lehmigerTon_STEPS_Anpassung1.xlsx"
-convex_hulls_file_11 = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\export\Test_lücken\conv_Anpassung\convex_hull_Ton_STEPS_Anpassung.xlsx"
-convex_hulls_file_12 = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\export\Test_lücken\conv_Anpassung\convex_hull_Sand1_STEPS_Anpassung.xlsx"
-convex_hulls_file_14 = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\export\Test_lücken\conv_Anpassung\convex_hulls_humicgleysoils.xlsx"
-convex_hulls_file_15 = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\export\Test_lücken\conv_Anpassung\convex_hull_schluffigerLehm_STEPS_ANPASSUNG.xlsx"
+convex_hulls_file_8 = "data/convex_hull_lehmigerSand_STEPS_Anpassung.xlsx"
+convex_hulls_file_9 = "data/convex_hull_schluffigerSand_STEPS_Anpassung.xlsx"
+convex_hulls_file_10 = "data/convex_hull_lehmigerTon_STEPS_Anpassung1.xlsx"
+convex_hulls_file_11 = "data/convex_hull_Ton_STEPS_Anpassung.xlsx"
+convex_hulls_file_12 = "data/convex_hull_Sand1_STEPS_Anpassung.xlsx"
+convex_hulls_file_14 = "data/convex_hulls_humicgleysoils.xlsx"
+convex_hulls_file_15 = "data/convex_hull_schluffigerLehm_STEPS_ANPASSUNG.xlsx"
 
 # color mappings
 
@@ -171,10 +170,10 @@ def add_rechtecke_mit_farbverlauf(rechtecke, x_offset, spiegeln=False):
 add_rechtecke_mit_farbverlauf(rechtecke, 0)
 
 
-
-# Load data from  Excel file
-file_path_gilgen = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\Rohdaten_für_eq_berch\Kompendium_Ö.xlsx"
+# Load data from Excel file (relative path for GitHub)
+file_path_gilgen = "data/Komp_Pub.xlsx"
 df = pd.read_excel(file_path_gilgen, sheet_name='Boden_O')
+
 
 # Remove rows with NaN in columns "Unnamed: 1" to "Unnamed: 4"; filter only rows where the sum is >= 98
 df_parameters = df[['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']].dropna()
@@ -255,12 +254,12 @@ color_mapping = {herkunft: color_palette[i % len(color_palette)] for i, herkunft
 #  Manually ordered list of convex hulls in the legend
 ordered_hulls = [
     convex_hulls_file_11,  # Clay
-    convex_hulls_file_10,  # Loamy Clay → entspricht "Clay Loam"
+    convex_hulls_file_10,  # Loamy Clay
     convex_hulls_file_1,   # Sandy Clay
     convex_hulls_file_2,   # Clayey Sand
     convex_hulls_file_7,   # Loam
-    convex_hulls_file_4,   # Silty Loam → "Loamy Silt" (du hattest beide Labels)
-    convex_hulls_file_15,  # Loamy Silt (zweite Instanz)
+    convex_hulls_file_4,   # Silty Loam 
+    convex_hulls_file_15,  # Loamy Silt 
     convex_hulls_file_5,   # Silt
     convex_hulls_file_3,   # Sandy Loam
     convex_hulls_file_8,   # Loamy Sand
