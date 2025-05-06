@@ -156,14 +156,17 @@ def add_rechtecke_mit_farbverlauf(rechtecke, x_offset, spiegeln=False):
 
 
     # Update X-axis with labels
-    fig.update_layout(
-        xaxis=dict(
-            title="Summe A + B (%)",
-            tickvals=list(x_labels.keys()),
-            ticktext=list(x_labels.values()),
-            tickangle=0,
+  fig.update_layout(
+    xaxis=dict(
+        title=dict(
+            text="Summe A + B (%)",
+            font=dict(size=24, color="black")
+        ),
+        tickvals=list(x_labels.keys()),
+        ticktext=list(x_labels.values()),
+        tickangle=0
+    ))
 
-            ))
 
 
 # Add rectangles
@@ -548,13 +551,16 @@ for color_code, count in sorted(color_count.items(), key=lambda x: x[1], reverse
 fig.update_layout(
 plot_bgcolor="white",  # Set plot background to white
     paper_bgcolor="white",  # Set whole figure background to white
-    xaxis=dict(
-        title="Sum of Sand % (A) and Silt % (B)", # X-axis label
-        range=[0, rechtecke[-1][0] + rechtecke[-1][1]],  # Range of new x-axis
-        tickformat=".0f",
-        tickfont=dict(size=25, color="black"),
-        titlefont = dict(size=24, color="black")
+   xaxis=dict(
+    title=dict(
+        text="Sum of Sand % (A) and Silt % (B)",
+        font=dict(size=24, color="black")
     ),
+    range=[0, rechtecke[-1][0] + rechtecke[-1][1]],
+    tickformat=".0f",
+    tickfont=dict(size=25, color="black")
+),
+
     yaxis=dict(
         title="Humus (%) /// Difference between height of AB rectangle and the Humus content (%) equals Clay content (%)",
         range=[0, 16],  # Additional space for labels
@@ -563,7 +569,11 @@ plot_bgcolor="white",  # Set plot background to white
         color="black", # Set axis and label color to black
         linecolor="gray",
         tickfont=dict(size=25, color="black"),
-        titlefont=dict(size=21, color="black")
+       title=dict(
+    text="Humus (%) /// Difference between height of AB rectangle and the Humus content (%) equals Clay content (%)",
+    font=dict(size=21, color="black")
+)
+
     ),
     autosize=False,  # Disable automatic sizing
     width=2260,  # Set plot width
