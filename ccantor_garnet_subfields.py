@@ -4,7 +4,7 @@ import plotly.express as px
 from scipy.spatial import ConvexHull
 import numpy as np
 
-# Hier kommen die Dateipfade und Farbzuordnungen
+# file paths
 
 convex_hulls_file_4 = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\export\convex_hull_amphibolites_general.xlsx"
 convex_hulls_file_5 = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\export\convex_hull_greenschists_.xlsx"
@@ -15,9 +15,9 @@ convex_hulls_file_9 = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\
 convex_hulls_file_11 = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\export\convex_hull_eclogites_.xlsx"
 convex_hulls_file_12 = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\export\convex_hull_ultramafic_.xlsx"
 
-# Farbmappings für jede Convex Hull-Datei
 
-# Farbmappings für jede Convex Hull-Datei
+# color mappings 
+
 color_mapping_files = {
     convex_hulls_file_5: "rgba(144, 238, 144, 0.9)",  # Greenschists - Hellgrün
     convex_hulls_file_4: "rgba(75, 50, 35, 0.9)",        # Amphibolites - Schwarz
@@ -30,7 +30,7 @@ color_mapping_files = {
 }
 
 
-# Mapping der kurzen Namen für die Legende
+# legend mapping 
 legend_mapping = {
     convex_hulls_file_6: "Granites and Pegmatites",
     convex_hulls_file_5: "Greenschists",
@@ -43,7 +43,7 @@ legend_mapping = {
 }
 
 
-# Rechteckdaten mit der erweiterten Systematik bis AB1
+# Rectangle data with the classification system up to AB1
 rechtecke = [
     (0, 100, "AB99"), (100, 99, "AB98"), (199, 98, "AB97"), (297, 97, "AB96"), (394, 96, "AB95"),
     (490, 95, "AB94"), (585, 94, "AB93"), (679, 93, "AB92"), (772, 92, "AB91"), (864, 91, "AB90"),
@@ -67,10 +67,10 @@ rechtecke = [
     (5035, 5, "AB4"), (5040, 4, "AB3"), (5044, 3, "AB2"), (5047, 2, "AB1")
 ]
 
-# Diagramm initialisieren
+# Set up diagram
 fig = go.Figure()
 
-# Helper-Funktion, um die Transparenz einer RGBA-Farbe sicherzustellen
+
 def ensure_transparency(color, alpha=0.7):
     if "rgba" in color:
         return color[:color.rfind(",")] + f", {alpha})"
@@ -83,25 +83,25 @@ def ensure_transparency(color, alpha=0.7):
         return f"rgba(0, 0, 0, {alpha})"
 
 
-# Rechtecke hinzufügen mit Farbgradienten entlang der neuen x-Achse (nach Drehung)
+# Add rectangles with color gradients along the new x-axis (after rotation)
 def add_rechtecke_mit_farbverlauf(rechtecke, x_offset, spiegeln=False):
     for i, (y_position, hoehe, label) in enumerate(rechtecke):
         breite = i + 1
-        gradient_steps = 10  # Anzahl der Schritte im Farbverlauf (mehr Schritte für weicheren Übergang)
+        gradient_steps = 10  # Number of steps in the color gradient
 
-        # Der Farbabstufungsverlauf startet intensiv und wird matter
-        grau_start = 230  # Dunkler Grauton (z. B. RGB-Wert 80)
-        grau_ende = 270  # Heller Grauton (z. B. RGB-Wert 200)
+  
+        grau_start = 230   # Dark gray tone (RGB value 80)
+        grau_ende = 270  # Light gray tone (RGB value 200)
 
         for step in range(gradient_steps):
-            # Berechne den Grauwert für diesen Schritt
+          # Calculate the gray value within an AB-rectanglce
             grau_wert = int(grau_start + (grau_ende - grau_start) * (step / (gradient_steps - 1)))
 
-            # Variiere die Transparenz leicht, um einen smootheren Effekt zu erzielen
+           # Variation of transparency to achieve a smoother effect
             alpha = 0.8 - (0.6 * (step / (gradient_steps - 1)))  # Reduziert Alpha von 0.8 auf 0.2
             color = f'rgba({grau_wert}, {grau_wert}, {grau_wert}, {alpha})'
-
-            # Bestimme die Koordinaten für den Farbverlauf entlang der neuen x-Achse (Summe A + B)
+            
+    # Determine the coordinates for the gradient along the new x-axis (sum A + B)
             y_start = y_position + (step / gradient_steps) * hoehe
             y_end = y_position + ((step + 1) / gradient_steps) * hoehe
 
@@ -110,14 +110,14 @@ def add_rechtecke_mit_farbverlauf(rechtecke, x_offset, spiegeln=False):
             else:
                 x_start, x_end = x_offset, x_offset + breite
 
-            # Rechteck für den aktuellen Schritt hinzufügen
+            # Add rectangle for the current step
             fig.add_trace(go.Scatter(
                 x=[x_start, x_start, x_end, x_end, x_start],
                 y=[y_start, y_end, y_end, y_start, y_start],
                 fill="toself",
                 mode="lines",
                 fillcolor=color,
-                line=dict(color="gray", width=0)  # Optional: schmale Umrandung
+                line=dict(color="gray", width=0)  
             ))
 
         for x_pos in range(1, breite):
@@ -131,54 +131,51 @@ def add_rechtecke_mit_farbverlauf(rechtecke, x_offset, spiegeln=False):
             ))
 
 
-    # Benutzerdefinierte Achsenbeschriftung erstellen
+ # Create  axis labels
     x_labels = {50: "AB99",440: "AB95",  915: "AB90", 1350: "AB85", 1760: "AB80", 2158: "AB75", 2540: "AB70",
                  2870: "AB65", 3195: "AB60", 3480: "AB55", 3755: "AB50", 3995: "AB45", 4209: "AB40", 4405: "AB35", 4570: "AB30", 4830: "AB20", 4990: "AB10" }
 
 
-    # Aktualisierung der X-Achse mit den benutzerdefinierten Labels
+     # Update X-axis with labels
     fig.update_layout(
         xaxis=dict(
             title="Summe A and B (%)",
-            tickvals=list(x_labels.keys()),  # Positionen der Beschriftungen
-            ticktext=list(x_labels.values()),  # Text der Beschriftungen
-            tickangle=0,  # Optional: keine Rotation der Beschriftungen
+            tickvals=list(x_labels.keys()),  
+            ticktext=list(x_labels.values()),  
+            tickangle=0,  
             ))
 
-
-# Rechtecke hinzufügen (linke Seite)
+# Add rectangles
 add_rechtecke_mit_farbverlauf(rechtecke, 0)
 
 
-# Daten aus der Excel-Datei laden
+# Load data from  Excel file
 file_path_gilgen = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\Rohdaten_für_eq_berch\Kompendium_Ö.xlsx"
 df = pd.read_excel(file_path_gilgen, sheet_name='Garn_ex')
 
-# Entfernt Zeilen mit NaN in den Spalten "Unnamed: 1", "Unnamed: 2", "Unnamed: 3", "Unnamed: 4" und filtert nur Zeilen, deren Summe >= 98 beträgt
+# Remove rows with NaN in columns "Unnamed: 1" to "Unnamed: 4"; filter only rows where the sum is >= 98
 df_parameters = df[['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']].dropna()
 df_parameters = df_parameters[df_parameters.apply(lambda row: row[['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']].sum() >= 98, axis=1)]
 df_parameters = df_parameters.astype(float).round()
 
-# Herkunft und Indexnummer laden (mit den gefilterten Zeilen ohne NaN)
+# Load origin and index number (with the filtered rows without NaN)"
 df_parameters['Herkunft'] = df.loc[df_parameters.index, 'Unnamed: 5'].values
 df_parameters['Index'] = df.loc[df_parameters.index, 'Unnamed: 6'].values
 
-
-# Funktion zur Anpassung, damit die Summe 100 ergibt
+#  Function to adjust so that the sum equals 100"
 def adjust_sum_to_100(row):
     total = row['Unnamed: 1'] + row['Unnamed: 2'] + row['Unnamed: 3'] + row['Unnamed: 4']
     difference = 100 - total
     if difference != 0:
-        row['Unnamed: 4'] += difference  # Passe den letzten Parameter an, um die Summe auf 100 zu bringen
-    return row
+        row['Unnamed: 4'] += difference  
 
-# Wende die Anpassung nur auf Zeilen an, die eine Summe von 98 bis 100 haben
+# Apply the adjustment only to rows with a sum between 98 and 100"
 df_parameters = df_parameters.apply(lambda row: adjust_sum_to_100(row) if 98 <= row[['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']].sum() <= 100 else row, axis=1)
 
-# Berechnung von AB (A + B) für die y-Position
+# Calculate AB (A + B) for the y-position"
 df_parameters['AB'] = df_parameters['Unnamed: 1'] + df_parameters['Unnamed: 2']
 
-# Berechnung der y-Position basierend auf AB
+# Calculate the y-position based on AB
 def calculate_y_position(ab_value, b_value):
     ab_index = 99 - int(ab_value)
     if ab_index >= 0 and ab_index < len(rechtecke):
@@ -188,20 +185,17 @@ def calculate_y_position(ab_value, b_value):
         return y_position
     return None
 
-# Farbpallette für die Herkunft
+# Color palette for origin
 herkunfts_list = df_parameters['Herkunft'].unique()
 color_palette = px.colors.qualitative.Plotly  # Plotly-Farben
 color_mapping = {herkunft: color_palette[i % len(color_palette)] for i, herkunft in enumerate(herkunfts_list)}
 
-# Neue Legende für das Diagramm
+# Legend for Diagram
 legende_text = "<b>Garnet Provenance Groups:</b><br>"
 
-# Punktelegende für die Herkunftsgruppen
-#for herkunft, color in color_mapping.items():
- #   legende_text += f'<span style="color:{color};">●</span> {herkunft}<br>'
 
 
-# Manuelle Reihenfolge der Convex Hulls in der Legende
+#  Manually ordered list of convex hulls in the legend
 ordered_hulls = [
     convex_hulls_file_5,
     convex_hulls_file_4,  # Amphibolites
@@ -213,15 +207,15 @@ ordered_hulls = [
     convex_hulls_file_8,  # Calc-Silicate Rocks
 ]
 
-# Legendentext vorbereiten
+# Prepare legend tex
 legende_text += ""
 for file_path in ordered_hulls:
-    color = color_mapping_files[file_path]  # Farbe aus Mapping holen
-    hull_name = legend_mapping.get(file_path, file_path.split("\\")[-1].split(".")[0])  # Namen abrufen
+    color = color_mapping_files[file_path]  
+    hull_name = legend_mapping.get(file_path, file_path.split("\\")[-1].split(".")[0])  
     legende_text += f'<span style="color:{color};">■</span> {hull_name}<br>'
 
 
-# Liste, um Punkte nach Herkunft und Rechteck (AB) zu gruppieren
+# List to group points by origin and rectangle (AB
 grouped_points = {}
 
 
@@ -233,44 +227,41 @@ df_hulls_8 = pd.read_excel(convex_hulls_file_8)
 df_hulls_9 = pd.read_excel(convex_hulls_file_9)
 df_hulls_11 = pd.read_excel(convex_hulls_file_11)
 df_hulls_12 = pd.read_excel(convex_hulls_file_12)
-# Lade die Convex Hull-Daten
-#df_hulls = pd.read_excel(convex_hulls_file)
 
- #Kombiniere die beiden Dateien
 df_hulls_combined = pd.concat([df_hulls_4, df_hulls_5,df_hulls_6,df_hulls_7,df_hulls_8, df_hulls_9, df_hulls_11, df_hulls_12])
 
 
-# Gruppen der Hull-Daten basierend auf Herkunft und AB_Value
+# Groups of the hull data based on origin and AB_Value
 grouped_hulls_combined = df_hulls_combined.groupby(["Herkunft", "AB_Value"])
 
 
-# Funktion zur Darstellung der Convex Hulls mit unterschiedlichen Farben
+# Function to display the convex hulls with different colors
 def plot_imported_hulls_with_file_colors(grouped_hulls, file_color_mapping):
     for (herkunft, ab_value), group in grouped_hulls:
-        # Extrahiere X- und Y-Koordinaten der Hull-Punkte
+      # Extract X and Y coordinates of the hull points
         hull_x = group["X"].values
         hull_y = group["Y"].values
 
-        # Schließe die Hull ab, indem du den ersten Punkt ans Ende setzt
+        # close the hull by appending the first point to the end
         hull_x = np.append(hull_x, hull_x[0])
         hull_y = np.append(hull_y, hull_y[0])
 
-        # Bestimme die Farbe basierend auf der Datei
-        file_source = group["file_source"].iloc[0]  # Dateiherkunft
-        color = file_color_mapping.get(file_source, "rgba(0, 0, 0, 0.5)")  # Standardfarbe Schwarz
+        # Determine the color based on the file
+        file_source = group["file_source"].iloc[0]  # 
+        color = file_color_mapping.get(file_source, "rgba(0, 0, 0, 0.5)")  
 
-        # Plotte die Convex Hull
+        # plot convex hull 
         fig.add_trace(go.Scatter(
             x=hull_x,
             y=hull_y,
             mode="lines",
             line=dict(color=color, width=1.5),
             fill="toself",
-            fillcolor=ensure_transparency(color, alpha=0.6),  # Transparenter Farbton mit Alpha = 0.4
-            name=f"Herkunft: {herkunft}, AB: {ab_value}"  # Legendenname
+            fillcolor=ensure_transparency(color, alpha=0.6),  
+            name=f"Herkunft: {herkunft}, AB: {ab_value}"  
         ))
 
-# Ergänze eine Spalte in den DataFrames, um die Dateiherkunft zu markieren
+# Add a column to the DataFrames to indicate the file origin
 
 
 df_hulls_4["file_source"] = convex_hulls_file_4
@@ -281,17 +272,18 @@ df_hulls_8["file_source"] = convex_hulls_file_8
 df_hulls_9["file_source"] = convex_hulls_file_9
 df_hulls_11["file_source"] = convex_hulls_file_11
 df_hulls_12["file_source"] = convex_hulls_file_12
-# Kombiniere die DataFrames
+
+# Combine the DataFrames
 df_hulls_combined = pd.concat([df_hulls_4, df_hulls_5,df_hulls_6,df_hulls_7,df_hulls_8,df_hulls_9, df_hulls_11, df_hulls_12])
 
-# Gruppiere die kombinierten Daten
+# Group the combined data
 grouped_hulls_combined = df_hulls_combined.groupby(["Herkunft", "AB_Value"])
 
-# Plotte die importierten Convex Hulls mit Datei-spezifischen Farben
+# Plot the imported convex hulls with file-specific colors
 plot_imported_hulls_with_file_colors(grouped_hulls_combined, color_mapping_files)
 
 
-# Punkte plotten
+# Plot points 
 for idx, row in df_parameters.iterrows():
     a = row['Unnamed: 1']
     b = row['Unnamed: 2']
@@ -306,12 +298,12 @@ for idx, row in df_parameters.iterrows():
 
 
 
-# Berechne und plotte Convex Hulls für jede Gruppe
+# Compute and plot convex hulls for each group
 for (herkunft, ab_value), points in grouped_points.items():
     color = color_mapping.get(herkunft, "rgba(0,0,0,0.5)")  # Standardfarbe, falls nicht definiert
     plot_convex_hull(points, color)
 
-# Layout anpassen, um den Plot zu zentrieren und um 90 Grad zu drehen
+#  Adjust layout to center the plot and rotate it by 90 degrees
 fig.update_layout(
     xaxis=dict(
         title=dict(
@@ -328,82 +320,82 @@ yaxis=dict(
         text="Pyrope (%) /// Difference between height of AB rectangle and Pyrope content (%) equals Grossular content (%)",
         font=dict(size=20, color="black")
     ),
-    range=[0, 100],  # Stelle sicher, dass es nicht über 100 hinausgeht
+    range=[0, 100],  # Ensure it does not exceed 100
     constrain="domain",
     tickformat=".0f",
     dtick=10,
-    color="black",  # Farbe der Achsenbeschriftung und Achsenlinien auf Schwarz setzen
+    color="black",  # Set axis label and axis line color to black
     linecolor="gray",
     tickfont=dict(size=24, color="black")
 ),
 
 
-    autosize=False,  # Deaktiviere automatische Größenanpassung
-    width=2100,  # Setze die Breite des Plots größer
-    height=1200,  # Setze die Höhe des Plots größer
-    margin=dict(l=0, r=5, t=20, b=5),  # Zentriere den Plot, indem du die Ränder minimierst
-    showlegend=False  # Deaktiviere die Legende
+    autosize=False,  # Disable automatic resizing
+    width=2100,  
+    height=1200,  
+    margin=dict(l=0, r=5, t=20, b=5),  # Centering the plot
+    showlegend=False  # Deactivate legend
 )
 
-# Werte, bei denen die gestrichelten Linien eingefügt werden sollen
+# Values at which dashed lines are shown
 y_values = [ 10, 20, 30, 40, 50, 60, 70, 80, 90 ]
 
-# Waagrechte, gestrichelte Linien einfügen
+# Insert horizontal dashed line
 for y in y_values:
     fig.add_shape(
         type="line",
-        x0=0,  # Startpunkt der Linie auf der X-Achse (linker Rand des Diagramms)
-        x1=max(df_parameters['Unnamed: 3']) + rechtecke[-1][0] + rechtecke[-1][1],  # Endpunkt der Linie auf der X-Achse (rechter Rand)
-        y0=y,  # Y-Wert, bei dem die Linie gezeichnet wird
-        y1=y,  # Y-Wert bleibt konstant (waagrecht)
+        x0=0,  # Starting point of the line on the X-axis (left edge of the plot)
+        x1=max(df_parameters['Unnamed: 3']) + rechtecke[-1][0] + rechtecke[-1][1],  # End point of the line on the X-axis (right edge)
+        y0=y,  #Y-value at which the line is drawn
+        y1=y,  # Y-value remains constant (horizontal)
         line=dict(
-            color="black",  # Farbe der Linie
-            width=0.5,        # Breite der Linie
-            dash="dash"     # Stil der Linie: gestrichelt
+            color="black",  
+            width=0.5,       
+            dash="dash"     
         )
     )
 
-# Positionen für die senkrechten gestrichelten Linien
-x_values = [909.5, 3749.5, 4569.5, 1769.5, 2529.5, 3189.5, 4209.5, 4850.5, 4995.5, 442, 1352, 2162, 2872, 3482, 3992, 4402, 4712, 4922, 5037.5]  # Mittlere Positionen von AB90, AB50, AB30
+# Positions for the vertical dashed lines
+x_values = [909.5, 3749.5, 4569.5, 1769.5, 2529.5, 3189.5, 4209.5, 4850.5, 4995.5, 442, 1352, 2162, 2872, 3482, 3992, 4402, 4712, 4922, 5037.5]  
 
-# Senkrechte gestrichelte Linien einfügen
+# Insert vertical dashed lines
 for x in x_values:
     fig.add_shape(
         type="line",
-        x0=x,  # X-Wert, bei dem die Linie gezeichnet wird
-        x1=x,  # X-Wert bleibt konstant (senkrecht)
-        y0=0,  # Startpunkt der Linie auf der Y-Achse
-        y1=100,  # Endpunkt der Linie auf der Y-Achse (höchster Wert)
+        x0=x,  
+        x1=x,  
+        y0=0,  
+        y1=100,  
         line=dict(
-            color="black",  # Farbe der Linie
-            width=1,        # Breite der Linie
-            dash="dash"     # Stil der Linie: gestrichelt
+            color="black",  
+            width=1,       
+            dash="dash"     
         )
     )
 
-# Drehe den Plot um 90 Grad (tausche X- und Y-Daten)
+# Rotate the plot by 90 degrees (swap X and Y data)
 for trace in fig.data:
     trace.x, trace.y = trace.y, trace.x
 
 
-# Füge die Legende zum Plot als Annotation hinzu (wie im ersten Skript)
+# Add the legend to the plot as an annotation (as in the first script)
 fig.update_layout(
     annotations=[
         dict(
-            x=650,  # X-Position der Legende (anpassen falls nötig)
-            y=80,    # Y-Position
-            text=legende_text,  # Die generierte Legende
+            x=650,  
+            y=80,    
+            text=legende_text, 
             showarrow=False,
             font=dict(size=35, color="black"),
-            bgcolor="rgba(249, 249, 249,1)",  # Weißer Hintergrund mit leichter Transparenz
+            bgcolor="rgba(249, 249, 249,1)",  # White background with slight transparency
             bordercolor="black",
             borderwidth=3,
-            xanchor="left",  # Links ausrichten
-            yanchor="top",  # Oben ausrichten
-            align="left"  # Links ausgerichteter Text
+            xanchor="left",  # Align to the left
+            yanchor="top",   # Align to the top
+            align="left"     # Left-aligned text
         )
     ]
 )
 
-# Plot anzeigen
+# Show plot
 fig.show()
