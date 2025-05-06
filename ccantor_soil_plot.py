@@ -561,17 +561,19 @@ plot_bgcolor="white",  # Set plot background to white
     tickfont=dict(size=25, color="black")
 ),
 
-    yaxis=dict(
-        title="Humus (%) /// Difference between height of AB rectangle and the Humus content (%) equals Clay content (%)",
-        range=[0, 16],  # Additional space for labels
-        tickformat=".0f",
-        dtick=5,
-        color="black", # Set axis and label color to black
-        linecolor="gray",
-        tickfont=dict(size=25, color="black"),
-       title=dict(
-    font=dict(size=21, color="black")
-)
+   yaxis=dict(
+    title=dict(
+        text="Humus (%) /// Difference between height of AB rectangle and the Humus content (%) equals Clay content (%)",
+        font=dict(size=21, color="black")
+    ),
+    range=[0, 16],
+    tickformat=".0f",
+    dtick=5,
+    color="black",
+    linecolor="gray",
+    tickfont=dict(size=25, color="black")
+),
+
 
     ),
     autosize=False,  # Disable automatic sizing
