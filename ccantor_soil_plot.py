@@ -156,7 +156,7 @@ def add_rechtecke_mit_farbverlauf(rechtecke, x_offset, spiegeln=False):
 
 
     # Update X-axis with labels
-  fig.update_layout(
+    fig.update_layout(
     xaxis=dict(
         title=dict(
             text="Summe A + B (%)",
