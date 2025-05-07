@@ -6,14 +6,15 @@ import numpy as np
 
 # file paths
 
-convex_hulls_file_4 = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\export\convex_hull_amphibolites_general.xlsx"
-convex_hulls_file_5 = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\export\convex_hull_greenschists_.xlsx"
-convex_hulls_file_6 = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\export\convex_hull_granites_.xlsx"
-convex_hulls_file_7 = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\export\convex_hull_blueschists_.xlsx"
-convex_hulls_file_8 = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\export\convex_hull_calc_silicate_rocks_.xlsx"
-convex_hulls_file_9 = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\export\convex_hull_granulites_general.xlsx"
-convex_hulls_file_11 = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\export\convex_hull_eclogites_.xlsx"
-convex_hulls_file_12 = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\export\convex_hull_ultramafic_.xlsx"
+convex_hulls_file_4 = "data/convex_hull_amphibolites_general.xlsx"
+convex_hulls_file_5 = "data/convex_hull_greenschists_.xlsx"
+convex_hulls_file_6 = "data/convex_hull_granites_.xlsx"
+convex_hulls_file_7 = "data/convex_hull_blueschists_.xlsx"
+convex_hulls_file_8 = "data/convex_hull_calc_silicate_rocks_.xlsx"
+convex_hulls_file_9 = "data/convex_hull_granulites_general.xlsx"
+convex_hulls_file_11 = "data/convex_hull_eclogites_.xlsx"
+convex_hulls_file_12 = "data/convex_hull_ultramafic_.xlsx"
+
 
 
 # color mappings 
