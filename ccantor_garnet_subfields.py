@@ -149,10 +149,6 @@ def add_rechtecke_mit_farbverlauf(rechtecke, x_offset, spiegeln=False):
 add_rechtecke_mit_farbverlauf(rechtecke, 0)
 
 
-# Load data from  Excel file
-file_path_gilgen = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\Rohdaten_für_eq_berch\Kompendium_Ö.xlsx"
-df = pd.read_excel(file_path_gilgen, sheet_name='Garn_ex')
-
 # Remove rows with NaN in columns "Unnamed: 1" to "Unnamed: 4"; filter only rows where the sum is >= 98
 df_parameters = df[['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']].dropna()
 df_parameters = df_parameters[df_parameters.apply(lambda row: row[['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']].sum() >= 98, axis=1)]
