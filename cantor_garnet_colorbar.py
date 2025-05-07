@@ -320,7 +320,6 @@ fig.add_trace(go.Scatter(
         cmax=1,
         colorbar=dict(
             title="Ratio Almandine / (Almandine + Spessartine)",  # Beschriftung der Colorbar
-            titleside="right",  
             title_font=dict(size=24, family="Arial", color="black")  # **Größere Schrift für Titel**
         ),
         showscale=True,  # Zeige die Colorbar an
