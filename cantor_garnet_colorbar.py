@@ -348,23 +348,28 @@ fig.update_layout(
     plot_bgcolor="white",  # Hintergrund des Plots auf Weiß setzen
     paper_bgcolor="white",  # Hintergrund des gesamten Diagramms auf Weiß setzen
     xaxis=dict(
-        title="Sum of Almandine (%) + Spessartine (%)",  # Neue X-Achsenbeschriftung
-        range=[0, rechtecke[-1][0] + rechtecke[-1][1]],  # Bereich der neuen X-Achse
-        tickformat=".0f",
-        tickfont=dict(size=24, color="black"),
-        titlefont=dict(size=25, color="black")
+    title=dict(
+        text="Sum of Almandine (%) + Spessartine (%)",
+        font=dict(size=25, color="black")
     ),
-    yaxis=dict(
-        title="Pyrope (%) /// Difference between height of AB rectangle and Pyrope content (%) equals Grossular content (%)",
-        range=[0, 100],
-        constrain="domain",
-        tickformat=".0f",
-        dtick=10,
-        color="black",
-        linecolor="gray",
-        tickfont=dict(size=24, color="black"),
-        titlefont=dict(size=20, color="black")
+    range=[0, rechtecke[-1][0] + rechtecke[-1][1]],
+    tickformat=".0f",
+    tickfont=dict(size=24, color="black")
+),
+yaxis=dict(
+    title=dict(
+        text="Pyrope (%) /// Difference between height of AB rectangle and Pyrope content (%) equals Grossular content (%)",
+        font=dict(size=20, color="black")
     ),
+    range=[0, 100],
+    constrain="domain",
+    tickformat=".0f",
+    dtick=10,
+    color="black",
+    linecolor="gray",
+    tickfont=dict(size=24, color="black")
+),
+
     autosize=False,
     width=2200,
     height=1200,
