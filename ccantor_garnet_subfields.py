@@ -243,21 +243,6 @@ grouped_hulls_combined = df_hulls_combined.groupby(["Herkunft", "AB_Value"])
 plot_imported_hulls_with_file_colors(grouped_hulls_combined, color_mapping_files)
 
 
-# Plot points 
-for idx, row in df_parameters.iterrows():
-    a = row['Unnamed: 1']
-    b = row['Unnamed: 2']
-    c = row['Unnamed: 3']
-    d = row['Unnamed: 4']
-    herkunft = row['Herkunft']
-    index = row['Index']
-    ab_value = row['AB']
-    color = color_mapping.get(herkunft, "black")
-
-    y_position_punkt = calculate_y_position(ab_value, b)
-
-
-
 # Compute and plot convex hulls for each group
 for (herkunft, ab_value), points in grouped_points.items():
     color = color_mapping.get(herkunft, "rgba(0,0,0,0.5)")  # Standardfarbe, falls nicht definiert
