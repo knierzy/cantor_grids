@@ -38,9 +38,9 @@ df = pd.DataFrame(combinations)
 # Reorder the columns
 df = df[['Sand (%)', 'Silt (%)', 'Humus (%)', 'Clay (%)']]
 
-# Export the DataFrame to an Excel file at a specified path
-filepath = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\ani_kati\cartes_prod\testo.xlsx"
-df.to_excel(filepath, index=False)
+# Save output to the 'data' subfolder in the repository
+filepath = "data/valid_compositions.xlsx"
+
 
 print(df.columns)
 print(f"Data was successfully saved to '{filepath}'.")
