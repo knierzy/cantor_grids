@@ -150,43 +150,6 @@ def add_rechtecke_mit_farbverlauf(rechtecke, x_offset, spiegeln=False):
 add_rechtecke_mit_farbverlauf(rechtecke, 0)
 
 
-# Remove rows with NaN in columns "Unnamed: 1" to "Unnamed: 4"; filter only rows where the sum is >= 98
-df_parameters = df[['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']].dropna()
-df_parameters = df_parameters[df_parameters.apply(lambda row: row[['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']].sum() >= 98, axis=1)]
-df_parameters = df_parameters.astype(float).round()
-
-# Load origin and index number (with the filtered rows without NaN)"
-df_parameters['Herkunft'] = df.loc[df_parameters.index, 'Unnamed: 5'].values
-df_parameters['Index'] = df.loc[df_parameters.index, 'Unnamed: 6'].values
-
-#  Function to adjust so that the sum equals 100"
-def adjust_sum_to_100(row):
-    total = row['Unnamed: 1'] + row['Unnamed: 2'] + row['Unnamed: 3'] + row['Unnamed: 4']
-    difference = 100 - total
-    if difference != 0:
-        row['Unnamed: 4'] += difference  
-
-# Apply the adjustment only to rows with a sum between 98 and 100"
-df_parameters = df_parameters.apply(lambda row: adjust_sum_to_100(row) if 98 <= row[['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']].sum() <= 100 else row, axis=1)
-
-# Calculate AB (A + B) for the y-position"
-df_parameters['AB'] = df_parameters['Unnamed: 1'] + df_parameters['Unnamed: 2']
-
-# Calculate the y-position based on AB
-def calculate_y_position(ab_value, b_value):
-    ab_index = 99 - int(ab_value)
-    if ab_index >= 0 and ab_index < len(rechtecke):
-        start_zeile = rechtecke[ab_index][0]
-        hoehe = rechtecke[ab_index][1]
-        y_position = start_zeile + b_value + 0.5
-        return y_position
-    return None
-
-# Color palette for origin
-herkunfts_list = df_parameters['Herkunft'].unique()
-color_palette = px.colors.qualitative.Plotly  # Plotly-Farben
-color_mapping = {herkunft: color_palette[i % len(color_palette)] for i, herkunft in enumerate(herkunfts_list)}
-
 # Legend for Diagram
 legende_text = "<b>Garnet Provenance Groups:</b><br>"
 
