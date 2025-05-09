@@ -274,7 +274,8 @@ for (herkunft, ab_value), points in grouped_points.items():
 df_hulls = pd.DataFrame(convex_hull_data)
 
 # Path to the Excel file.
-output_file_path = (r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\export\Test_lücken\convex_hull_Lehm_schluffiger_Lehm_Stufenberechnung_14_und_15_sowieLehmigerTon15_test.xlsx")
+output_file_path = "data/convex_hull_Lehm_schluffiger_Lehm_test.xlsx"
+
 
 # save the DataFrame to the Excel file
 df_hulls.to_excel(output_file_path, index=False)
