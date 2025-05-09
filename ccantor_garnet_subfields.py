@@ -290,7 +290,7 @@ for y in y_values:
     fig.add_shape(
         type="line",
         x0=0,  # Starting point of the line on the X-axis (left edge of the plot)
-        x1=max(df_parameters['Unnamed: 3']) + rechtecke[-1][0] + rechtecke[-1][1],  # End point of the line on the X-axis (right edge)
+        x1=rechtecke[-1][0] + rechtecke[-1][1],  # End point of the line on the X-axis (right edge)
         y0=y,  #Y-value at which the line is drawn
         y1=y,  # Y-value remains constant (horizontal)
         line=dict(
