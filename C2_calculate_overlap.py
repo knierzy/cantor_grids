@@ -1,8 +1,8 @@
 import pandas as pd
 
 # File paths
-file1 = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\Boden_hum_CAL\garnet\garnet_neu3feb\greenschists_test.xlsx"
-file2 = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\Boden_hum_CAL\garnet\garnet_neu3feb\blueschists_test.xlsx"
+file1 = "data/D5_data_overlap_calculation_greenschists.xlsx"
+file2 = "data/D3_data_overlap_calculation_blueschists.xlsx"
 
 # read Excel files
 df1 = pd.read_excel(file1, usecols=[0, 1, 2, 3])
