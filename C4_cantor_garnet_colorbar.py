@@ -84,7 +84,7 @@ def add_rechtecke_mit_farbverlauf(rechtecke, x_offset, spiegeln=False):
         breite = i + 1
         gradient_steps = 10  # Number of steps in the color gradient
 
-        # Der Farbabstufungsverlauf startet intensiv und wird matter
+        # color gradient starts intensely and becomes more muted
         grau_start = 180  # Dark gray tone (RGB value 80)
         grau_ende = 220  # Light gray tone (RGB value 200)
 
