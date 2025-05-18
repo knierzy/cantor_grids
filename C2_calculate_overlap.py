@@ -1,3 +1,10 @@
+# Compares two Excel datasets based on the first four columns to identify identical entries.
+# Each row is treated as a 4-component tuple (as strings) and exact matches are calculated.
+# The script computes the number and relative frequency of identical rows in each dataset.
+# Useful for identifying data overlaps or redundancies between two datasets.
+# In this example, the input files refer to greenschist and blueschist compositions, respectively.
+
+
 import pandas as pd
 
 # File paths
