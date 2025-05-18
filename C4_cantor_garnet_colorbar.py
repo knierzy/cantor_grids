@@ -359,20 +359,19 @@ fig.update_layout(
 yaxis=dict(
     title=dict(
         text="Pyrope (%) /// Difference between height of AB rectangle and Pyrope content (%) equals Grossular content (%)",
-        font=dict(size=19, color="black", family="Arial Black")
+        font=dict(size=20, color="black", family="Arial Black")
     ),
-    range=[0, 100],
-    constrain="domain",
-    tickformat=".0f",
-    dtick=10,
-    color="black",
-    linecolor="gray",
-    tickfont=dict(size=24, color="black")
+    range=[-2, 100],
+        constrain="domain",
+        tickformat=".0f",
+        dtick=10,
+        tickfont=dict(size=24, color="black"),
+        linecolor="gray"
 ),
 
     autosize=False,
-    width=2200,
-    height=1200,
+    width=2260,
+    height=1210,
     margin=dict(l=0, r=5, t=20, b=5),
     showlegend=False
 )
@@ -436,6 +435,16 @@ fig.update_layout(
     ]
 )
 
+fig.add_annotation(
+    text="Almandine / (Almandine + Spessartine)",
+    x=1.02,  # Rechts außerhalb des Diagramms
+    y=0.5,   # Vertikal zentriert
+    textangle=-90,  # Dreht den Text senkrecht
+    showarrow=False,
+    xref="paper",
+    yref="paper",
+    font=dict(size=30, color="black")
+)
 
 # Show plot
 fig.show()
