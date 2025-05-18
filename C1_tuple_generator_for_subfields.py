@@ -47,6 +47,7 @@ for stufen_nummer, stufe in enumerate(stufen):
 
 # convert the results into a DataFrame
 df = pd.DataFrame(alle_kombis)
-filepath = "data/valid_compositions.xlsx"
+output_path = "data/valid_compositions.xlsx"
 df.to_excel(output_path, index=False)
 print(f"✅ Exakt nach Plan erzeugt und gespeichert unter:\n{output_path}")
+
