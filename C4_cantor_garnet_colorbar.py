@@ -356,7 +356,7 @@ fig.update_layout(
         text="Sum of Almandine (%) + Spessartine (%)",
         font=dict(size=35, color="black", family="Arial Black")
     ),
-    range=[0, rechtecke[-1][0] + rechtecke[-1][1]],
+    range=[0, rechtecke[-1][0] + rechtecke[-1][1]+ 20],
     tickformat=".0f",
     tickfont=dict(size=24, color="black")
 ),
