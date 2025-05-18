@@ -319,8 +319,12 @@ fig.add_trace(go.Scatter(
         cmin=0,
         cmax=1,
         colorbar=dict(
-            title="Ratio Almandine / (Almandine + Spessartine)",  # Beschriftung der Colorbar
-            title_font=dict(size=24, family="Arial", color="black")  # **Größere Schrift für Titel**
+            title='',  # Kein eingebauter Titel
+            thickness=20,
+            len=0.9,
+            y=0.5,
+            yanchor="middle",
+            tickfont = dict(size=24, color="black")  # Tick-Schriftgröße und Farbe
         ),
         showscale=True,  # Zeige die Colorbar an
         line=dict(color="black", width=2)  # **Schwarze Umrandung um die Punkte**
