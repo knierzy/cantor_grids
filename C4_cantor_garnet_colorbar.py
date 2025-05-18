@@ -363,7 +363,7 @@ fig.update_layout(
 yaxis=dict(
     title=dict(
         text="Pyrope (%) /// Difference between height of AB rectangle and Pyrope content (%) equals Grossular content (%)",
-        font=dict(size=20, color="black", family="Arial Black")
+        font=dict(size=19, color="black", family="Arial Black")
     ),
     range=[-2, 100],
         constrain="domain",
