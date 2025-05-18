@@ -253,7 +253,7 @@ fig.update_layout(
     xaxis=dict(
         title=dict(
             text="Sum of Almandine (%) + Spessartine (%)",
-            font=dict(size=25, color="black")
+            font=dict(size=35, color="black", family="Arial Black")
         ),
         range=[0, rechtecke[-1][0] + rechtecke[-1][1]],
         tickformat=".0f",
@@ -263,7 +263,7 @@ fig.update_layout(
 yaxis=dict(
     title=dict(
         text="Pyrope (%) /// Difference between height of AB rectangle and Pyrope content (%) equals Grossular content (%)",
-        font=dict(size=20, color="black")
+        font=dict(size=19, color="black", family="Arial Black")
     ),
     range=[0, 100],  # Ensure it does not exceed 100
     constrain="domain",
