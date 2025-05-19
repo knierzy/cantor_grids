@@ -586,7 +586,7 @@ plot_bgcolor="white",  # Set plot background to white
     showlegend=False  # Disable the legend
 )
 # **Add legend as an annotation**
-Fig.update_layout(
+fig.update_layout(
     annotations=[
         dict(
             x=15,
