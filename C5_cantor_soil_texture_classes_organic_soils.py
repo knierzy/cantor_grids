@@ -6,7 +6,7 @@ import numpy as np
 
 # Hier kommen die Dateipfade und Farbzuordnungen
 
-onvex_hulls_file_1 = "data/convex_hull_SandigerTon_STEPS_Anpassung.xlsx"
+convex_hulls_file_1 = "data/convex_hull_SandigerTon_STEPS_Anpassung.xlsx"
 convex_hulls_file_2 = "data/convex_hull_TonigerSand_STEPS_Anpassung.xlsx"
 convex_hulls_file_3 = "data/convex_hull_SandigerLehnm_STEPS_Anpassung.xlsx"
 convex_hulls_file_4 = "data/convex_hull_LehmigerSchluff_STEPS_Anpassung.xlsx"
