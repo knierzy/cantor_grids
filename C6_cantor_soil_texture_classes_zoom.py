@@ -304,6 +304,7 @@ legende_text = (
 
 )
 
+
 # Predefined display order of the legend
 ordered_legende = [
     "Clay",
@@ -319,7 +320,8 @@ ordered_legende = [
     "Sandy Silt",
     "Silty Sand",
     "Sand",
-    "Humic Soils"
+    "Organo-Mineral Soils",
+    "Organic Soils"
 ]
 
 for name in ordered_legende:
