@@ -18,9 +18,9 @@ convex_hulls_file_9 = "data/convex_hull_schluffigerSand_STEPS_Anpassung.xlsx"
 convex_hulls_file_10 = "data/convex_hull_lehmigerTon_STEPS_Anpassung1.xlsx"
 convex_hulls_file_11 = "data/convex_hull_Ton_STEPS_Anpassung.xlsx"
 convex_hulls_file_12 = "data/convex_hull_Sand1_STEPS_Anpassung.xlsx"
-convex_hulls_file_14 = "data/convex_hulls_humicgleysoils.xlsx"
+convex_hulls_file_14 = "data/convex_hulls_organo_mineral_soils.xlsx"
 convex_hulls_file_15 = "data/convex_hull_schluffigerLehm_STEPS_ANPASSUNG.xlsx"
-convex_hulls_file_16 =
+convex_hulls_file_16 = "data/convex_hull_organicsoils.xlsx"
 # Farbmappings für jede Convex Hull-Datei
 
 color_mapping_files = {
