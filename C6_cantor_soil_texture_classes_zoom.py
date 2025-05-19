@@ -255,6 +255,7 @@ color_mapping = {herkunft: color_palette[i % len(color_palette)] for i, herkunft
 
 
 
+
 #  Manually ordered list of convex hulls in the legend
 ordered_hulls = [
     convex_hulls_file_11,  # Clay
@@ -262,15 +263,15 @@ ordered_hulls = [
     convex_hulls_file_1,   # Sandy Clay
     convex_hulls_file_2,   # Clayey Sand
     convex_hulls_file_7,   # Loam
-    convex_hulls_file_4,   # Silty Loam 
-    convex_hulls_file_15,  # Loamy Silt 
+    convex_hulls_file_4,   # Silty Loam
+    convex_hulls_file_15,  # Loamy Silt
     convex_hulls_file_5,   # Silt
     convex_hulls_file_3,   # Sandy Loam
     convex_hulls_file_8,   # Loamy Sand
     convex_hulls_file_6,   # Sandy Silt
     convex_hulls_file_9,   # Silty Sand
     convex_hulls_file_12,  # Sand
-    convex_hulls_file_14,  # Humic Soils
+    convex_hulls_file_14,  # Organo-Mineral Soils
 
 ]
 
@@ -290,7 +291,8 @@ farbe_to_subklasse = {
     "rgba(0, 114, 178)": "Clay Loam",
     "rgba(51, 51, 51)": "Clay",
     "rgba(160, 180, 80)": "Silty Loam",
-    "rgba(101, 67, 33)": "Humic Soils",
+    "rgba(101, 67, 33)": "Organo-Mineral Soils",
+    "rgba(120, 85, 60)": "Organic Soils"
 }
 
 
