@@ -298,11 +298,12 @@ farbe_to_subklasse = {
 
 
 
-#  Recreate legend text as HTML with fixed display order
+# Legend text as HTML with fixed display order
 legende_text = (
     "<span style='font-size:24px; font-weight:bold;'>Soil texture classes</span><br>"
-
+    "<span style='line-height:24px;'>&nbsp;</span><br>"  # Leerzeile für Abstand
 )
+
 
 
 # Predefined display order of the legend
