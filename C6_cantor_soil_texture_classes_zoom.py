@@ -300,7 +300,7 @@ farbe_to_subklasse = {
 
 # Legend text as HTML with fixed display order
 legende_text = (
-    "<span style='font-size:24px; font-weight:bold;'>Soil texture classes</span><br>"
+    "<span style='font-size:18px; font-weight:bold;'>Soil texture classes</span><br>"
 )
 
 
@@ -327,7 +327,7 @@ ordered_legende = [
 for name in ordered_legende:
     farbe = next((k for k, v in farbe_to_subklasse.items() if v == name), None)
     if farbe:
-        legende_text += f'<span style="color:{farbe}; font-size:24px;">■</span> {name}<br>'
+        legende_text += f'<span style="color:{farbe}; font-size:40px;">■</span> {name}<br>'
 
 
 # Set to track already added class names
