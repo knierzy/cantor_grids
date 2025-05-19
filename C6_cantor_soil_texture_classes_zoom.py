@@ -291,8 +291,8 @@ farbe_to_subklasse = {
     "rgba(0, 114, 178)": "Clay Loam",
     "rgba(51, 51, 51)": "Clay",
     "rgba(160, 180, 80)": "Silty Loam",
-    "rgba(101, 67, 33)": "Organo-Mineral Soils",
-    "rgba(120, 85, 60)": "Organic Soils"
+    "rgba(184, 115, 51, 0.3)": "Organo-Mineral Soils",
+    "rgba(120, 85, 60, 0.6)": "Organic Soils"
 }
 
 
@@ -301,7 +301,6 @@ farbe_to_subklasse = {
 # Legend text as HTML with fixed display order
 legende_text = (
     "<span style='font-size:24px; font-weight:bold;'>Soil texture classes</span><br>"
-    "<span style='line-height:24px;'>&nbsp;</span><br>"  # Leerzeile für Abstand
 )
 
 
@@ -474,7 +473,7 @@ for idx, row in df_parameters.iterrows():
         color = "rgba(51, 51, 51, 0.75)"
 
     # Special case: if humus content (C) is very high, assign specific color
-    if c > 30:
+    if c > 35:
         color = "rgba(80, 80, 80, 0.9)"  # Dark gray tone for very high humus
     elif c > 15:
         color = "rgba(101, 67, 33, 0.9)"  # Brown for high humus
