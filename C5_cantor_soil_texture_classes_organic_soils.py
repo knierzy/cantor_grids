@@ -169,8 +169,9 @@ def add_rechtecke_mit_farbverlauf(rechtecke, x_offset, spiegeln=False):
 # Add rectangles
 add_rechtecke_mit_farbverlauf(rechtecke, 0)
 
-# Load data from  Excel file (empty)
-file_path_gilgen = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\Rohdaten_für_eq_berch\Kompendium_Ö.xlsx"
+
+# Load data from Excel file 
+file_path_gilgen = "data/Komp_Pub.xlsx"
 df = pd.read_excel(file_path_gilgen, sheet_name='Boden_O')
 
 # Load origin and index number (with the filtered rows without NaN)"
