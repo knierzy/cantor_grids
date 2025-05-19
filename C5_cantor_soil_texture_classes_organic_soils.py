@@ -4,27 +4,28 @@ import plotly.express as px
 from scipy.spatial import ConvexHull
 import numpy as np
 
-# file path (relative to repo root)
-convex_hulls_file_1 = "data/convex_hull_SandigerTon_STEPS_Anpassung.xlsx"
-convex_hulls_file_2 = "data/convex_hull_TonigerSand_STEPS_Anpassung.xlsx"
-convex_hulls_file_3 = "data/convex_hull_SandigerLehnm_STEPS_Anpassung.xlsx"
-convex_hulls_file_4 = "data/convex_hull_LehmigerSchluff_STEPS_Anpassung.xlsx"
-convex_hulls_file_5 = "data/convex_hull_Schluff_STEPS_allereduziert.xlsx"
-convex_hulls_file_6 = "data/convex_hull_sandigerSchluff_STEPS_Anpassung.xlsx"
-convex_hulls_file_7 = "data/convex_hull_Lehm_STEPS_Anpassung.xlsx"
-convex_hulls_file_8 = "data/convex_hull_lehmigerSand_STEPS_Anpassung.xlsx"
-convex_hulls_file_9 = "data/convex_hull_schluffigerSand_STEPS_Anpassung.xlsx"
-convex_hulls_file_10 = "data/convex_hull_lehmigerTon_STEPS_Anpassung1.xlsx"
-convex_hulls_file_11 = "data/convex_hull_Ton_STEPS_Anpassung.xlsx"
-convex_hulls_file_12 = "data/convex_hull_Sand1_STEPS_Anpassung.xlsx"
-convex_hulls_file_14 = "data/convex_hulls_humicgleysoils.xlsx"
-convex_hulls_file_15 = "data/convex_hull_schluffigerLehm_STEPS_ANPASSUNG.xlsx"
+# Hier kommen die Dateipfade und Farbzuordnungen
 
-# color mappings
+convex_hulls_file_1 = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\export\Test_lücken\conv_Anpassung\convex_hull_SandigerTon_STEPS_Anpassung.xlsx"
+convex_hulls_file_7 = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\export\Test_lücken\conv_Anpassung\convex_hull_Lehm_STEPS_Anpassung.xlsx"
+convex_hulls_file_15 = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\export\Test_lücken\conv_Anpassung\convex_hull_schluffigerLehm_STEPS_ANPASSUNG.xlsx"
+convex_hulls_file_2 = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\export\Test_lücken\conv_Anpassung\convex_hull_TonigerSand_STEPS_Anpassung.xlsx"
+convex_hulls_file_3 = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\export\Test_lücken\conv_Anpassung\convex_hull_SandigerLehnm_STEPS_Anpassung.xlsx"
+convex_hulls_file_4 = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\export\Test_lücken\conv_Anpassung\convex_hull_LehmigerSchluff_STEPS_Anpassung.xlsx"
+convex_hulls_file_5 = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\export\Test_lücken\convex_hull_Schluff_STEPS_allereduziert.xlsx"
+convex_hulls_file_6 = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\export\Test_lücken\conv_Anpassung\convex_hull_sandigerSchluff_STEPS_Anpassung.xlsx"
+convex_hulls_file_8 = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\export\Test_lücken\conv_Anpassung\convex_hull_lehmigerSand_STEPS_Anpassung.xlsx"
+convex_hulls_file_9 = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\export\Test_lücken\conv_Anpassung\convex_hull_schluffigerSand_STEPS_Anpassung.xlsx"
+convex_hulls_file_10 = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\export\Test_lücken\conv_Anpassung\convex_hull_lehmigerTon_STEPS_Anpassung1.xlsx"
+convex_hulls_file_11 = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\export\Test_lücken\conv_Anpassung\convex_hull_Ton_STEPS_Anpassung.xlsx"
+convex_hulls_file_12 = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\export\Test_lücken\conv_Anpassung\convex_hull_Sand1_STEPS_Anpassung.xlsx"
+convex_hulls_file_14 = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\export\Test_lücken\conv_Anpassung\convex_hull_organo_mineral_soils.xlsx"
+convex_hulls_file_16 = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\export\Test_lücken\conv_Anpassung\convex_hull_organicsoils.xlsx"
+# Farbmappings für jede Convex Hull-Datei
 
 color_mapping_files = {
     convex_hulls_file_1: "rgba(160, 82, 45, 0.95)",     # Sandiger Ton
-    convex_hulls_file_2: "rgba(204, 121, 167, 0.95)",     # Toniger Sand
+    convex_hulls_file_2: "rgba(204, 121, 167, 0.95)",     # Toniger Sand – bekommt Altrosa
     convex_hulls_file_3: "rgba(178, 34, 34, 0.95)",       # Sandiger Lehm
     convex_hulls_file_4: "rgba(253, 192, 134, 0.95)",     # Lehmiger Schluff
     convex_hulls_file_5: "rgba(139, 139, 139, 0.95)",     # Schluff
@@ -34,11 +35,11 @@ color_mapping_files = {
     convex_hulls_file_9: "rgba(0, 158, 115, 0.95)",       # Schluffiger Sand
     convex_hulls_file_10: "rgba(0, 90, 160, 0.95)",       # Lehmiger Ton
     convex_hulls_file_11: "rgba(51, 51, 51, 0.95)",       # Ton
-    convex_hulls_file_12: "rgba(86, 180, 233, 0.95)",     # Sand
-    convex_hulls_file_14: "rgba(101, 67, 33, 0.50)",    # Humic Soils
-    convex_hulls_file_15: "rgba(160, 180, 80, 0.95)",        # Schluffiger Lehm
+    convex_hulls_file_12: "rgba(86, 180, 233, 0.95)",     # Sand 1
+    convex_hulls_file_14: "rgba(184, 115, 51, 0.20)",     # Organo-Mineral Soils
+    convex_hulls_file_15: "rgba(160, 180, 80, 0.95)",     # Schluffiger Lehm – bekommt Olivgrün
+    convex_hulls_file_16:   "rgba(120, 85, 60, 0.3)"      #  Organic Soils
 }
-
 
 legend_mapping = {
     convex_hulls_file_1: "Sandy Clay",               # Sandiger Ton
@@ -52,15 +53,15 @@ legend_mapping = {
     convex_hulls_file_9: "Silty Sand",               # Schluffiger Sand
     convex_hulls_file_10: "Clay Loam",               # Lehmiger Ton
     convex_hulls_file_11: "Clay",                    # Ton
-    convex_hulls_file_12: "Sand",                    # Sand
-    convex_hulls_file_14: "Humic Soils",             # Humose Böden
-    convex_hulls_file_15: "Silty Loam",  # Schluffiger Lehm
-
+    convex_hulls_file_12: "Sand",                    # Sand 1
+    convex_hulls_file_14: "Organo-Mineral Soils",             # Humose Böden
+    convex_hulls_file_15: "Silty Loam",              # Schluffiger Lehm
+    convex_hulls_file_16: "Organic Soils"               # Moorböden
 }
 
 
 
-# Rectangle data with the classification system up to AB1
+# Rechteckdaten mit der erweiterten Systematik bis AB1
 rechtecke = [
     (0, 100, "AB99"), (100, 99, "AB98"), (199, 98, "AB97"), (297, 97, "AB96"), (394, 96, "AB95"),
     (490, 95, "AB94"), (585, 94, "AB93"), (679, 93, "AB92"), (772, 92, "AB91"), (864, 91, "AB90"),
@@ -137,7 +138,7 @@ def add_rechtecke_mit_farbverlauf(rechtecke, x_offset, spiegeln=False):
                 fill="toself",
                 mode="lines",
                 fillcolor=color,
-                line=dict(color="gray", width=0)  # Optional: schmale Umrandung
+                line=dict(color="gray", width=0)
             ))
 
         for x_pos in range(1, breite):
@@ -154,35 +155,29 @@ def add_rechtecke_mit_farbverlauf(rechtecke, x_offset, spiegeln=False):
     x_labels = {50: "AB99",440: "AB95",  915: "AB90", 1350: "AB85", 1760: "AB80", 2158: "AB75", 2540: "AB70",
                  2870: "AB65", 3195: "AB60", 3480: "AB55", 3755: "AB50", 3995: "AB45", 4209: "AB40", 4405: "AB35", 4570: "AB30", 4830: "AB20", 4990: "AB10" }
 
-
     # Update X-axis with labels
     fig.update_layout(
-    xaxis=dict(
-        title=dict(
-            text="Summe A + B (%)",
-            font=dict(size=24, color="black")
-        ),
-        tickvals=list(x_labels.keys()),
-        ticktext=list(x_labels.values()),
-        tickangle=0
-    ))
+        xaxis=dict(
+            title="Summe A + B (%)",
+            tickvals=list(x_labels.keys()),
+            ticktext=list(x_labels.values()),
+            tickangle=0,
 
+        ))
 
 
 # Add rectangles
 add_rechtecke_mit_farbverlauf(rechtecke, 0)
 
-
-# Load data from Excel file (relative path for GitHub)
-file_path_gilgen = "data/Komp_Pub.xlsx"
+# Load data from  Excel file (empty)
+file_path_gilgen = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\Rohdaten_für_eq_berch\Kompendium_Ö.xlsx"
 df = pd.read_excel(file_path_gilgen, sheet_name='Boden_O')
 
-
-# Remove rows with NaN in columns "Unnamed: 1" to "Unnamed: 4"; filter only rows where the sum is >= 98
+# Load origin and index number (with the filtered rows without NaN)"
 df_parameters = df[['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']].dropna()
 df_parameters = df_parameters[df_parameters.apply(lambda row: row[['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']].sum() >= 98, axis=1)]
 
-
+#  Function to adjust so that the sum equals 100"
 def round_to_100(row):
     values = {
         'Unnamed: 1': row['Unnamed: 1'],
@@ -209,6 +204,7 @@ def round_to_100(row):
     for k in floored:
         row[k] = floored[k]
     return row
+
 
 
 # Apply the function to the DataFrame
@@ -261,15 +257,15 @@ ordered_hulls = [
     convex_hulls_file_1,   # Sandy Clay
     convex_hulls_file_2,   # Clayey Sand
     convex_hulls_file_7,   # Loam
-    convex_hulls_file_4,   # Silty Loam 
-    convex_hulls_file_15,  # Loamy Silt 
+    convex_hulls_file_4,   # Silty Loam
+    convex_hulls_file_15,  # Loamy Silt
     convex_hulls_file_5,   # Silt
     convex_hulls_file_3,   # Sandy Loam
     convex_hulls_file_8,   # Loamy Sand
     convex_hulls_file_6,   # Sandy Silt
     convex_hulls_file_9,   # Silty Sand
     convex_hulls_file_12,  # Sand
-    convex_hulls_file_14,  # Humic Soils
+    convex_hulls_file_14,  # Organo-Mineral Soils
 
 ]
 
@@ -289,17 +285,19 @@ farbe_to_subklasse = {
     "rgba(0, 114, 178)": "Clay Loam",
     "rgba(51, 51, 51)": "Clay",
     "rgba(160, 180, 80)": "Silty Loam",
-    "rgba(101, 67, 33)": "Humic Soils",
+    "rgba(101, 67, 33)": "Organo-Mineral Soils",
+    "rgba(120, 85, 60)": "Organic Soils"
 }
 
 
 
 
-#  Recreate legend text as HTML with fixed display order
+# Legend text as HTML with fixed display order
 legende_text = (
     "<span style='font-size:24px; font-weight:bold;'>Soil texture classes</span><br>"
-
+    "<span style='line-height:24px;'>&nbsp;</span><br>"  # Leerzeile für Abstand
 )
+
 
 # Predefined display order of the legend
 ordered_legende = [
@@ -316,7 +314,8 @@ ordered_legende = [
     "Sandy Silt",
     "Silty Sand",
     "Sand",
-    "Humic Soils"
+    "Organo-Mineral Soils",
+    "Organic Soils"
 ]
 
 for name in ordered_legende:
@@ -380,18 +379,24 @@ def plot_imported_hulls_with_file_colors(grouped_hulls, file_color_mapping):
 # Plot the imported convex hulls using file-specific colors
 plot_imported_hulls_with_file_colors(grouped_hulls_combined, color_mapping_files)
 
+show_points = False  # <--- set to True if points shall be shown
+
 color_count = {}
 
-for idx, row in df_parameters.iterrows():
-    a = row['Unnamed: 1']
-    b = row['Unnamed: 2']
-    c = row['Unnamed: 3']
-    d = row['Unnamed: 4']
-    herkunft = row['Herkunft']
-    index = row['Index']
-    location = row['location']
-    ab_value = row['AB']
-    color = None
+if show_points:
+    for idx, row in df_parameters.iterrows():
+        a = row['Unnamed: 1']
+        b = row['Unnamed: 2']
+        c = row['Unnamed: 3']
+        d = row['Unnamed: 4']
+        herkunft = row['Herkunft']
+        index = row['Index']
+        location = row['location']
+        ab_value = row['AB']
+        color = None
+
+
+
 
     # Normalization and Texture Classification of Soil Data; Color-coded point plotting based on color of subfields
     multiplikator = (100 - c) / 100
@@ -468,7 +473,7 @@ for idx, row in df_parameters.iterrows():
         color = "rgba(51, 51, 51, 0.75)"
 
     # Special case: if humus content (C) is very high, assign specific color
-    if c > 30:
+    if c > 35:
         color = "rgba(80, 80, 80, 0.9)"  # Dark gray tone for very high humus
     elif c > 15:
         color = "rgba(101, 67, 33, 0.9)"  # Brown for high humus
@@ -501,7 +506,7 @@ for idx, row in df_parameters.iterrows():
         "rgba(123, 204, 196, 0.70)": "Loam",
         "rgba(0, 114, 178, 0.75)": "Clay Loam",
         "rgba(51, 51, 51, 0.75)": "Clay",
-        "rgba(245, 222, 179, 0.5)": "Humic Soils",
+        "rgba(245, 222, 179, 0.5)": "Organo-Mineral Soils",
         "rgba(160, 180, 80, 0.75)": "Silty Loam"
     }
     soil_class = color_to_soil_class.get(color, "Unknown")
@@ -551,28 +556,26 @@ for color_code, count in sorted(color_count.items(), key=lambda x: x[1], reverse
 fig.update_layout(
 plot_bgcolor="white",  # Set plot background to white
     paper_bgcolor="white",  # Set whole figure background to white
-   xaxis=dict(
-    title=dict(
-        text="Sum of Sand % (A) and Silt % (B)",
-        font=dict(size=35, color="black", family="Arial Black")
+    xaxis=dict(
+        title=dict(
+            text="Sum of Sand % (A) and Silt % (B)",
+            font=dict(size=24, color="black")
+        ),
+        range=[0, rechtecke[-1][0] + rechtecke[-1][1]],  # korrekt
+        tickformat=".0f",
+        tickfont=dict(size=25, color="black")
     ),
-    range=[0, rechtecke[-1][0] + rechtecke[-1][1]],
-    tickformat=".0f",
-    tickfont=dict(size=25, color="black")
-),
-
-   yaxis=dict(
-    title=dict(
-        text="Humus (%) /// Difference between height of AB rectangle and the Humus content (%) equals Clay content (%)",
-        font=dict(size=21, color="black", family="Arial Black")
-    ),
-    range=[-0.2, 16],
-    tickformat=".0f",
-    dtick=5,
-    color="black",
-    linecolor="gray",
-    tickfont=dict(size=25, color="black")
-
+    yaxis=dict(
+        title=dict(
+            text="Humus (%) /// Difference between height of AB rectangle and the Humus content (%) equals Clay content (%)",
+            font=dict(size=21, color="black")
+        ),
+        range=[0, 100],  # korrekt, wenn du Humus von 0 bis 16 % abbildest
+        tickformat=".0f",
+        dtick=5,
+        color="black",
+        linecolor="gray",
+        tickfont=dict(size=25, color="black")
     ),
     autosize=False,  # Disable automatic sizing
     width=2260,  # Set plot width
@@ -584,8 +587,8 @@ plot_bgcolor="white",  # Set plot background to white
 fig.update_layout(
     annotations=[
         dict(
-            x=15,
-            y=15.5,
+            x=500,
+            y=75,
             text=legende_text,
             showarrow=False,
             font=dict(size=28, color="black"),
