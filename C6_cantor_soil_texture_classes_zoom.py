@@ -300,7 +300,7 @@ farbe_to_subklasse = {
 
 # Legend text as HTML with fixed display order
 legende_text = (
-    "<span style='font-size:18px; font-weight:bold;'>Soil texture classes</span><br>"
+    "<span style='font-size:24px; font-weight:bold;'>Soil texture classes</span><br>"
 )
 
 
@@ -593,7 +593,7 @@ fig.update_layout(
             y=15.85,
             text=legende_text,
             showarrow=False,
-            font=dict(size=38, color="black"),
+            font=dict(size=28, color="black"),
             bgcolor="rgba(249, 249, 249,1)",
             bordercolor="black",
             borderwidth=2,
