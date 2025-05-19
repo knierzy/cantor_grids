@@ -4,7 +4,8 @@ import plotly.express as px
 from scipy.spatial import ConvexHull
 import numpy as np
 
-# file path (relative to repo root)
+# file paths
+
 convex_hulls_file_1 = "data/convex_hull_SandigerTon_STEPS_Anpassung.xlsx"
 convex_hulls_file_2 = "data/convex_hull_TonigerSand_STEPS_Anpassung.xlsx"
 convex_hulls_file_3 = "data/convex_hull_SandigerLehnm_STEPS_Anpassung.xlsx"
@@ -17,14 +18,15 @@ convex_hulls_file_9 = "data/convex_hull_schluffigerSand_STEPS_Anpassung.xlsx"
 convex_hulls_file_10 = "data/convex_hull_lehmigerTon_STEPS_Anpassung1.xlsx"
 convex_hulls_file_11 = "data/convex_hull_Ton_STEPS_Anpassung.xlsx"
 convex_hulls_file_12 = "data/convex_hull_Sand1_STEPS_Anpassung.xlsx"
-convex_hulls_file_14 = "data/convex_hulls_humicgleysoils.xlsx"
+convex_hulls_file_14 = "data/convex_hull_organo_mineral_soils.xlsx"
 convex_hulls_file_15 = "data/convex_hull_schluffigerLehm_STEPS_ANPASSUNG.xlsx"
+convex_hulls_file_16 = "data/convex_hull_organicsoils.xlsx"
 
-# color mappings
+# color mapping
 
 color_mapping_files = {
     convex_hulls_file_1: "rgba(160, 82, 45, 0.95)",     # Sandiger Ton
-    convex_hulls_file_2: "rgba(204, 121, 167, 0.95)",     # Toniger Sand
+    convex_hulls_file_2: "rgba(204, 121, 167, 0.95)",     # Toniger Sand – bekommt Altrosa
     convex_hulls_file_3: "rgba(178, 34, 34, 0.95)",       # Sandiger Lehm
     convex_hulls_file_4: "rgba(253, 192, 134, 0.95)",     # Lehmiger Schluff
     convex_hulls_file_5: "rgba(139, 139, 139, 0.95)",     # Schluff
@@ -34,11 +36,11 @@ color_mapping_files = {
     convex_hulls_file_9: "rgba(0, 158, 115, 0.95)",       # Schluffiger Sand
     convex_hulls_file_10: "rgba(0, 90, 160, 0.95)",       # Lehmiger Ton
     convex_hulls_file_11: "rgba(51, 51, 51, 0.95)",       # Ton
-    convex_hulls_file_12: "rgba(86, 180, 233, 0.95)",     # Sand
-    convex_hulls_file_14: "rgba(101, 67, 33, 0.50)",    # Humic Soils
-    convex_hulls_file_15: "rgba(160, 180, 80, 0.95)",        # Schluffiger Lehm
+    convex_hulls_file_12: "rgba(86, 180, 233, 0.95)",     # Sand 1
+    convex_hulls_file_14: "rgba(184, 115, 51, 0.20)",     # Organo-Mineral Soils
+    convex_hulls_file_15: "rgba(160, 180, 80, 0.95)",     # Schluffiger Lehm – bekommt Olivgrün
+    convex_hulls_file_16:   "rgba(120, 85, 60, 0.3)"      #  Organic Soils
 }
-
 
 legend_mapping = {
     convex_hulls_file_1: "Sandy Clay",               # Sandiger Ton
@@ -52,12 +54,11 @@ legend_mapping = {
     convex_hulls_file_9: "Silty Sand",               # Schluffiger Sand
     convex_hulls_file_10: "Clay Loam",               # Lehmiger Ton
     convex_hulls_file_11: "Clay",                    # Ton
-    convex_hulls_file_12: "Sand",                    # Sand
-    convex_hulls_file_14: "Humic Soils",             # Humose Böden
-    convex_hulls_file_15: "Silty Loam",  # Schluffiger Lehm
-
+    convex_hulls_file_12: "Sand",                    # Sand 1
+    convex_hulls_file_14: "Organo-Mineral Soils",             # Humose Böden
+    convex_hulls_file_15: "Silty Loam",              # Schluffiger Lehm
+    convex_hulls_file_16: "Organic Soils"               # Moorböden
 }
-
 
 
 # Rectangle data with the classification system up to AB1
