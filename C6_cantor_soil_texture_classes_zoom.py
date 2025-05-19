@@ -593,7 +593,7 @@ fig.update_layout(
             y=15.85,
             text=legende_text,
             showarrow=False,
-            font=dict(size=28, color="black"),
+            font=dict(size=24, color="black"),
             bgcolor="rgba(249, 249, 249,1)",
             bordercolor="black",
             borderwidth=2,
