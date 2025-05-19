@@ -327,7 +327,7 @@ ordered_legende = [
 for name in ordered_legende:
     farbe = next((k for k, v in farbe_to_subklasse.items() if v == name), None)
     if farbe:
-        legende_text += f'<span style="color:{farbe}; font-size:40px;">■</span> {name}<br>'
+        legende_text += f'<span style="color:{farbe}; font-size:24px;">■</span> {name}<br>'
 
 
 # Set to track already added class names
