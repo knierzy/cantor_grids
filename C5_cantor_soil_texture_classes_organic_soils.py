@@ -564,7 +564,7 @@ plot_bgcolor="white",  # Set plot background to white
    yaxis=dict(
     title=dict(
         text="Humus (%) /// Difference between height of AB rectangle and the Humus content (%) equals Clay content (%)",
-        font=dict(size=32, color="black", family="Arial Black")
+        font=dict(size=22, color="black", family="Arial Black")
     ),
     range=[0, 16],
     tickformat=".0f",
