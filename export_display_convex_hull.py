@@ -4,7 +4,6 @@
 import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
-from scipy.spatial import ConvexHull
 import numpy as np
 
 
