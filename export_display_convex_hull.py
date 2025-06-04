@@ -312,7 +312,6 @@ yaxis=dict(
     color="black",               # Allgemeine Achsenfarbe (Linie, Ticks)
     linecolor="black",           # Farbe der Achsenlinie
     tickfont=dict(color="black") # Farbe der Tick-Beschriftungen
-)
     autosize=False,  # disable automatic resizing
     width=2100,
     height=1200,
