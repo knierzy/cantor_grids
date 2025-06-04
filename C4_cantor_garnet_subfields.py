@@ -1,4 +1,4 @@
-#### This script visualizes scattered subfields of garnets based on their end-member composition in a Cantor diagram. 
+#### Cantor diagram of the garnet end-member system Almandine–Spessartine–Pyrope–Grossular. 
 #### The subfields in the Cantor diagram allow for an assignment to source rocks. 
 
 
