@@ -10,7 +10,7 @@ The project consists of modular Python scripts labeled `C1` to `C7`:
 
 | File | Description |
 |------|-------------|
-| `C1_tuple_generator_for_subfields.py` | Reads raw Excel files and prepares the data (e.g. elemental compositions or soil fractions). |
+| `C1_tuple_generator_for_subfields.py` | Generates valid 4-component integer compositions that sum to 100%.|
 | `C2_export_display_convex_hull.py` | Computes transformed x/y coordinates for plotting in modified ternary-style diagrams. |
 | `C3_calculate_overlap.py` | Generates tuples (valid data points) for specific subfields such as *Loamy Sand*, based on threshold definitions. |
 | `C4_cantor_garnet_subfields.py` | Defines color schemes for grouping by origin, class, or other metadata. |
