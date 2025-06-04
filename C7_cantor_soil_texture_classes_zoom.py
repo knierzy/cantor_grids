@@ -1,3 +1,6 @@
+#### Cantor diagram illustrating an extended soil texture classification,
+#### with humus considered as a fourth component, zoomed to a threshold of 15% humus. 
+
 import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
