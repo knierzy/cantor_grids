@@ -284,52 +284,53 @@ print(f"Die Convex Hull-Daten wurden erfolgreich in {output_file_path} gespeiche
 
 
 # Adjust layout to center the plot and rotate it by 90 degrees.
-xaxis=dict(
-    title=dict(
-        text="Sum of Humus and Silt (%)",
-        font=dict(
-            color="black",       # Farbe des Achsentitels
-            size=14              # Optional: Schriftgröße
-        )
+fig.update_layout(
+    xaxis=dict(
+        title=dict(
+            text="Sum of Humus and Silt (%)",
+            font=dict(
+                color="black",       # Farbe des Achsentitels
+                size=14              # Schriftgröße
+            )
+        ),
+        range=[0, max(df_parameters['Unnamed: 2']) + 2],  # Achsenbereich
+        tickformat=".0f",            # Ganze Zahlen auf der Achse
+        color="black",               # Allgemeine Achsenfarbe
+        linecolor="black",           # Farbe der Achsenlinie
+        tickfont=dict(color="black") # Farbe der Tick-Beschriftungen
     ),
-    range=[0, max(df_parameters['Unnamed: 2']) + 2],  # Achsenbereich (je nach Daten)
-    tickformat=".0f",            # Ganze Zahlen auf der Achse
-    color="black",               # Allgemeine Achsenfarbe
-    linecolor="black",           # Farbe der Achsenlinie
-    tickfont=dict(color="black") # Farbe der Tick-Beschriftungen
+    yaxis=dict(
+        title=dict(
+            text="Sand (%) / Difference between height of AB rectangle and Sand (%) = Clay (%)",
+            font=dict(
+                color="black",       # Farbe des Achsentitels
+                size=14              # Schriftgröße
+            )
+        ),
+        range=[0, max(df_parameters['Unnamed: 3']) + 2],  # Achsenbereich
+        tickformat=".0f",            # Ganze Zahlen auf der Achse
+        color="black",               # Achsenfarbe
+        linecolor="black",           # Achsenlinie
+        tickfont=dict(color="black") # Tick-Beschriftungen
+    ),
+    autosize=False,                  # Automatische Größenanpassung deaktivieren
+    width=2100,                      # Breite des Plots
+    height=1200,                     # Höhe des Plots
+    margin=dict(l=0, r=10, t=30, b=10),  # Ränder
+    showlegend=False                 # Legende deaktivieren
 )
 
-yaxis=dict(
-    title=dict(
-        text="Sand (%) / Difference between height of AB rectangle and Sand (%) = Clay (%)",
-        font=dict(
-            color="black",       # Farbe des Achsentitels
-            size=14              # Optional: Schriftgröße, z. B. 14pt
-        )
-    ),
-    range=[0, max(df_parameters['Unnamed: 3']) + 2],  # Achsenbereich
-    tickformat=".0f",            # Ganze Zahlen auf der Achse
-    color="black",               # Allgemeine Achsenfarbe (Linie, Ticks)
-    linecolor="black",           # Farbe der Achsenlinie
-    tickfont=dict(color="black") # Farbe der Tick-Beschriftungen
-    autosize=False,  # disable automatic resizing
-    width=2100,
-    height=1200,
-    margin=dict(l=0, r=10, t=30, b=10),  # centering the plot
-    showlegend=False  # deactivate legend
-)
-
-# add a black line on the Y-axis from 0 to 100
+# Eine schwarze Linie entlang der Y-Achse hinzufügen (0 bis 100)
 fig.add_shape(
     type="line",
-    x0=0, x1=0,  # X-Koordinaten (bleibt auf der Y-Achse)
-    y0=0, y1=100,  # Y-Koordinaten (Begrenzung auf 0 bis 100)
-    line=dict(color="black", width=2)  # Farbe und Breite der Linie
+    x0=0, x1=0,
+    y0=0, y1=100,
+    line=dict(color="black", width=2)
 )
 
-# rotate plot by 90 degrees
+# Plot um 90 Grad drehen
 for trace in fig.data:
     trace.x, trace.y = trace.y, trace.x
 
-# show plot
+# Plot anzeigen
 fig.show()
