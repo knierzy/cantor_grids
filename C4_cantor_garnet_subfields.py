@@ -1,6 +1,6 @@
-#### This script visualizes scattered subfields of garnets based on their end-member composition. 
-#### These subfields allow for an assignment to source rocks. 
-#### The data is displayed in a Cantor diagram.
+#### This script visualizes scattered subfields of garnets based on their end-member composition in a Cantor diagram. 
+#### Thes subfields in the Cantor diagram allow for an assignment to source rocks. 
+
 
 
 import pandas as pd
