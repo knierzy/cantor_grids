@@ -287,7 +287,7 @@ print(f"Die Convex Hull-Daten wurden erfolgreich in {output_file_path} gespeiche
 fig.update_layout(
     xaxis=dict(
         title=dict(
-            text="Sum of Humus and Silt (%)",
+            text="Sum of Sand and Silt (%)",
             font=dict(
                 color="black",       # Farbe des Achsentitels
                 size=14              # Schriftgröße
@@ -301,7 +301,7 @@ fig.update_layout(
     ),
     yaxis=dict(
         title=dict(
-            text="Sand (%) / Difference between height of AB rectangle and Sand (%) = Clay (%)",
+            text="Humus (%) /// Difference between height of AB rectangle and the Humus content (%) equals Clay (%)",
             font=dict(
                 color="black",       # Farbe des Achsentitels
                 size=14              # Schriftgröße
