@@ -4,6 +4,7 @@
 import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
+from scipy.spatial import ConvexHull
 import numpy as np
 
 
@@ -283,21 +284,35 @@ print(f"Die Convex Hull-Daten wurden erfolgreich in {output_file_path} gespeiche
 
 
 # Adjust layout to center the plot and rotate it by 90 degrees.
-fig.update_layout(
-    xaxis=dict(
-        title="Summe Silt + Humus (%)",
-        range=[0, rechtecke[-1][0] + rechtecke[-1][1]],
-        tickformat=".0f",
+xaxis=dict(
+    title=dict(
+        text="Sum of Humus and Silt (%)",
+        font=dict(
+            color="black",       # Farbe des Achsentitels
+            size=14              # Optional: Schriftgröße
+        )
     ),
-    yaxis=dict(
-        title="Sand (%) / Difference between height of AB rectangle and Sand (%) = Clay (%)",
-        range=[0, max(df_parameters['Unnamed: 3']) + 2],  # Additional space for the labels
-        tickformat=".0f",
-        color="black",
-        linecolor="black",
-        tickfont=dict(color="black"),
-        titlefont=dict(color="black")
+    range=[0, max(df_parameters['Unnamed: 2']) + 2],  # Achsenbereich (je nach Daten)
+    tickformat=".0f",            # Ganze Zahlen auf der Achse
+    color="black",               # Allgemeine Achsenfarbe
+    linecolor="black",           # Farbe der Achsenlinie
+    tickfont=dict(color="black") # Farbe der Tick-Beschriftungen
+)
+
+yaxis=dict(
+    title=dict(
+        text="Sand (%) / Difference between height of AB rectangle and Sand (%) = Clay (%)",
+        font=dict(
+            color="black",       # Farbe des Achsentitels
+            size=14              # Optional: Schriftgröße, z. B. 14pt
+        )
     ),
+    range=[0, max(df_parameters['Unnamed: 3']) + 2],  # Achsenbereich
+    tickformat=".0f",            # Ganze Zahlen auf der Achse
+    color="black",               # Allgemeine Achsenfarbe (Linie, Ticks)
+    linecolor="black",           # Farbe der Achsenlinie
+    tickfont=dict(color="black") # Farbe der Tick-Beschriftungen
+)
     autosize=False,  # disable automatic resizing
     width=2100,
     height=1200,
