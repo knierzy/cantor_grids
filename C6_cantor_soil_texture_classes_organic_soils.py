@@ -1,10 +1,9 @@
 import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
-from scipy.spatial import ConvexHull
 import numpy as np
 
-# file path (relative to repo root)
+# file path 
 convex_hulls_file_1 = "data/convex_hull_SandigerTon_STEPS_Anpassung.xlsx"
 convex_hulls_file_2 = "data/convex_hull_TonigerSand_STEPS_Anpassung.xlsx"
 convex_hulls_file_3 = "data/convex_hull_SandigerLehnm_STEPS_Anpassung.xlsx"
