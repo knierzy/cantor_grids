@@ -16,4 +16,4 @@ The project consists of modular Python scripts labeled `C1` to `C7`:
 | `C4_cantor_garnet_subfields.py` | Visualizes scattered subfields of garnets based on their end-member composition in a Cantor diagram |
 | `C5_cantor_garnet_colorbar.py` | Visualizes scattered subfields of garnets plus colorbar to distinguish. |
 | `C6_cantor_soil_texture_classes_organic_soils.py` |  Cantor diagram for a soil texture classification system including organo-mineral and organic soils |
-| `C7_cantor_soil_texture_classes_zoom.py` | Computes and visualizes convex hulls for data clusters (e.g. Loamy Sand) based on tuples generated in `C3`. |
+| `C7_cantor_soil_texture_classes_zoom.py` | Cantor diagram for a soil texture classification system, zoomed to a treshold of 15 % humus |
