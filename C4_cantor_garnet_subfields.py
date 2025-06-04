@@ -1,8 +1,6 @@
 #### Cantor diagram of the garnet end-member system Almandine–Spessartine–Pyrope–Grossular. 
 #### The subfields in the Cantor diagram allow for an assignment to source rocks. 
 
-
-
 import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
