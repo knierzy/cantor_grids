@@ -6,7 +6,7 @@
 This repository provides a framework for the graphical representation and analysis of four-component systems using customized Cantor grids. The approach is designed to minimize spatial overlap between data points and maximize the resolution of subgroups or classifications within complex, compositional datasets.
 
 
-The project consists of modular Python scripts labeled `C1` to `C7`:
+The project comprises modular Python scripts labeled `C1` to `C7`:
 
 | File | Description |
 |------|-------------|
