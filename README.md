@@ -15,6 +15,5 @@ The project consists of modular Python scripts labeled `C1` to `C7`:
 | `C3_calculate_overlap.py` | Compares two Excel datasets based on the first four columns to identify identical entries. |
 | `C4_cantor_garnet_subfields.py` | Visualizes scattered subfields of garnets based on their end-member composition in a Cantor diagram |
 | `C5_cantor_garnet_colorbar.py` | Visualizes scattered subfields of garnets plus colorbar to distinguish. |
-| `C6_cantor_soil_texture_classes_organic_soils.py` |  Cantor diagram for a soil texture classification system, with humus considered as a fourth component, 
-#### including organo-mineral and organic soils |
+| `C6_cantor_soil_texture_classes_organic_soils.py` |  Cantor diagram for a soil texture classification system including organo-mineral and organic soils |
 | `C7_cantor_soil_texture_classes_zoom.py` | Computes and visualizes convex hulls for data clusters (e.g. Loamy Sand) based on tuples generated in `C3`. |
