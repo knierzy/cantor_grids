@@ -1,5 +1,5 @@
 #### This script visualizes scattered subfields of garnets based on their end-member composition in a Cantor diagram. 
-#### Thes subfields in the Cantor diagram allow for an assignment to source rocks. 
+#### The subfields in the Cantor diagram allow for an assignment to source rocks. 
 
 
 
