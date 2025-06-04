@@ -1,3 +1,6 @@
+#### Cantor diagram for a soil texture classification system, with humus considered as a fourth component, 
+#### including organo-mineral and organic soils
+
 import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
