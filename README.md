@@ -12,7 +12,7 @@ The project consists of modular Python scripts labeled `C1` to `C7`:
 |------|-------------|
 | `C1_tuple_generator_for_subfields.py` | Generates valid 4-component integer compositions that sum to 100%.|
 | `C2_export_display_convex_hull.py` |  Exports convex hulls based on tuples read from an Excel file. |
-| `C3_calculate_overlap.py` | Generates tuples (valid data points) for specific subfields such as *Loamy Sand*, based on threshold definitions. |
+| `C3_calculate_overlap.py` | Compares two Excel datasets based on the first four columns to identify identical entries. |
 | `C4_cantor_garnet_subfields.py` | Defines color schemes for grouping by origin, class, or other metadata. |
 | `C5_cantor_garnet_colorbar.py` | Creates the complete Cantor Grid with triangle geometry, axis labels, labeled subfields, and data points. |
 | `C6_cantor_soil_texture_classes_organic_soils.py` | (Archived/optional) Previously handled organic soil variants – currently not in use. |
