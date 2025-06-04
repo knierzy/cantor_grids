@@ -1,5 +1,6 @@
-##Cantor diagram of the garnet end-member system Almandine–Spessartine–Pyrope–Grossular
-
+#### Cantor diagram of the garnet end-member system Almandine–Spessartine–Pyrope–Grossular
+####  A color bar displays the ratio of Almandine to the sum of Almandine and Spessartine (A / (A + B)), 
+#### adding an additional interpretative layer that reveals systematic compositional trends across the scattered Cantor subfields. 
 
 import pandas as pd
 import plotly.graph_objects as go
