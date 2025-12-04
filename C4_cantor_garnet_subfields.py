@@ -18,7 +18,6 @@ convex_hulls_file_11 = "data/convex_hull_eclogites_.xlsx"
 convex_hulls_file_12 = "data/convex_hull_ultramafic_.xlsx"
 
 
-
 # color mappings 
 
 color_mapping_files = {
