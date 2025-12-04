@@ -1,4 +1,3 @@
-
 # Generates valid 4-component integer compositions that sum to 100%.
 # For each humus level ("Stufe"), the code iterates over sand, silt (schluff), and clay (ton)
 # within defined bounds. Humus is calculated as the residual (100 - sum of others)
