@@ -149,8 +149,8 @@ add_rechtecke_mit_farbverlauf(rechtecke, 0)
 
 
 # Load data from  Excel file
-file_path_gilgen = "data/Komp_Pub.xlsx"
-df = pd.read_excel(file_path_gilgen, sheet_name='Garn_ex2')
+file_path_gilgen = "data/Komp_Pub(3).xlsx"
+df = pd.read_excel(file_path_gilgen, sheet_name='Garnet_Pernegg')
 
 # Remove rows with NaN in columns "Unnamed: 1" to "Unnamed: 4"; filter only rows where the sum is >= 98
 df_parameters = df[['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']].dropna()
