@@ -188,9 +188,9 @@ for idx, row in df_parameters.iterrows():
             mode='markers',
             marker=dict(
                 symbol='circle',
-                size=6,  # Größere Punkte
+                size=6,  
                 color=color,
-                opacity=1  # Maximale Deckkraft
+                opacity=1  
             ),
             hovertemplate=(
                 f"<b>Index:</b> {index}<br>"
@@ -224,7 +224,7 @@ for idx, row in df_parameters.iterrows():
             hull_points = points[hull.vertices]
             hull_x = hull_points[:, 0]
             hull_y = hull_points[:, 1]
-            hull_x = np.append(hull_x, hull_x[0])  # Schließe den Polygon ab
+            hull_x = np.append(hull_x, hull_x[0])  
             hull_y = np.append(hull_y, hull_y[0])
 
             # plot convex hull with alpha 0.7
@@ -244,10 +244,10 @@ for idx, row in df_parameters.iterrows():
     # function to ensure the transparency of an RGBA color.
     def ensure_transparency(color, alpha=0.7):
         if "rgba" in color:
-            # Ersetze Alpha-Wert
+            
             return color[:color.rfind(",")] + f", {alpha})"
         elif color.startswith("#"):
-            # Konvertiere Hex in RGBA
+        
             r = int(color[1:3], 16)
             g = int(color[3:5], 16)
             b = int(color[5:7], 16)
@@ -306,38 +306,37 @@ fig.update_layout(
         title=dict(
             text="Sum of Sand and Silt (%)",
             font=dict(
-                color="black",       # Farbe des Achsentitels
-                size=14              # Schriftgröße
+                color="black",       
+                size=14             
             )
         ),
-        range=[0, max(df_parameters['Unnamed: 2']) + 2],  # Achsenbereich
-        tickformat=".0f",            # Ganze Zahlen auf der Achse
-        color="black",               # Allgemeine Achsenfarbe
-        linecolor="black",           # Farbe der Achsenlinie
-        tickfont=dict(color="black") # Farbe der Tick-Beschriftungen
-    ),
+        range=[0, max(df_parameters['Unnamed: 2']) + 2],  
+        tickformat=".0f",            
+        color="black",              
+        linecolor="black",           
+        tickfont=dict(color="black") 
+        
     yaxis=dict(
         title=dict(
             text="Humus (%) /// Difference between height of AB rectangle and the Humus content (%) equals Clay (%)",
             font=dict(
-                color="black",       # Farbe des Achsentitels
-                size=14              # Schriftgröße
+                color="black",       
+                size=14              
             )
         ),
-        range=[0, max(df_parameters['Unnamed: 3']) + 2],  # Achsenbereich
-        tickformat=".0f",            # Ganze Zahlen auf der Achse
-        color="black",               # Achsenfarbe
-        linecolor="black",           # Achsenlinie
-        tickfont=dict(color="black") # Tick-Beschriftungen
+        range=[0, max(df_parameters['Unnamed: 3']) + 2], 
+        tickformat=".0f",            
+        color="black",               
+        linecolor="black",           
+        tickfont=dict(color="black") 
     ),
-    autosize=False,                  # Automatische Größenanpassung deaktivieren
-    width=2100,                      # Breite des Plots
-    height=1200,                     # Höhe des Plots
-    margin=dict(l=0, r=10, t=30, b=10),  # Ränder
-    showlegend=False                 # Legende deaktivieren
+    autosize=False,                  
+    width=2100,                      
+    height=1200,                    
+    margin=dict(l=0, r=10, t=30, b=10),  
+    showlegend=False                 
 )
 
-# Eine schwarze Linie entlang der Y-Achse hinzufügen (0 bis 100)
 fig.add_shape(
     type="line",
     x0=0, x1=0,
@@ -345,9 +344,9 @@ fig.add_shape(
     line=dict(color="black", width=2)
 )
 
-# Plot um 90 Grad drehen
+# rotate plot
 for trace in fig.data:
     trace.x, trace.y = trace.y, trace.x
 
-# Plot anzeigen
+# show plot
 fig.show()
