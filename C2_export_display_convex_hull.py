@@ -42,37 +42,41 @@ fig = go.Figure()
 def add_rechtecke_mit_farbverlauf(rechtecke, x_offset, spiegeln=False):
     for i, (y_position, hoehe, label) in enumerate(rechtecke):
         breite = i + 1
-        gradient_steps = 8  # Anzahl der Schritte im Farbverlauf
+        gradient_steps = 8  # Number of color gradient steps
 
-        # Der Farbabstufungsverlauf startet intensiv und wird matter
-        grau_start = 220  # Dunkler Grauton
-        grau_ende = 270  # Heller Grauton
+        # The gradient starts darker and becomes lighter
+        gray_start = 220  
+        gray_end = 270   
 
         for step in range(gradient_steps):
-            grau_wert = int(grau_start + (grau_ende - grau_start) * (step / gradient_steps))
+            # Compute grayscale value for this gradient step
+            gray_value = int(gray_start + (gray_end - gray_start) * (step / gradient_steps))
 
-            # Variiere die Transparenz leicht, um einen smootheren Effekt zu erzielen
-            alpha = 0.8 - (0.6 * (step / gradient_steps))  # Reduziert Alpha von 0.8 auf 0.2
-            color = f'rgba({grau_wert}, {grau_wert}, {grau_wert}, {alpha})'
+            # Smooth fading effect by decreasing alpha
+            alpha = 0.8 - (0.6 * (step / gradient_steps))  # From 0.8 to ~0.2
+            color = f'rgba({gray_value}, {gray_value}, {gray_value}, {alpha})'
 
-            # Bestimme die Koordinaten für den Farbverlauf entlang der neuen x-Achse (Summe A + B)
+            # Compute y-coordinates for this gradient band inside the AB-rectangle
             y_start = y_position + (step / gradient_steps) * hoehe
-            y_end = y_position + ((step + 1) / gradient_steps) * hoehe
+            y_end   = y_position + ((step + 1) / gradient_steps) * hoehe
 
+            # Determine x-coordinates depending on mirroring
             if spiegeln:
                 x_start, x_end = x_offset - breite, x_offset
             else:
                 x_start, x_end = x_offset, x_offset + breite
 
-            # Rechteck für den aktuellen Schritt hinzufügen
+            # Add the polygon representing this gradient segment
             fig.add_trace(go.Scatter(
                 x=[x_start, x_start, x_end, x_end, x_start],
                 y=[y_start, y_end, y_end, y_start, y_start],
                 fill="toself",
                 mode="lines",
                 fillcolor=color,
-                line=dict(color="rgba(0, 0, 0, 0)", width=0)  # Keine sichtbare Umrandung
+                line=dict(color="rgba(0, 0, 0, 0)", width=0)  # No visible border
             ))
+
+        # Draw internal vertical lines inside each AB-rectangle
         for x_pos in range(1, breite):
             x_val = x_offset - x_pos if spiegeln else x_offset + x_pos
             fig.add_trace(go.Scatter(
@@ -83,64 +87,75 @@ def add_rechtecke_mit_farbverlauf(rechtecke, x_offset, spiegeln=False):
                 showlegend=False
             ))
 
+    # Create axis labels for major AB boundaries
+    x_labels = {
+        50: "AB99", 440: "AB95", 915: "AB90", 1350: "AB85", 1760: "AB80",
+        2158: "AB75", 2540: "AB70", 2870: "AB65", 3195: "AB60", 3480: "AB55",
+        3755: "AB50", 3995: "AB45", 4209: "AB40", 4405: "AB35", 4570: "AB30",
+        4830: "AB20", 4990: "AB10"
+    }
 
-    # Create  axis labels
-    x_labels = {50: "AB99",440: "AB95",  915: "AB90", 1350: "AB85", 1760: "AB80", 2158: "AB75", 2540: "AB70",
-                 2870: "AB65", 3195: "AB60", 3480: "AB55", 3755: "AB50", 3995: "AB45", 4209: "AB40", 4405: "AB35", 4570: "AB30", 4830: "AB20", 4990: "AB10" }
-
-    # Update X-axis with labels
+    # Update the x-axis with custom tick labels
     fig.update_layout(
         xaxis=dict(
-            title="Summe A + B (%)",
-            tickvals=list(x_labels.keys()),  # Positionen der Beschriftungen
-            ticktext=list(x_labels.values()),  # Text der Beschriftungen
-            tickangle=0,  # Optional: keine Rotation der Beschriftungen
+            title="Sum A + B (%)",
+            tickvals=list(x_labels.keys()),   # Tick positions
+            ticktext=list(x_labels.values()), # Tick labels
+            tickangle=0
+        )
+    )
 
-            ))
 
-
-
-# Add rectangles
+# Add rectangles to the plot
 add_rechtecke_mit_farbverlauf(rechtecke, 0)
 
 
-
-# Load data from  Excel file
+# Load data from Excel file
 file_path_gilgen = "data/Komp_Pub.xlsx"
 df = pd.read_excel(file_path_gilgen, sheet_name='Tuples_for_subfields')
 
-# Remove rows with NaN in columns "Unnamed: 1" to "Unnamed: 4"; filter only rows where the sum is >= 98
+# Remove rows containing NaN in texture columns; keep rows where the sum ≥ 98
 df_parameters = df[['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']].dropna()
-df_parameters = df_parameters[df_parameters.apply(lambda row: row[['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']].sum() >= 98, axis=1)]
+df_parameters = df_parameters[
+    df_parameters.apply(
+        lambda row: row[['Unnamed: 1','Unnamed: 2','Unnamed: 3','Unnamed: 4']].sum() >= 98,
+        axis=1
+    )
+]
 df_parameters = df_parameters.astype(float).round()
 
-# Load origin and index number (with the filtered rows without NaN)"
+# Load origin and index (for the filtered rows)
 df_parameters['Herkunft'] = df.loc[df_parameters.index, 'Unnamed: 5'].values
 df_parameters['Index'] = df.loc[df_parameters.index, 'Unnamed: 6'].values
 
 
-
-#  Function to adjust so that the sum equals 100"
+# Function that adjusts values so the sum becomes exactly 100
 def adjust_sum_to_100(row):
     total = row['Unnamed: 1'] + row['Unnamed: 2'] + row['Unnamed: 3'] + row['Unnamed: 4']
     difference = 100 - total
     if difference != 0:
-        row['Unnamed: 4'] += difference
+        row['Unnamed: 4'] += difference  # Adjust clay to correct rounding
     return row
 
+# Apply correction only for rows with sums between 98 and 100
+df_parameters = df_parameters.apply(
+    lambda row: adjust_sum_to_100(row)
+    if 98 <= row[['Unnamed: 1','Unnamed: 2','Unnamed: 3','Unnamed: 4']].sum() <= 100
+    else row,
+    axis=1
+)
 
-# Apply the adjustment only to rows with a sum between 98 and 100"
-df_parameters = df_parameters.apply(lambda row: adjust_sum_to_100(row) if 98 <= row[['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']].sum() <= 100 else row, axis=1)
-
-# Calculate AB (A + B) for the y-position
+# Compute AB (A + B) for vertical position
 df_parameters['AB'] = df_parameters['Unnamed: 1'] + df_parameters['Unnamed: 2']
 
-# Calculate the y-position based on AB
+
+# Compute y-position based on AB and B
 def calculate_y_position(ab_value, b_value):
     ab_index = 99 - int(ab_value)
-    if ab_index >= 0 and ab_index < len(rechtecke):
+    if 0 <= ab_index < len(rechtecke):
         start_zeile = rechtecke[ab_index][0]
         hoehe = rechtecke[ab_index][1]
+        # +0.5 centers the point inside the band
         y_position = start_zeile + b_value + 0.5
         return y_position
     return None
