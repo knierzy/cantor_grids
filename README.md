@@ -1,5 +1,5 @@
 # cantor_grids
-**Cantor Grids: A New Domain-Separating 2D Visualization Method for Four-Component Systems, with Exemplary Applications in Garnet Chemistry and Soil Classification**
+**Cantor Grids: A New 2D Visualization Method for Four-Component Systems, with Exemplary Applications in Garnet Chemistry and Soil Classification**
 
 ## Overview
 
