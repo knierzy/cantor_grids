@@ -864,7 +864,7 @@ fig.show()
 
 # Save HTML file
 
-html_write_path = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_export_interaktiv2.html"
+html_write_path = "exports/cantor_export_interaktiv2.html"
 fig.write_html(html_write_path)
 html_path = "file:///" + html_write_path.replace("\\", "/")
 print("📄 HTML file written:", html_write_path)
@@ -872,8 +872,9 @@ print("📄 HTML file written:", html_write_path)
 
 # PNG and TIFF output paths
 
-png_path = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\Daten_sammlung_APG\cantor_soil_zoom_synth.png"
-tiff_path = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\Daten_sammlung_APG\cantor_soil_zoom_synth400dpi.tiff"
+png_path = "exports/cantor_soil_zoom_synth.png"
+tiff_path = "exports/cantor_soil_zoom_synth_400dpi.tiff"
+
 
 
 # Create screenshot (high-resolution PNG)
