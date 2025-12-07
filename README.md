@@ -17,4 +17,4 @@ The project comprises modular Python scripts labeled `C1` to `C8`:
 | `C5.py` | Visualizes scattered subfields of garnets in a Cantor Diagram plus colorbar to interpret samples from Pernegg. |
 | `C6.py` | Cantor diagram for a soil texture classification system including organo-mineral and organic soils. |
 | `C7.py` | Cantor diagram with synthetic data with displayed Available Water Content (colorbar)
-| `C8.py` | Cantor diagram with soil samples of district Kirchbach with displayed Available Water Content as halo (colorbar. |
+| `C8.py` | Cantor diagram with soil samples of district Kirchbach with displayed Available Water Content as halo (colorbar). |
