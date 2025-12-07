@@ -15,5 +15,5 @@ The project comprises modular Python scripts labeled `C1` to `C7`:
 | `C3.py` | Compares two Excel datasets based on the first four columns to identify identical entries. |
 | `C4.py` | Visualizes scattered subfields of garnets based on their end-member composition in a Cantor diagram. |
 | `C5.py` | Visualizes scattered subfields of garnets plus colorbar to distinguish. |
-| `C6.py` |  Cantor diagram for a soil texture classification system including organo-mineral and organic soils. |
-| `C7.py` | # Cantor diagram with of soil samples of district Kirchbach with displayed Available Water Content as halo. |
+| `C6.py` | Cantor diagram for a soil texture classification system including organo-mineral and organic soils. |
+| `C7.py` | Cantor diagram with of soil samples of district Kirchbach with displayed Available Water Content as halo. |
