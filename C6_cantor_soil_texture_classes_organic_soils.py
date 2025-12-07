@@ -25,45 +25,31 @@ convex_hulls_file_15 = "data/convex_hull_schluffigerLehm_STEPS_ANPASSUNG.xlsx"
 convex_hulls_file_16 = "data/convex_hull_organicsoils.xlsx"
 # Farbmappings für jede Convex Hull-Datei
 
+# color mappings
+
 color_mapping_files = {
-    convex_hulls_file_1: "rgba(160, 82, 45, 0.95)",     # Sandiger Ton
-    convex_hulls_file_2: "rgba(204, 121, 167, 0.95)",     # Toniger Sand – bekommt Altrosa
-    convex_hulls_file_3: "rgba(178, 34, 34, 0.95)",       # Sandiger Lehm
-    convex_hulls_file_4: "rgba(253, 192, 134, 0.95)",     # Lehmiger Schluff
-    convex_hulls_file_5: "rgba(139, 139, 139, 0.95)",     # Schluff
-    convex_hulls_file_6: "rgba(94, 60, 153, 0.95)",       # Sandiger Schluff
-    convex_hulls_file_7: "rgba(123, 204, 196, 0.95)",     # Lehm
-    convex_hulls_file_8: "rgba(240, 228, 66, 0.95)",      # Lehmiger Sand
-    convex_hulls_file_9: "rgba(0, 158, 115, 0.95)",       # Schluffiger Sand
-    convex_hulls_file_10: "rgba(0, 90, 160, 0.95)",       # Lehmiger Ton
-    convex_hulls_file_11: "rgba(51, 51, 51, 0.95)",       # Ton
-    convex_hulls_file_12: "rgba(86, 180, 233, 0.95)",     # Sand 1
-    convex_hulls_file_14: "rgba(184, 115, 51, 0.20)",     # Organo-Mineral Soils
-    convex_hulls_file_15: "rgba(160, 180, 80, 0.95)",     # Schluffiger Lehm – bekommt Olivgrün
-    convex_hulls_file_16:   "rgba(120, 85, 60, 0.3)"      #  Organic Soils
-}
-
-legend_mapping = {
-    convex_hulls_file_1: "Sandy Clay",               # Sandiger Ton
-    convex_hulls_file_2: "Clayey Sand",              # Toniger Sand
-    convex_hulls_file_3: "Sandy Loam",               # Sandiger Lehm
-    convex_hulls_file_4: "Loamy Silt",               # Lehmiger Schluff
-    convex_hulls_file_5: "Silt",                     # Schluff
-    convex_hulls_file_6: "Sandy Silt",               # Sandiger Schluff
-    convex_hulls_file_7: "Loam",                     # Lehm
-    convex_hulls_file_8: "Loamy Sand",               # Lehmiger Sand
-    convex_hulls_file_9: "Silty Sand",               # Schluffiger Sand
-    convex_hulls_file_10: "Clay Loam",               # Lehmiger Ton
-    convex_hulls_file_11: "Clay",                    # Ton
-    convex_hulls_file_12: "Sand",                    # Sand 1
-    convex_hulls_file_14: "Organo-Mineral Soils",             # Humose Böden
-    convex_hulls_file_15: "Silty Loam",              # Schluffiger Lehm
-    convex_hulls_file_16: "Organic Soils"               # Moorböden
+    convex_hulls_file_1: "rgba(0, 0, 139, 0.75)",
+    convex_hulls_file_2: "rgba(86, 180, 233, 0.75)",
+    convex_hulls_file_3: "rgba(255, 255, 80,0.75)",
+    convex_hulls_file_4: "rgba(255, 170, 190, 0.75)",
+    convex_hulls_file_5: "rgba(178, 34, 34, 0.75)",
+    convex_hulls_file_6: "rgba(255, 140, 0, 0.75)",
+    convex_hulls_file_7: "rgba(110, 55, 30, 0.75)",
+    convex_hulls_file_8: "rgba(50, 205, 50, 0.75)",
+    convex_hulls_file_9: "rgba(0, 70, 50, 0.75)",
+    convex_hulls_file_10: "rgba(0, 128, 128, 0.75)",
+    convex_hulls_file_11: "rgba(25, 25, 25, 0.75)",
+    convex_hulls_file_12: "rgba(123, 104, 238, 0.75)",
+    convex_hulls_file_14: "rgba(120, 85, 60, 0.2)",
+    convex_hulls_file_15: "rgba(218, 112, 214, 0.75)",
+    convex_hulls_file_16:   "rgba(120, 85, 60, 0.2)"
 }
 
 
 
-# Rechteckdaten mit der erweiterten Systematik bis AB1
+
+
+# Rectangle data with the classification system up to AB1
 rechtecke = [
     (0, 100, "AB99"), (100, 99, "AB98"), (199, 98, "AB97"), (297, 97, "AB96"), (394, 96, "AB95"),
     (490, 95, "AB94"), (585, 94, "AB93"), (679, 93, "AB92"), (772, 92, "AB91"), (864, 91, "AB90"),
@@ -91,7 +77,7 @@ rechtecke = [
 fig = go.Figure()
 
 
-def ensure_transparency(color, alpha=0.7):
+def ensure_transparency(color, alpha=0.6):
     if "rgba" in color:
         return color[:color.rfind(",")] + f", {alpha})"
     elif color.startswith("#"):
@@ -102,29 +88,27 @@ def ensure_transparency(color, alpha=0.7):
     else:
         return f"rgba(0, 0, 0, {alpha})"
 
-def strip_alpha(rgba):
-    return rgba.rsplit(",", 1)[0] + ")" if "rgba" in rgba else rgba
 
 
-# Add rectangles with color gradients along the new x-axis (after rotation)
+# Add rectangles with color gradients along the X-axis
 def add_rechtecke_mit_farbverlauf(rechtecke, x_offset, spiegeln=False):
     for i, (y_position, hoehe, label) in enumerate(rechtecke):
         breite = i + 1
         gradient_steps = 10  # Number of steps in the color gradient
 
 
-        grau_start = 180  # Dark gray tone (RGB value 80)
-        grau_ende = 220  # Light gray tone (RGB value 200)
+        grau_start = 180  # Dark gray tone
+        grau_ende = 220  # Light gray tone
 
         for step in range(gradient_steps):
-            # Calculate the gray value within an AB-rectanglce
+            # Calculate the gray value within an AB-rectangle
             grau_wert = int(grau_start + (grau_ende - grau_start) * (step / (gradient_steps - 1)))
 
             # Variation of transparency to achieve a smoother effect
             alpha = 0.8 - (0.6 * (step / (gradient_steps - 1)))
             color = f'rgba({grau_wert}, {grau_wert}, {grau_wert}, {alpha})'
 
-            # Determine the coordinates for the gradient along the new x-axis (sum A + B)
+            # Determine the coordinates for the gradient along the  X-axis (sum A + B)
             y_start = y_position + (step / gradient_steps) * hoehe
             y_end = y_position + ((step + 1) / gradient_steps) * hoehe
 
@@ -133,7 +117,7 @@ def add_rechtecke_mit_farbverlauf(rechtecke, x_offset, spiegeln=False):
             else:
                 x_start, x_end = x_offset, x_offset + breite
 
-            # Add rectangle for the current step
+            # add rectangle polygon for this gradient step
             fig.add_trace(go.Scatter(
                 x=[x_start, x_start, x_end, x_end, x_start],
                 y=[y_start, y_end, y_end, y_start, y_start],
@@ -153,7 +137,7 @@ def add_rechtecke_mit_farbverlauf(rechtecke, x_offset, spiegeln=False):
                 showlegend=False
             ))
 
-    # Create  axis labels
+ # Create  axis labels
     x_labels = {50: "AB99",440: "AB95",  915: "AB90", 1350: "AB85", 1760: "AB80", 2158: "AB75", 2540: "AB70",
                  2870: "AB65", 3195: "AB60", 3480: "AB55", 3755: "AB50", 3995: "AB45", 4209: "AB40", 4405: "AB35", 4570: "AB30", 4830: "AB20", 4990: "AB10" }
 
@@ -210,10 +194,11 @@ def round_to_100(row):
 
 
 
-# Apply the function to the DataFrame
+
+# Apply the function
 df_parameters = df_parameters.apply(round_to_100, axis=1)
 
-#  Load origin and index number (with the filtered rows without NaN
+#  Load origin and index number
 df_parameters['Herkunft'] = df.loc[df_parameters.index, 'Unnamed: 5'].values
 df_parameters['Index'] = df.loc[df_parameters.index, 'Unnamed: 6'].values
 df_parameters['location'] = df.loc[df_parameters.index, 'Unnamed: 7'].values
@@ -224,7 +209,7 @@ def adjust_sum_to_100(row):
     total = row['Unnamed: 1'] + row['Unnamed: 2'] + row['Unnamed: 3'] + row['Unnamed: 4']
     difference = 100 - total
     if difference != 0:
-        row['Unnamed: 4'] += difference  # Passe den letzten Parameter an, um die Summe auf 100 zu bringen
+        row['Unnamed: 4'] += difference
     return row
 
 # Apply the adjustment only to rows where the sum is between 98 and 100
@@ -233,115 +218,53 @@ df_parameters = df_parameters.apply(
     axis=1
 )
 
-
-# Calculate AB (A + B) for the y-position
-df_parameters['AB'] = df_parameters['Unnamed: 1'] + df_parameters['Unnamed: 2']
-
-# Compute y-position based on AB
-def calculate_y_position(ab_value, b_value):
-    ab_index = 99 - int(ab_value)
-    if ab_index >= 0 and ab_index < len(rechtecke):
-        start_zeile = rechtecke[ab_index][0]
-        hoehe = rechtecke[ab_index][1]
-        y_position = start_zeile + b_value + 0.5
-        return y_position
-    return None
-
-herkunfts_list = df_parameters['Herkunft'].unique()
-color_palette = px.colors.qualitative.Plotly  # Plotly-Farben
-color_mapping = {herkunft: color_palette[i % len(color_palette)] for i, herkunft in enumerate(herkunfts_list)}
-
-
-
-#  Manually ordered list of convex hulls in the legend
-ordered_hulls = [
-    convex_hulls_file_11,  # Clay
-    convex_hulls_file_10,  # Loamy Clay
-    convex_hulls_file_1,   # Sandy Clay
-    convex_hulls_file_2,   # Clayey Sand
-    convex_hulls_file_7,   # Loam
-    convex_hulls_file_4,   # Silty Loam
-    convex_hulls_file_15,  # Loamy Silt
-    convex_hulls_file_5,   # Silt
-    convex_hulls_file_3,   # Sandy Loam
-    convex_hulls_file_8,   # Loamy Sand
-    convex_hulls_file_6,   # Sandy Silt
-    convex_hulls_file_9,   # Silty Sand
-    convex_hulls_file_12,  # Sand
-    convex_hulls_file_14,  # Organo-Mineral Soils
-
-]
-
-
 # Mapping of RGBA colors to sub-classes
 farbe_to_subklasse = {
-    "rgba(86, 180, 233)": "Sand",
-    "rgba(0, 158, 115)": "Silty Sand",
-    "rgba(240, 228, 66)": "Loamy Sand",
-    "rgba(94, 60, 153)": "Sandy Silt",
-    "rgba(139, 139, 139)": "Silt",
-    "rgba(204, 121, 167)": "Clayey Sand",
-    "rgba(178, 34, 34)": "Sandy Loam",
-    "rgba(253, 192, 134)": "Loamy Silt",
-    "rgba(160, 82, 45)": "Sandy Clay",
-    "rgba(123, 204, 196)": "Loam",
-    "rgba(0, 114, 178)": "Clay Loam",
-    "rgba(51, 51, 51)": "Clay",
-    "rgba(160, 180, 80)": "Silty Loam",
-    "rgba(101, 67, 33)": "Organo-Mineral Soils",
-    "rgba(120, 85, 60)": "Organic Soils"
+    "rgba(123, 104, 238, 0.45)": "Sand",
+    "rgba(0, 70, 50, 0.45)": "Silty Sand",
+    "rgba(50, 205, 50, 0.45)": "Loamy Sand",
+    "rgba(255, 140, 0, 0.45)": "Sandy Silt",
+    "rgba(178, 34, 34, 0.45)": "Silt",
+    "rgba(86, 180, 233, 0.45)": "Clayey Sand",
+    "rgba(255, 255, 80, 0.45)": "Sandy Loam",
+    "rgba(255, 170, 190, 0.45)": "Loamy Silt",
+    "rgba(0, 0, 139, 0.45)": "Sandy Clay",
+    "rgba(110, 55, 30, 0.45)": "Loam",
+    "rgba(0, 128, 128, 0.45)": "Clay Loam",
+    "rgba(25, 25, 25, 0.45)": "Clay",
+    "rgba(218, 112, 214, 0.45)": "Silty Loam",
+
 }
 
-
-
-
-# Legend text as HTML with fixed display order
+# Legend text as HTML
 legende_text = (
     "<span style='font-size:24px; font-weight:bold;'>Soil texture classes</span><br>"
-    "<span style='line-height:24px;'>&nbsp;</span><br>"  # Leerzeile für Abstand
+
 )
 
 
-# Predefined display order of the legend
+# Display order of the legend
 ordered_legende = [
-    "Clay",
-    "Clay Loam",
-    "Sandy Clay",
-    "Clayey Sand",
-    "Loam",
-    "Loamy Silt",
-    "Silty Loam",
-    "Silt",
-    "Sandy Loam",
-    "Loamy Sand",
-    "Sandy Silt",
-    "Silty Sand",
-    "Sand",
-    "Organo-Mineral Soils",
-    "Organic Soils"
+    "Clay", "Clay Loam", "Sandy Clay", "Clayey Sand", "Loam",
+    "Loamy Silt",  "Silty Loam", "Sandy Loam", "Loamy Sand","Silt",
+    "Sandy Silt", "Silty Sand", "Sand", "Organic & Organo-Mineral Soils"
 ]
 
 for name in ordered_legende:
-    farbe = next((k for k, v in farbe_to_subklasse.items() if v == name), None)
-    if farbe:
-        legende_text += f'<span style="color:{farbe}; font-size:40px;">■</span> {name}<br>'
+    if name == "Organic & Organo-Mineral Soils":
+        # einheitliche Mischfarbe (mittleres Braun)
+        farbe_combined = "rgba(80, 45, 15, 0.14)"  # etwas kräftiger als die Originalfarben
 
+        legende_text += (
+            f'<span style="color:{farbe_combined}; font-size:40px;">■</span> '
+            f'Organo-Mineral & Organic Soils<br>'
+        )
 
-# Set to track already added class names
-already_added = set()
+    else:
+        farbe = next((k for k, v in farbe_to_subklasse.items() if v == name), None)
+        if farbe:
+            legende_text += f'<span style="color:{farbe}; font-size:40px;">■</span> {name}<br>'
 
-for file_path in ordered_hulls:
-    hull_name = legend_mapping.get(file_path, file_path.split("\\")[-1].split(".")[0])
-    if hull_name not in already_added:
-        # Einheitliches Mapping für alle Klassen
-        regel_farb_mapping = {
-            legend_mapping[file]: color_mapping_files[file]
-            for file in legend_mapping
-        }
-
-
-#List to group points by origin and rectangle (AB)
-grouped_points = {}
 
 df_hulls_combined = pd.concat([
     pd.read_excel(path).assign(file_source=path)
@@ -351,7 +274,6 @@ df_hulls_combined = pd.concat([
 # Group the hull data based on origin and AB_Value
 grouped_hulls_combined = df_hulls_combined.groupby(["Soil texture class", "AB_Value"])
 
-
 # Function to plot convex hulls with different colors based on source file
 def plot_imported_hulls_with_file_colors(grouped_hulls, file_color_mapping):
     for (soil_class, ab_value), group in grouped_hulls:
@@ -359,11 +281,11 @@ def plot_imported_hulls_with_file_colors(grouped_hulls, file_color_mapping):
         hull_x = group["X"].values
         hull_y = group["Y"].values
 
-        # Close the hull by appending the first point to the end
+
         hull_x = np.append(hull_x, hull_x[0])
         hull_y = np.append(hull_y, hull_y[0])
 
-        # Determine the color based on the source file
+
         file_source = group["file_source"].iloc[0]
         color = file_color_mapping.get(file_source, "rgba(0, 0, 0, 0.5)")
 
@@ -374,191 +296,34 @@ def plot_imported_hulls_with_file_colors(grouped_hulls, file_color_mapping):
             mode="lines",
             line=dict(color=color, width=1.5),
             fill="toself",
-            fillcolor=color if file_source in [convex_hulls_file_14]
-            else ensure_transparency(color, alpha=0.60),
+            fillcolor=color if file_source in [convex_hulls_file_14, convex_hulls_file_16]
+            else ensure_transparency(color, alpha=0.45),
             name=f"Class: {soil_class}, AB: {ab_value}"
         ))
 
 # Plot the imported convex hulls using file-specific colors
 plot_imported_hulls_with_file_colors(grouped_hulls_combined, color_mapping_files)
 
-show_points = False  # <--- set to True if points shall be shown
-
-color_count = {}
-
-if show_points:
-    for idx, row in df_parameters.iterrows():
-        a = row['Unnamed: 1']
-        b = row['Unnamed: 2']
-        c = row['Unnamed: 3']
-        d = row['Unnamed: 4']
-        herkunft = row['Herkunft']
-        index = row['Index']
-        location = row['location']
-        ab_value = row['AB']
-        color = None
-
-
-
-
-    # Normalization and Texture Classification of Soil Data; Color-coded point plotting based on color of subfields
-    multiplikator = (100 - c) / 100
-
-
-    # Sand 1 – Sky blue (part 1 of a concave region)
-    if (80 * multiplikator <= a <= 100 * multiplikator) and (0 <= b <= 20 * multiplikator) and (
-            0 <= d <= 10 * multiplikator):
-        color = "rgba(86, 180, 233, 0.75)"  # Sky blue
-
-    # Sand 2 – Sky Blue (Part 2 of the concave area)
-    elif (65 * multiplikator <= a <= 80 * multiplikator) and (15 * multiplikator <= b <= 30 * multiplikator) and (
-            0 <= d <= 5 * multiplikator):
-        color = "rgba(86, 180, 233, 0.75)"  # Sky Blue
-
-    # Silty Sand – Green (convex_hulls_file_9)
-    elif (40 * multiplikator <= a <= 70 * multiplikator) and (30 * multiplikator <= b <= 55 * multiplikator) and (
-            0 <= d <= 5 * multiplikator):
-        color = "rgba(0, 158, 115, 0.75)"
-
-    # Loamy Sand – Yellow (convex_hulls_file_8)
-    elif (30 * multiplikator <= a <= 80 * multiplikator) and (10 * multiplikator <= b <= 55 * multiplikator) and (
-            5 * multiplikator <= d <= 15 * multiplikator):
-        color = "rgba(240, 228, 66, 0.75)"
-
-    # Sandy Silt – Violet (convex_hulls_file_6)
-    elif (10 * multiplikator <= a <= 45 * multiplikator) and (55 * multiplikator <= b <= 75 * multiplikator) and (
-            0 <= d <= 15 * multiplikator):
-        color = "rgba(94, 60, 153, 0.75)"
-
-    # Silt – Silver (convex_hulls_file_5)
-    elif (0 <= a <= 25 * multiplikator) and (75 * multiplikator <= b <= 100 * multiplikator) and (
-            0 <= d <= 25 * multiplikator):
-        color = "rgba(139, 139, 139, 0.75)"  # NEW!
-
-    # Clayey Sand – Turquoise Green (convex_hulls_file_2)
-    elif (65 * multiplikator <= a <= 90 * multiplikator) and (0 <= b <= 10 * multiplikator) and (
-            10 * multiplikator <= d <= 25 * multiplikator):
-        color = "rgba(204, 121, 167, 0.75)"
-
-    # Sandy Loam – Firebrick (convex_hulls_file_3)
-    elif (20 * multiplikator <= a <= 75 * multiplikator) and (10 * multiplikator <= b <= 55 * multiplikator) and (
-            15 * multiplikator <= d <= 25 * multiplikator):
-        color = "rgba(178, 34, 34, 0.75)"
-
-    # Loamy Silt – Light Orange (convex_hulls_file_4)
-    elif (0 <= a <= 30 * multiplikator) and (55 * multiplikator <= b <= 75 * multiplikator) and (
-            15 * multiplikator <= d <= 25 * multiplikator):
-        color = "rgba(253, 192, 134, 0.75)"
-
-    # Sandy Clay – Sienna (convex_hulls_file_1)
-    elif (50 * multiplikator <= a <= 75 * multiplikator) and (0 <= b <= 10 * multiplikator) and (
-            25 * multiplikator <= d <= 40 * multiplikator):
-        color = "rgba(160, 82, 45, 0.75)"
-
-    # Loam – Turquoise Gray (convex_hulls_file_7)
-    elif (5 * multiplikator <= a <= 65 * multiplikator) and (10 * multiplikator <= b <= 55 * multiplikator) and (
-            25 * multiplikator <= d <= 40 * multiplikator):
-        color = "rgba(123, 204, 196, 0.70)"
-
-    # Silty Loam – Dusty Pink (convex_hulls_file_15)
-    elif (0 <= a <= 20 * multiplikator) and (55 * multiplikator <= b <= 75 * multiplikator) and (
-            25 * multiplikator <= d <= 45 * multiplikator):
-        color = "rgba(160, 180, 80, 0.75)"
-
-    # Loamy Clay – Blue (convex_hulls_file_10)
-    elif (0 <= a <= 60 * multiplikator) and (0 <= b <= 55 * multiplikator) and (
-            40 * multiplikator <= d <= 50 * multiplikator):
-        color = "rgba(0, 114, 178, 0.75)"
-
-    # Clay – Dark Gray (convex_hulls_file_11)
-    elif (0 <= a <= 50 * multiplikator) and (0 <= b <= 50 * multiplikator) and (
-            50 * multiplikator <= d <= 100 * multiplikator):
-        color = "rgba(51, 51, 51, 0.75)"
-
-    # Special case: if humus content (C) is very high, assign specific color
-    if c > 35:
-        color = "rgba(80, 80, 80, 0.9)"  # Dark gray tone for very high humus
-    elif c > 15:
-        color = "rgba(101, 67, 33, 0.9)"  # Brown for high humus
-
-
-    if color is None:
-        color = find_nearest_class(a, b, c, d)
-
-    # ✅ Increment counter – regardless of whether assigned by rule or fallback
-    if color not in color_count:
-        color_count[color] = 1
-    else:
-        color_count[color] += 1
-
-    # **DEBUG output**
-    y_position_punkt = calculate_y_position(ab_value, b)
-    print(f"DEBUG -> Index: {index}, A={a}, B={b}, D={d}, C={c}, AB={ab_value}, y={y_position_punkt}, Farbe={color}")
-
-    # Mapping colors to English soil texture classes (for hover text)
-    color_to_soil_class = {
-        "rgba(86, 180, 233, 0.75)": "Sand",
-        "rgba(0, 158, 115, 0.75)": "Silty Sand",
-        "rgba(240, 228, 66, 0.75)": "Loamy Sand",
-        "rgba(94, 60, 153, 0.75)": "Sandy Silt",
-        "rgba(139, 139, 139, 0.75)": "Silt",
-        "rgba(204, 121, 167, 0.75)": "Clayey Sand",
-        "rgba(178, 34, 34, 0.75)": "Sandy Loam",
-        "rgba(253, 192, 134, 0.75)": "Loamy Silt",
-        "rgba(160, 82, 45, 0.75)": "Sandy Clay",
-        "rgba(123, 204, 196, 0.70)": "Loam",
-        "rgba(0, 114, 178, 0.75)": "Clay Loam",
-        "rgba(51, 51, 51, 0.75)": "Clay",
-        "rgba(245, 222, 179, 0.5)": "Organo-Mineral Soils",
-        "rgba(160, 180, 80, 0.75)": "Silty Loam"
-    }
-    soil_class = color_to_soil_class.get(color, "Unknown")
-
-    # **Plot point**
-    fig.add_trace(go.Scatter(
-        x=[c],
-        y=[y_position_punkt],
-        mode='markers',
-        marker=dict(
-            symbol='circle',
-            size=17,
-            color=color,
-            opacity=1,
-            line=dict(color="black", width=3)
-
+# boundary between Organo-Mineral Soils and Organic Soils
+fig.add_shape(
+    type="line",
+    x0=2905,
+    x1=5050,
+    y0=35,
+    y1=35,
+    line=dict(
+        color="rgba(50, 25, 10, 1)",  # dunkles Braun
+        width=3.8,
+        dash="dash"
     ),
-        showlegend=False,
-        hovertemplate=(
-            f"<b>Index:</b> {index}<br>"
-            f"<b>Soil texture class:</b> {soil_class}<br>"
-            f"<b>Location:</b> {location}<br>"  
-            f"Sand (A): {a}%<br>"
-            f"Silt (B): {b}%<br>"
-            f"Humus (C): {c}%<br>"
-            f"Clay (D): {d}%<extra></extra>"
-        )
-
-    ))
+    layer="above"
+)
 
 
-
-#  Output class distribution summary
-print("\n--- Soil texture class distribution based on number of points ---")
-total_points = sum(color_count.values())
-
-for color_code, count in sorted(color_count.items(), key=lambda x: x[1], reverse=True):
-    base_color = strip_alpha(color_code)
-    soil_class = farbe_to_subklasse.get(base_color, "Unknown")
-    percent = (count / total_points) * 100
-    print(f"{soil_class}: {count} points ({percent:.1f} %)")
-
-
-
-
-# Adjust layout to center and rotate plot by 90 degrees
+# Adjust layout to center
 fig.update_layout(
-plot_bgcolor="white",  # Set plot background to white
-    paper_bgcolor="white",  # Set whole figure background to white
+plot_bgcolor="white",
+    paper_bgcolor="white",
     xaxis=dict(
         title=dict(
             text="Sum of Sand % (A) and Silt % (B)",
@@ -573,25 +338,26 @@ plot_bgcolor="white",  # Set plot background to white
             text="Humus (%) /// Difference between height of AB rectangle and the Humus content (%) equals Clay content (%)",
             font=dict(size=21, color="black")
         ),
-        range=[0, 100],  # korrekt, wenn du Humus von 0 bis 16 % abbildest
+        range=[0, 100],
         tickformat=".0f",
         dtick=5,
         color="black",
         linecolor="gray",
         tickfont=dict(size=25, color="black")
     ),
-    autosize=False,  # Disable automatic sizing
+    autosize=False,
     width=2260,  # Set plot width
     height=1210,  # Set plot height
     margin=dict(l=0, r=5, t=20, b=5),  # Center the plot by minimizing margins
     showlegend=False  # Disable the legend
 )
-# **Add legend as an annotation**
+
+# **Add legend as an annotation
 fig.update_layout(
     annotations=[
         dict(
-            x=500,
-            y=75,
+            x=415,
+            y=92,
             text=legende_text,
             showarrow=False,
             font=dict(size=28, color="black"),
@@ -604,29 +370,60 @@ fig.update_layout(
         )
     ]
 )
+# Additional text annotations in the diagram
+extra_annotations = [
+    dict(
+        x=2800,
+        y=25,
+        text="Organo-Mineral Soils",
+        showarrow=False,
+        font=dict(size=26, color="rgb(80,45,15)", family="Arial"),
+        align="center",
+        bgcolor="rgba(255,255,255,0.7)",
+        bordercolor="rgba(80,45,15,0.8)",
+        borderwidth=1.5,
+        borderpad=4,
+        xanchor="center"
+    ),
+    dict(
+        x=4200,
+        y=50,
+        text="Organic Soils",
+        showarrow=False,
+        font=dict(size=26, color="rgb(60,35,10)", family="Arial"),
+        align="center",
+        bgcolor="rgba(255,255,255,0.7)",
+        bordercolor="rgba(60,35,10,0.8)",
+        borderwidth=1.5,
+        borderpad=4,
+        xanchor="center"
+    )
+]
 
 
-# Y-values where dashed horizontal lines should be added
+fig.update_layout(annotations=fig.layout.annotations + tuple(extra_annotations))
+
+
+#  horizontal lines
 y_values = [ 10, 20, 30, 40, 50, 60, 70, 80, 90 ]
 
 # Add horizontal dashed lines
 for y in y_values:
     fig.add_shape(
         type="line",
-        x0=0,   # Start point on the X-axis (left edge of the chart)
+        x0=0,
         x1=max(df_parameters['Unnamed: 3']) + rechtecke[-1][0] + rechtecke[-1][1],  # End point on the X-axis (right edge)
-        y0=y,   # Y-position where the line is drawn
-        y1=y,   # Constant Y (horizontal line)
+        y0=y,
+        y1=y,
         line=dict(
-            color="black",  # Line color
-            width=0.5,        # Line width
-            dash="dash"    # Dashed line style
+            color="black",
+            width=0.5,
+            dash="dash"
         )
     )
 
 # X-values for vertical dashed lines
-x_values = [909.5, 3749.5, 4569.5, 1769.5, 2529.5, 3189.5, 4209.5, 4850.5, 4995.5, 442, 1352, 2162, 2872, 3482, 3992, 4402, 4712, 4922, 5037.5]  # Mittlere Positionen von AB90, AB50, AB30
-
+x_values = [909.5, 3749.5, 4569.5, 1769.5, 2529.5, 3189.5, 4209.5, 4850.5, 4995.5, 442, 1352, 2162, 2872, 3482, 3992, 4402, 4712, 4922, 5037.5]  
 # Add vertical dashed lines
 for x in x_values:
     fig.add_shape(
