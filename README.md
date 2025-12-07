@@ -1,12 +1,12 @@
 # cantor_grids
-**Cantor Grids: A New 2D Visualization Method for Four-Component Systems, with Exemplary Applications in Garnet Chemistry and Soil Classification**
+**Cantor Grids: A New 2D Visualization Method for Four-Parameter Systems, with Exemplary Applications in Garnet Chemistry and Soil Classification**
 
 ## Overview
 
 This repository provides a framework for the graphical representation and analysis of four-component systems using customized Cantor grids. The approach is designed to minimize spatial overlap between data points and maximize the resolution of subgroups or classifications within complex, compositional datasets.
 
 
-The project comprises modular Python scripts labeled `C1` to `C7`:
+The project comprises modular Python scripts labeled `C1` to `C8`:
 
 | File | Description |
 |------|-------------|
@@ -16,5 +16,5 @@ The project comprises modular Python scripts labeled `C1` to `C7`:
 | `C4.py` | Visualizes scattered subfields of garnets in a Cantor diagram based on their end-member composition. |
 | `C5.py` | Visualizes scattered subfields of garnets in a Cantor Diagram plus colorbar to interpret samples from Pernegg. |
 | `C6.py` | Cantor diagram for a soil texture classification system including organo-mineral and organic soils. |
-| `C7.py` |
-| `C8.py` | Cantor diagram with of soil samples of district Kirchbach with displayed Available Water Content as halo. |
+| `C7.py` | Cantor diagram with synthetic data with displayed Available Water Content (colorbar)
+| `C8.py` | Cantor diagram with soil samples of district Kirchbach with displayed Available Water Content as halo (colorbar. |
