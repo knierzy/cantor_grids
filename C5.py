@@ -456,9 +456,8 @@ fig.add_annotation(
 # Show plot
 fig.show()
 
-# ============================================================
+
 #        EXPORT SECTION (HTML / PNG / TIFF) — GARNET SCRIPT
-# ============================================================
 
 import os
 from playwright.sync_api import sync_playwright
@@ -471,18 +470,18 @@ base_dir = os.path.dirname(os.path.abspath(__file__))
 export_dir = os.path.join(base_dir, "exports")
 os.makedirs(export_dir, exist_ok=True)
 
-# === UNIQUE FILENAMES FOR THIS SCRIPT ===
+# UNIQUE FILENAMES FOR THIS SCRIPT 
 png_path  = os.path.join(export_dir, "cantor_export_garnet_system.png")
 tiff_path = os.path.join(export_dir, "cantor_export_garnet_system.tiff")
 html_output = os.path.join(export_dir, "cantor_export_garnet_system.html")
 
-# ---- Export HTML version of the figure ----
+#Export HTML version of the figure 
 fig.write_html(html_output, include_plotlyjs="cdn", full_html=True)
 
 # Convert file path to a local browser URL
 html_path = "file:///" + html_output.replace("\\", "/")
 
-# ---- Create high-resolution PNG using Playwright ----
+# Create high-resolution PNG using Playwright 
 def export_highres_png():
     print("📸 Erstelle hochauflösendes PNG ...")
     with sync_playwright() as p:
@@ -491,12 +490,12 @@ def export_highres_png():
             viewport={"width": 2260, "height": 1210, "device_scale_factor": 2}
         )
         page.goto(html_path)
-        page.wait_for_timeout(800)  # Warten bis Plot vollständig geladen ist
+        page.wait_for_timeout(800)  
         page.screenshot(path=png_path, full_page=True)
         browser.close()
     print("✅ PNG gespeichert unter:", png_path)
 
-# ---- Convert PNG to TIFF with 400 dpi ----
+#  Convert PNG to TIFF with 400 dpi 
 def convert_png_to_tiff_with_dpi(png_path, tiff_path, dpi=(400, 400)):
     print("🖼️ Konvertiere PNG → TIFF (400 dpi) ...")
     if os.path.exists(png_path):
@@ -506,7 +505,7 @@ def convert_png_to_tiff_with_dpi(png_path, tiff_path, dpi=(400, 400)):
     else:
         print("❌ PNG nicht gefunden – TIFF konnte nicht erzeugt werden:", png_path)
 
-# ---- Execute export sequence ----
+# Execute export sequence 
 export_highres_png()
 convert_png_to_tiff_with_dpi(png_path, tiff_path)
 
