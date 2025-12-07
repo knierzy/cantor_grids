@@ -162,7 +162,7 @@ def add_rechtecke_mit_farbverlauf(rechtecke, x_offset, spiegeln=False):
 add_rechtecke_mit_farbverlauf(rechtecke, 0)
 
 # Load data from Excel file (relative path for GitHub)
-file_path_gilgen = "data/Komp_Pub.xlsx"
+file_path_gilgen = "data/Komp_Pub (3).xlsx"
 df = pd.read_excel(file_path_gilgen, sheet_name='Soil_Kirchdorf')
 
 
