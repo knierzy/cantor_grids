@@ -1079,9 +1079,9 @@ fig.add_annotation(
 fig.show()
 
 
-# ============================================================
+
 #                EXPORT SECTION (HTML / PNG / TIFF)
-# ============================================================
+
 
 import os
 from playwright.sync_api import sync_playwright
@@ -1099,13 +1099,13 @@ png_path  = os.path.join(export_dir, "cantor_export_interaktiv2.png")
 tiff_path = os.path.join(export_dir, "cantor_export_interaktiv2.tiff")
 html_output = os.path.join(export_dir, "cantor_export_interaktiv2.html")
 
-# ---- Export HTML version of the figure ----
+#  Export HTML version of the figure 
 fig.write_html(html_output, include_plotlyjs="cdn", full_html=True)
 
 # Convert file path to a local browser URL
 html_path = "file:///" + html_output.replace("\\", "/")
 
-# ---- Create high-resolution PNG using Playwright ----
+# Create high-resolution PNG using Playwright 
 def export_highres_png():
     print("📸 Erstelle hochauflösendes PNG ...")
     with sync_playwright() as p:
@@ -1119,7 +1119,7 @@ def export_highres_png():
         browser.close()
     print("✅ PNG gespeichert unter:", png_path)
 
-# ---- Convert PNG to TIFF with 400 dpi ----
+#  Convert PNG to TIFF with 400 dpi 
 def convert_png_to_tiff_with_dpi(png_path, tiff_path, dpi=(400, 400)):
     print("🖼️ Konvertiere PNG → TIFF (400 dpi) ...")
     if os.path.exists(png_path):
@@ -1129,7 +1129,7 @@ def convert_png_to_tiff_with_dpi(png_path, tiff_path, dpi=(400, 400)):
     else:
         print("❌ PNG nicht gefunden – TIFF konnte nicht erzeugt werden:", png_path)
 
-# ---- Execute export sequence ----
+# Execute export sequence 
 export_highres_png()
 convert_png_to_tiff_with_dpi(png_path, tiff_path)
 
