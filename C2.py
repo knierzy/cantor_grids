@@ -294,10 +294,6 @@ for (herkunft, ab_value), points in grouped_points.items():
         print(f"Convex Hull Fehler übersprungen für {herkunft}, AB {ab_value}: {e}")
 
 
-
-
-
-
 # create a DataFrame from the convex hull data.
 df_hulls = pd.DataFrame(convex_hull_data)
 
