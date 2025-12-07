@@ -160,7 +160,7 @@ add_rechtecke_mit_farbverlauf(rechtecke, 0)
 
 
 # Load data from xlsx file
-file_path_gilgen = "data/Komp_Pub (3).xlsx"
+file_path_gilgen = "data/compendium.xlsx"
 df = pd.read_excel(file_path_gilgen, sheet_name='Soil_synth_data')
 print(df.columns.tolist())
 
