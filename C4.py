@@ -331,9 +331,8 @@ fig.update_layout(
 # show plot
 fig.show()
 
-# ============================================================
+
 #        EXPORT SECTION (HTML / PNG / TIFF) — GARNET SIMPLE
-# ============================================================
 
 import os
 from playwright.sync_api import sync_playwright
@@ -366,12 +365,12 @@ def export_highres_png():
             viewport={"width": 2260, "height": 1210, "device_scale_factor": 2}
         )
         page.goto(html_path)
-        page.wait_for_timeout(800)  # Warten, bis der Plot vollständig geladen ist
+        page.wait_for_timeout(800)  
         page.screenshot(path=png_path, full_page=True)
         browser.close()
     print("✅ PNG gespeichert unter:", png_path)
 
-# ---- Convert PNG to TIFF with 400 dpi ----
+# Convert PNG to TIFF with 400 dpi 
 def convert_png_to_tiff_with_dpi(png_path, tiff_path, dpi=(400, 400)):
     print("🖼️ Konvertiere PNG → TIFF (400 dpi) ...")
     if os.path.exists(png_path):
@@ -381,7 +380,7 @@ def convert_png_to_tiff_with_dpi(png_path, tiff_path, dpi=(400, 400)):
     else:
         print("❌ PNG nicht gefunden – TIFF konnte nicht erzeugt werden:", png_path)
 
-# ---- Execute export sequence ----
+# Execute export sequence 
 export_highres_png()
 convert_png_to_tiff_with_dpi(png_path, tiff_path)
 
