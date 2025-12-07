@@ -157,7 +157,7 @@ add_rechtecke_mit_farbverlauf(rechtecke, 0)
 
 
 # Load data from Excel file 
-file_path_gilgen = "data/Komp_Pub.xlsx"
+file_path_gilgen = "data/compendium.xlsx"
 df = pd.read_excel(file_path_gilgen, sheet_name='Boden_O')
 
 # Load origin and index number (with the filtered rows without NaN)"
