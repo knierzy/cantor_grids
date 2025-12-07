@@ -210,82 +210,40 @@ for idx, row in df_parameters.iterrows():
         grouped_points[grouped_key].append((c, y_position_punkt))
 
 
-    # Function to display and calculate convex hulls
-    def plot_convex_hull(points, color):
-        points = np.array(points)
-
-        if len(points) < 3:
-            # if not enough points, skip.
-            return
-
-        try:
-            # calculate convex hull
-            hull = ConvexHull(points)
-            hull_points = points[hull.vertices]
-            hull_x = hull_points[:, 0]
-            hull_y = hull_points[:, 1]
-            hull_x = np.append(hull_x, hull_x[0])  
-            hull_y = np.append(hull_y, hull_y[0])
-
-            # plot convex hull with alpha 0.7
-            fig.add_trace(go.Scatter(
-                x=hull_x,
-                y=hull_y,
-                mode="lines",
-                line=dict(color=color, width=1),
-                fill="toself",
-                fillcolor=ensure_transparency(color, alpha=0.7)
-            ))
-        except Exception as e:
-            # if an error occurs -> warning
-            print(f"Fehler beim Berechnen der Convex Hull: {e}")
-
-
-    # function to ensure the transparency of an RGBA color.
-    def ensure_transparency(color, alpha=0.7):
-        if "rgba" in color:
-            
-            return color[:color.rfind(",")] + f", {alpha})"
-        elif color.startswith("#"):
-        
-            r = int(color[1:3], 16)
-            g = int(color[3:5], 16)
-            b = int(color[5:7], 16)
-            return f"rgba({r}, {g}, {b}, {alpha})"
-        else:
-            return f"rgba(0, 0, 0, {alpha})"
-
-# Compute and plot convex hulls for each group
-for (herkunft, ab_value), points in grouped_points.items():
-    color = color_mapping.get(herkunft, "rgba(0,0,0,0.5)")  # Standardfarbe, falls nicht definiert
-    plot_convex_hull(points, color)
-
-# list for all convex hull data
-convex_hull_data = []
-
-# Compute convex hulls and store the points in the list
-for (herkunft, ab_value), points in grouped_points.items():
+def plot_convex_hull(points, color):
     points = np.array(points)
 
+    # mindestens 3 Punkte
     if len(points) < 3:
-        # if not enough points, skip.
-        continue
+        return
+
+    # prüfen auf gleiche X-Werte
+    if np.all(points[:, 0] == points[0, 0]):
+        print("Convex Hull übersprungen: alle X-Werte identisch.")
+        return
+
+    # prüfen auf gleiche Y-Werte
+    if np.all(points[:, 1] == points[0, 1]):
+        print("Convex Hull übersprungen: alle Y-Werte identisch.")
+        return
 
     try:
-        # Caclculate convex hull
         hull = ConvexHull(points)
         hull_points = points[hull.vertices]
 
-        # Save points of the hull in the list
-        for point in hull_points:
-            convex_hull_data.append({
-                "Herkunft": herkunft,
-                "AB_Value": ab_value,
-                "X": point[0],  # x coordinate
-                "Y": point[1]   # y coordinate
-            })
+        hull_x = np.append(hull_points[:, 0], hull_points[0, 0])
+        hull_y = np.append(hull_points[:, 1], hull_points[0, 1])
+
+        fig.add_trace(go.Scatter(
+            x=hull_x,
+            y=hull_y,
+            mode="lines",
+            line=dict(color=color, width=1),
+            fill="toself",
+            fillcolor=ensure_transparency(color, alpha=0.7)
+        ))
     except Exception as e:
-        print(f"Fehler beim Berechnen der Convex Hull für Herkunft {herkunft} und AB {ab_value}: {e}")
+        print(f"Convex Hull Fehler übersprungen: {e}")
 
 # create a DataFrame from the convex hull data.
 df_hulls = pd.DataFrame(convex_hull_data)
