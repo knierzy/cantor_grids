@@ -160,8 +160,8 @@ add_rechtecke_mit_farbverlauf(rechtecke, 0)
 
 
 # Load data from xlsx file
-file_path_gilgen = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\Rohdaten_für_eq_berch\Kompendium_Ö.xlsx"
-df = pd.read_excel(file_path_gilgen, sheet_name='Boden_synth2')
+file_path_gilgen = "data/Komp_Pub (3).xlsx"
+df = pd.read_excel(file_path_gilgen, sheet_name='Soil_synth_data')
 print(df.columns.tolist())
 
 
