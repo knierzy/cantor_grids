@@ -315,7 +315,7 @@ fig.update_layout(
         color="black",              
         linecolor="black",           
         tickfont=dict(color="black") 
-        
+         ), 
     yaxis=dict(
         title=dict(
             text="Humus (%) /// Difference between height of AB rectangle and the Humus content (%) equals Clay (%)",
