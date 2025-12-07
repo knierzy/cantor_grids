@@ -6,7 +6,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 import numpy as np
 
-# Hier kommen die Dateipfade und Farbzuordnungen
+# data 
 
 convex_hulls_file_1 = "data/convex_hull_SandigerTon_STEPS_Anpassung.xlsx"
 convex_hulls_file_2 = "data/convex_hull_TonigerSand_STEPS_Anpassung.xlsx"
@@ -23,7 +23,7 @@ convex_hulls_file_12 = "data/convex_hull_Sand1_STEPS_Anpassung.xlsx"
 convex_hulls_file_14 = "data/convex_hull_organo_mineral_soils.xlsx"
 convex_hulls_file_15 = "data/convex_hull_schluffigerLehm_STEPS_ANPASSUNG.xlsx"
 convex_hulls_file_16 = "data/convex_hull_organicsoils.xlsx"
-# Farbmappings für jede Convex Hull-Datei
+
 
 # color mappings
 
@@ -454,9 +454,9 @@ fig.update_layout(
 # Show plot
 fig.show()
 
-# ============================================================
+
 #            EXPORT SECTION (HTML / PNG / TIFF) — SCRIPT 2
-# ============================================================
+
 
 import os
 from playwright.sync_api import sync_playwright
@@ -469,18 +469,18 @@ base_dir = os.path.dirname(os.path.abspath(__file__))
 export_dir = os.path.join(base_dir, "exports")
 os.makedirs(export_dir, exist_ok=True)
 
-# === UNIQUE FILENAMES FOR THIS SCRIPT ===
+#  UNIQUE FILENAMES FOR THIS SCRIPT 
 png_path  = os.path.join(export_dir, "cantor_export_organic_soils.png")
 tiff_path = os.path.join(export_dir, "cantor_export_organic_soils.tiff")
 html_output = os.path.join(export_dir, "cantor_export_organic_soils.html")
 
-# ---- Export HTML version of the figure ----
+# Export HTML version of the figure 
 fig.write_html(html_output, include_plotlyjs="cdn", full_html=True)
 
 # Convert file path to a local browser URL
 html_path = "file:///" + html_output.replace("\\", "/")
 
-# ---- Create high-resolution PNG using Playwright ----
+#  Create high-resolution PNG using Playwright 
 def export_highres_png():
     print("📸 Erstelle hochauflösendes PNG ...")
     with sync_playwright() as p:
@@ -494,7 +494,7 @@ def export_highres_png():
         browser.close()
     print("✅ PNG gespeichert unter:", png_path)
 
-# ---- Convert PNG to TIFF with 400 dpi ----
+#  Convert PNG to TIFF with 400 dpi 
 def convert_png_to_tiff_with_dpi(png_path, tiff_path, dpi=(400, 400)):
     print("🖼️ Konvertiere PNG → TIFF (400 dpi) ...")
     if os.path.exists(png_path):
@@ -504,7 +504,7 @@ def convert_png_to_tiff_with_dpi(png_path, tiff_path, dpi=(400, 400)):
     else:
         print("❌ PNG nicht gefunden – TIFF konnte nicht erzeugt werden:", png_path)
 
-# ---- Execute export sequence ----
+# Execute export sequence 
 export_highres_png()
 convert_png_to_tiff_with_dpi(png_path, tiff_path)
 
