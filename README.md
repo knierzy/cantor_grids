@@ -11,9 +11,10 @@ The project comprises modular Python scripts labeled `C1` to `C7`:
 | File | Description |
 |------|-------------|
 | `C1.py` | Generates valid 4-component integer compositions that sum to 100%.|
-| `C2.py` |  Exports convex hulls based on tuples read from an Excel file. |
+| `C2.py` | Exports convex hulls based on tuples read from an Excel file. |
 | `C3.py` | Compares two Excel datasets based on the first four columns to identify identical entries. |
-| `C4.py` | Visualizes scattered subfields of garnets based on their end-member composition in a Cantor diagram. |
-| `C5.py` | Visualizes scattered subfields of garnets plus colorbar to distinguish. |
+| `C4.py` | Visualizes scattered subfields of garnets in a Cantor diagram based on their end-member composition. |
+| `C5.py` | Visualizes scattered subfields of garnets in a Cantor Diagram plus colorbar to interpret samples from Pernegg. |
 | `C6.py` | Cantor diagram for a soil texture classification system including organo-mineral and organic soils. |
-| `C7.py` | Cantor diagram with of soil samples of district Kirchbach with displayed Available Water Content as halo. |
+| `C7.py` |
+| `C8.py` | Cantor diagram with of soil samples of district Kirchbach with displayed Available Water Content as halo. |
