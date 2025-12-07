@@ -1,4 +1,4 @@
-# Cantor diagram of Austrian soil texture classes with humus as 4th component
+# Cantor diagram of Austrian soil texture classes with humus as 4th component (data Kirchbach)
 # -------------------------------------------------------------------------
 # Creates an interactive Cantor plot showing:
 #   • AB-rectangles (AB99–AB1)
