@@ -1,4 +1,6 @@
 pandas
-plotly
 numpy
+plotly
+playwright
+pillow
 scipy
