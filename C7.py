@@ -1,5 +1,13 @@
-#### Cantor diagram illustrating an extended soil texture classification,
-#### with humus considered as a fourth component, zoomed to a threshold of 15% humus. 
+# Cantor diagram of Austrian soil texture classes with humus as 4th component
+# -------------------------------------------------------------------------
+# Creates an interactive Cantor plot showing:
+#   • AB-rectangles (AB99–AB1)
+#   • Austrian soil texture classes via convex hulls
+#   • Classification of samples based on sand, silt, clay and humus
+#   • AWC (Available Water Capacity) displayed as color halo
+#   • Inner points colored by soil texture class
+#   • Export to HTML, PNG (Playwright), and TIFF (400 dpi)
+#   • Plots 108 points from the district Kirchdorf
 
 import pandas as pd
 import plotly.graph_objects as go
