@@ -245,6 +245,47 @@ def plot_convex_hull(points, color):
     except Exception as e:
         print(f"Convex Hull Fehler übersprungen: {e}")
 
+
+# --- Convex Hull Datenspeicherung vorbereiten ---
+convex_hull_data = []
+
+# Für jede Gruppe die Convex Hull berechnen und speichern
+for (herkunft, ab_value), points in grouped_points.items():
+    points = np.array(points)
+
+    # zu wenige Punkte → weiter
+    if len(points) < 3:
+        continue
+
+    # collineare Gruppen überspringen
+    if np.all(points[:, 0] == points[0, 0]):
+        print(f"Convex Hull übersprungen (X identisch) für Herkunft {herkunft}, AB {ab_value}")
+        continue
+
+    if np.all(points[:, 1] == points[0, 1]):
+        print(f"Convex Hull übersprungen (Y identisch) für Herkunft {herkunft}, AB {ab_value}")
+        continue
+
+    try:
+        hull = ConvexHull(points)
+        hull_points = points[hull.vertices]
+
+        for p in hull_points:
+            convex_hull_data.append({
+                "Herkunft": herkunft,
+                "AB_Value": ab_value,
+                "X": p[0],
+                "Y": p[1]
+            })
+
+    except Exception as e:
+        print(f"Convex Hull Fehler übersprungen für {herkunft}, AB {ab_value}: {e}")
+
+
+
+
+
+
 # create a DataFrame from the convex hull data.
 df_hulls = pd.DataFrame(convex_hull_data)
 
