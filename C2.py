@@ -209,6 +209,18 @@ for idx, row in df_parameters.iterrows():
             grouped_points[grouped_key] = []
         grouped_points[grouped_key].append((c, y_position_punkt))
 
+def ensure_transparency(color, alpha=0.7):
+    if "rgba" in color:
+        return color[:color.rfind(",")] + f", {alpha})"
+    elif color.startswith("#"):
+        r = int(color[1:3], 16)
+        g = int(color[3:5], 16)
+        b = int(color[5:7], 16)
+        return f"rgba({r}, {g}, {b}, {alpha})"
+    else:
+        return f"rgba(0,0,0,{alpha})"
+
+
 
 def plot_convex_hull(points, color):
     points = np.array(points)
