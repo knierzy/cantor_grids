@@ -8,20 +8,20 @@ import numpy as np
 
 # data 
 
-convex_hulls_file_1 = "data/convex_hull_SandigerTon_STEPS_Anpassung.xlsx"
-convex_hulls_file_2 = "data/convex_hull_TonigerSand_STEPS_Anpassung.xlsx"
-convex_hulls_file_3 = "data/convex_hull_SandigerLehnm_STEPS_Anpassung.xlsx"
-convex_hulls_file_4 = "data/convex_hull_LehmigerSchluff_STEPS_Anpassung.xlsx"
-convex_hulls_file_5 = "data/convex_hull_Schluff_STEPS_allereduziert.xlsx"
-convex_hulls_file_6 = "data/convex_hull_sandigerSchluff_STEPS_Anpassung.xlsx"
-convex_hulls_file_7 = "data/convex_hull_Lehm_STEPS_Anpassung.xlsx"
-convex_hulls_file_8 = "data/convex_hull_lehmigerSand_STEPS_Anpassung.xlsx"
-convex_hulls_file_9 = "data/convex_hull_schluffigerSand_STEPS_Anpassung.xlsx"
-convex_hulls_file_10 = "data/convex_hull_lehmigerTon_STEPS_Anpassung1.xlsx"
-convex_hulls_file_11 = "data/convex_hull_Ton_STEPS_Anpassung.xlsx"
-convex_hulls_file_12 = "data/convex_hull_Sand1_STEPS_Anpassung.xlsx"
+convex_hulls_file_1 = "data/convex_hull_sandy_clay.xlsx"
+convex_hulls_file_2 = "data/convex_hull_clayey_sand.xlsx"
+convex_hulls_file_3 = "data/convex_hull_sandy_loam.xlsx"
+convex_hulls_file_4 = "data/convex_hull_loamy_silt.xlsx"
+convex_hulls_file_5 = "data/convex_hull_silt.xlsx"
+convex_hulls_file_6 = "data/convex_hull_sandy_silt.xlsx"
+convex_hulls_file_7 = "data/convex_hull_loam.xlsx"
+convex_hulls_file_8 = "data/convex_hull_loamy_sand.xlsx"
+convex_hulls_file_9 = "data/convex_hull_silty_sand.xlsx"
+convex_hulls_file_10 = "data/convex_hull_clay_loam.xlsx"
+convex_hulls_file_11 = "data/convex_hull_clay.xlsx"
+convex_hulls_file_12 = "data/convex_hull_sand.xlsx"
 convex_hulls_file_14 = "data/convex_hull_organo_mineral_soils.xlsx"
-convex_hulls_file_15 = "data/convex_hull_schluffigerLehm_STEPS_ANPASSUNG.xlsx"
+convex_hulls_file_15 = "data/convex_hull_silty_loam.xlsx"
 convex_hulls_file_16 = "data/convex_hull_organicsoils.xlsx"
 
 
