@@ -435,19 +435,19 @@ dbg = dbg.rename(columns={
 
 #  Mapping class → RGB color for outline (rings)
 outline_colors = {
-    "Sand": "rgba(123, 104, 238, 0.95)",
-    "Silty Sand": "rgba(0, 70, 50, 0.95)",
-    "Loamy Sand": "rgba(50, 205, 50, 0.95)",
-    "Sandy Silt": "rgba(255, 140, 0, 0.95)",
-    "Silt": "rgba(178, 34, 34, 0.95)",
-    "Clayey Sand": "rgba(86, 180, 233, 0.95)",
-    "Sandy Loam": "rgba(255, 255, 80, 0.95)",
-    "Loamy Silt": "rgba(255, 170, 190, 0.95)",
-    "Silty Loam": "rgba(218, 112, 214, 0.95)",
-    "Sandy Clay": "rgba(0, 30, 80, 0.95)",
-    "Loam": "rgba(110, 55, 30, 0.95)",
-    "Clay Loam": "rgba(0, 128, 128, 0.95)",
-    "Clay": "rgba(25, 25, 25, 0.95)",
+    "rgba(86, 180, 233, 0.75)": "Sand",
+    "rgba(0, 158, 115, 0.75)": "Silty Sand",
+    "rgba(225, 195, 65, 0.75)": "Loamy Sand",
+    "rgba(94, 60, 153, 0.75)": "Sandy Silt",
+    "rgba(70, 70, 70, 0.75)": "Silt",
+    "rgba(57, 255, 20, 0.85)": "Clayey Sand",
+    "rgba(178, 34, 34, 0.75)": "Sandy Loam",
+    "rgba(253, 192, 134, 0.75)": "Loamy Silt",
+    "rgba(160, 82, 45, 0.75)": "Sandy Clay",
+    "rgba(123, 204, 196, 0.75)": "Loam",
+    "rgba(0, 90, 160, 0.75)": "Clay Loam",
+    "rgba(17, 17, 17, 0.85)": "Clay",
+    "rgba(204, 121, 167, 0.75)": "Silty Loam",
     "Organo-Mineral Soils": "rgba(184, 115, 51, 0.95)",
     "Organic Soils": "rgba(120, 85, 60, 0.95)"
 }
