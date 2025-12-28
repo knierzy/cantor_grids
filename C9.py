@@ -216,8 +216,8 @@ add_rechtecke_mit_farbverlauf(rechtecke, 0)
 file_path_gilgen = "data/compendium.xlsx"
 df = pd.read_excel(file_path_gilgen, sheet_name='Soil_Kirchdorf')
 
-# Save original decimal texture values for AWC (do NOT modify)
-df_tex = df[['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']].copy()
+# 🔒 Original decimal texture values (before LRM)
+df_tex_raw = df[['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']].copy()
 
 
 # Load origin and index number
