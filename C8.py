@@ -734,6 +734,27 @@ fig.add_trace(go.Scatter(
     showlegend=False
 ))
 
+
+
+#2.4. Black central dot
+fig.add_trace(go.Scatter(
+
+    x=np.array(points_x)[mask_square],
+    y=np.array(points_y)[mask_square],
+    mode="markers",
+    marker=dict(
+        symbol="square",
+        size=3,
+        color="black",
+        opacity=1
+    ),
+    hoverinfo="skip",
+    showlegend=False
+))
+
+
+
+
 # High-OM > 8% – Black outer ring
 
 if "highom_x" in globals() and len(highom_x) > 0:
