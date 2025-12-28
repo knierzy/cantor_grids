@@ -106,17 +106,21 @@ rechtecke = [
 fig = go.Figure()
 
 
-def ensure_transparency(color, alpha=0.45):
-    if "rgba" in color:
-        return color[:color.rfind(",")] + f", {alpha})"
+
+def apply_alpha(color, alpha):
+    """
+    Force a specific alpha value on any rgba / hex color.
+    This is the ONLY place where transparency is controlled.
+    """
+    if color.startswith("rgba"):
+        r, g, b, _ = color.replace("rgba(", "").replace(")", "").split(",")
+        return f"rgba({r.strip()},{g.strip()},{b.strip()},{alpha})"
     elif color.startswith("#"):
         r = int(color[1:3], 16)
         g = int(color[3:5], 16)
         b = int(color[5:7], 16)
-        return f"rgba({r}, {g}, {b}, {alpha})"
-    else:
-        return f"rgba(0, 0, 0, {alpha})"
-
+        return f"rgba({r},{g},{b},{alpha})"
+    return color
 
 # Add rectangles with color gradients along the X-axis
 def add_rechtecke_mit_farbverlauf(rechtecke, x_offset, spiegeln=False):
@@ -199,17 +203,39 @@ df_tex = df[['Unnamed: 1','Unnamed: 2','Unnamed: 3','Unnamed: 4']].copy()
 df_parameters = df.copy()
 
 
-# Keep only rows where (Sand + Silt + Humus + Clay) ≥ 98%
 
-df_parameters = df_parameters[
-    df_parameters.apply(
-        lambda row: row[['Unnamed: 1','Unnamed: 2','Unnamed: 3','Unnamed: 4']].sum() >= 98,
-        axis=1
-    )
-]
+#  Function to adjust so that the sum equals 100 (LRM), if necessary
+def normalize_to_100_LRM(row):
+    cols = ['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+    values = row[cols].astype(float).to_numpy()
 
-# Apply Largest Remainder Method normalization
-df_parameters = df_parameters.apply(normalize_to_100_with_remainders, axis=1)
+    # 1. Abrunden (Floor)
+    ints = np.floor(values).astype(int)
+
+    # 2. Reste berechnen
+    remainders = values - ints
+
+    # 3. Differenz zur Zielsumme 100
+    missing = 100 - ints.sum()
+
+    if missing > 0:
+        # fehlende Einheiten → an die größten Reste
+        order = np.argsort(-remainders)
+        for i in range(missing):
+            ints[order[i]] += 1
+
+    elif missing < 0:
+        # zu viele Einheiten → bei kleinsten Resten reduzieren
+        order = np.argsort(remainders)
+        for i in range(-missing):
+            ints[order[i]] -= 1
+
+    row[cols] = ints
+    return row
+
+# Apply the function
+df_parameters = df_parameters.apply(normalize_to_100_LRM, axis=1)
+
 
 
 #  Load origin and index number
@@ -320,17 +346,47 @@ legende_text = (
 )
 
 
-#List to group points by origin and rectangle (AB)
+# Display order of the legend
+ordered_legende = [
+    "Sand",
+    "Silty Sand",
+    "Sandy Silt",
+          "Silt",
+    "Clayey Sand",
+    "Loamy Sand",
+    "Sandy Loam",
+    "Loamy Silt",
+    "Silty Loam",
+    "Loam",
+    "Sandy Clay",
+    "Clay Loam",
+    "Clay",
 
-grouped_points = {}
+]
+
+for name in ordered_legende:
+
+    if name in ["Organo-Mineral Soils", "Organic Soils"]:
+        farbe_combined = "rgba(80, 45, 15, 0.14)"
+        legende_text += (
+            f'<span style="color:{farbe_combined}; font-size:40px;">■</span> '
+            f'{name}<br>'
+        )
+
+    else:
+        farbe = next((k for k, v in farbe_to_subklasse.items() if v == name), None)
+        if farbe:
+            farbe_legende = apply_alpha(farbe, 0.60)
+            legende_text += (
+                f'<span style="color:{farbe_legende}; font-size:40px;">■</span> '
+                f'{name}<br>'
+            )
+
 
 df_hulls_combined = pd.concat([
     pd.read_excel(path).assign(file_source=path)
     for path in color_mapping_files
 ])
-
-# Group the hull data based on origin and AB_Value
-grouped_hulls_combined = df_hulls_combined.groupby(["Soil texture class", "AB_Value"])
 
 
 
@@ -359,9 +415,11 @@ def plot_imported_hulls_with_file_colors(grouped_hulls, file_color_mapping):
             mode="lines",
             line=dict(color=color, width=1.5),
             fill="toself",
-            fillcolor=color if file_source in [convex_hulls_file_14]
-            else ensure_transparency(color, alpha=0.40),
-            name=f"Class: {soil_class}, AB: {ab_value}"
+            fillcolor=(
+                apply_alpha(color, 0.20)
+                if file_source in [convex_hulls_file_14, convex_hulls_file_16]
+                else apply_alpha(color, 0.50)
+            )
         ))
 
 # Plot the imported convex hulls using file-specific colors
@@ -715,7 +773,7 @@ plot_bgcolor="white",
 )
 
 # dashed horizontal lines
-y_values = [2,4,6,8, 10,12,14, 20, 30, 40, 50, 60, 70, 80, 90 ]
+y_values = [1, 2,3, 4, 5, 6,7, 8,9, 10,12,14, 20, 30, 40, 50, 60, 70, 80, 90 ]
 
  # add horizontal dashed lines
 for y in y_values:
