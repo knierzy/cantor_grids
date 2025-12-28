@@ -701,8 +701,8 @@ plot_bgcolor="white",
     paper_bgcolor="white",
     xaxis=dict(
         title=dict(
-            text="Sum of Sand % (A) and Silt % (B)",
-            font=dict(size=24, color="black")
+             text="Sum of Sand % (A) and Silt % (B)",
+             font=dict(size=24, color="black", family="Arial Black")
         ),
         range=[-10, 1170],
         tickformat=".0f",
@@ -711,7 +711,7 @@ plot_bgcolor="white",
     yaxis=dict(
         title=dict(
             text="Humus (%) /// Difference between height of AB rectangle and the Humus content (%) equals Clay content (%)",
-            font=dict(size=21, color="black")
+            font=dict(size=19, color="black", family="Arial Black")
         ),
         range=[-0.3, 8.2],
         tickformat=".0f",
