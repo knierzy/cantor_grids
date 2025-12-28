@@ -876,18 +876,6 @@ fig.update_layout(
     )
 )
 
-# Add a vertical annotation for the colorbar title
-fig.add_annotation(
-    text="Available Water Capacity (AWC)",
-    xref="paper", yref="paper",
-    x=1.05,
-    y=0.5,
-    showarrow=False,
-    textangle=270,
-    font=dict(size=20, color="black"),
-    xanchor="center",
-    yanchor="middle"
-)
 
 
 # Light cleaning of the 'location' field:
@@ -1078,7 +1066,7 @@ for trace in fig.data:
 fig.add_annotation(
     text="Available Water Capacity (AWC)",
     xref="paper", yref="paper",
-    x=1.05,
+    x=1.02,
     y=0.5,
     showarrow=False,
     textangle=270,
