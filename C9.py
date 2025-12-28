@@ -368,14 +368,17 @@ def plot_imported_hulls_with_file_colors(grouped_hulls, file_color_mapping):
         color = file_color_mapping.get(file_source, "rgba(0, 0, 0, 0.5)")
 
         # Plot  convex hull
-        fig.add_trace(go.Scatter(
+      fig.add_trace(go.Scatter(
             x=hull_x,
             y=hull_y,
             mode="lines",
             line=dict(color=color, width=1.5),
             fill="toself",
-            fillcolor=color if file_source in [convex_hulls_file_14]
-            else ensure_transparency(color, alpha=0.50),
+            fillcolor=(
+                apply_alpha(color, 0.20)
+                if file_source in [convex_hulls_file_14, convex_hulls_file_16]
+                else apply_alpha(color, 0.50)
+            ),
             name=f"Class: {soil_class}, AB: {ab_value}"
         ))
 
