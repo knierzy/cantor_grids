@@ -524,7 +524,7 @@ for idx, row in df_parameters.iterrows():
 
     # Handle samples with high organic matter (OM > 8%)
 
-    humus_val = c
+   humus_val = c
     is_high_om = humus_val > 8
 
     if is_high_om:
@@ -537,7 +537,9 @@ for idx, row in df_parameters.iterrows():
         highom_y.append(y_val)
 
         # Store the inner color based on the soil texture class
-        highom_inner_color.append(klasse_zu_farbe.get(bodenklasse, "rgba(0,0,0,1)"))
+        highom_inner_color.append(
+            soilclass_to_color.get(bodenklasse, "rgba(0,0,0,1)")
+        )
 
         # Store hover text information for this High-OM sample
         highom_hovertexts.append(
