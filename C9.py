@@ -381,6 +381,8 @@ def plot_imported_hulls_with_file_colors(grouped_hulls, file_color_mapping):
             name=f"Class: {soil_class}, AB: {ab_value}"
         ))
 
+# Plot the imported convex hulls using file-specific colors
+plot_imported_hulls_with_file_colors(grouped_hulls_combined, color_mapping_files)
 
 
 # AWC calculation using the original decimal texture values (Saxton & Rawls 2006 with OM)
