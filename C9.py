@@ -526,7 +526,7 @@ for idx, row in df_parameters.iterrows():
 
     # Handle samples with high organic matter (OM > 8%)
 
-       humus_val = c
+    humus_val = c
     is_high_om = humus_val > 8
 
     if is_high_om:
