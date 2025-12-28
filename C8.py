@@ -640,6 +640,21 @@ fig.add_trace(go.Scatter(
     showlegend=False
 ))
 
+#1.4 Black central dot
+
+fig.add_trace(go.Scatter(
+    x=np.array(points_x)[mask_circle],
+    y=np.array(points_y)[mask_circle],
+    mode="markers",
+    marker=dict(
+        symbol="circle",
+        size=3,
+        color="black",
+        opacity=1
+    ),
+    hoverinfo="skip",
+    showlegend=False
+))
 
 
 # 2) SQUARES (70–200 cm)
