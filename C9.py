@@ -855,6 +855,26 @@ if "highom_x" in globals() and len(highom_x) > 0:
         showlegend=False
     ))
 
+if is_high_om:
+    if "highom_x" not in globals():
+        highom_x, highom_y, highom_inner_color, highom_hovertexts = [], [], [], []
+
+    highom_x.append(x_val)
+    highom_y.append(y_val)
+    highom_inner_color.append(
+        soilclass_to_color.get(bodenklasse, "rgba(0,0,0,1)")
+    )
+    highom_hovertexts.append(
+        f"<b>Index:</b> {index}<br>"
+        f"<b>Location:</b> {location}<br>"
+        f"Sand (A): {a:.1f}%<br>"
+        f"Silt (B): {b:.1f}%<br>"
+        f"Humus (C): {c:.1f}%<br>"
+        f"Clay (D): {d:.1f}%<br>"
+        f"<b>Class:</b> {bodenklasse}<br>"
+        f"<b>AWC:</b> not applicable"
+    )
+
 
 # Keep only the single global coloraxis for the AWC colorbar.
 fig.update_layout(
