@@ -1066,7 +1066,7 @@ for trace in fig.data:
 fig.add_annotation(
     text="Available Water Capacity (AWC)",
     xref="paper", yref="paper",
-    x=1.02,
+    x=1.0,
     y=0.5,
     showarrow=False,
     textangle=270,
