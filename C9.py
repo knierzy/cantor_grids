@@ -820,15 +820,16 @@ if "highom_x" in globals() and len(highom_x) > 0:
 # High-OM > 8% – White outer ring (second outline)
 
 if "highom_x" in globals() and len(highom_x) > 0:
-    fig.add_trace(go.Scatter(
+  fig.add_trace(go.Scatter(
         x=highom_x,
         y=highom_y,
         mode="markers",
         marker=dict(
             symbol="circle",
             size=24,
-            color="rgba(0,0,0,0)",
-            line=dict(color="white", width=7)
+            color="white",
+            line=dict(color="white", width=0),
+            opacity=1
         ),
         hoverinfo="skip",
         showlegend=False
