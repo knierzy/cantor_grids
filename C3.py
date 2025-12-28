@@ -7,8 +7,8 @@
 import pandas as pd
 
 # File paths
-file1 = "data/D5_data_overlap_calculation_greenschists.xlsx"
-file2 = "data/D3_data_overlap_calculation_blueschists.xlsx"
+file1 = "data/D5_constrained_cartesian_products_greenschists.xlsx"
+file2 = "data/D3_constrained_cartesian_products_blueschists.xlsx"
 
 # read Excel files
 df1 = pd.read_excel(file1, usecols=[0, 1, 2, 3])
