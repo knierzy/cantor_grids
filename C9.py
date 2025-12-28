@@ -529,31 +529,27 @@ for idx, row in df_parameters.iterrows():
     humus_val = c
     is_high_om = humus_val > 8
 
-    if is_high_om:
-        # Create the High-OM lists once if they do not exist yet
-        if "highom_x" not in globals():
-            highom_x, highom_y, highom_inner_color, highom_hovertexts = [], [], [], []
+ if is_high_om:
+    if "highom_x" not in globals():
+        highom_x, highom_y, highom_inner_color, highom_hovertexts = [], [], [], []
 
-        # Store the point position (x/y)
-        highom_x.append(x_val)
-        highom_y.append(y_val)
+    highom_x.append(x_val)
+    highom_y.append(y_val)
+    highom_inner_color.append(
+        soilclass_to_color.get(bodenklasse, "rgba(0,0,0,1)")
+    )
+    highom_hovertexts.append(
+        f"<b>Index:</b> {index}<br>"
+        f"<b>Location:</b> {location}<br>"
+        f"Sand (A): {a:.1f}%<br>"
+        f"Silt (B): {b:.1f}%<br>"
+        f"Humus (C): {c:.1f}%<br>"
+        f"Clay (D): {d:.1f}%<br>"
+        f"<b>Class:</b> {bodenklasse}<br>"
+        f"<b>AWC:</b> not applicable"
+    )
 
-        # Store the inner color based on the soil texture class
-        highom_inner_color.append(
-            soilclass_to_color.get(bodenklasse, "rgba(0,0,0,1)")
-        )
-
-        # Store hover text information for this High-OM sample
-        highom_hovertexts.append(
-            f"<b>Index:</b> {index}<br>"
-            f"<b>Location:</b> {location}<br>"
-            f"Sand (A): {a:.1f}%<br>"
-            f"Silt (B): {b:.1f}%<br>"
-            f"Humus (C): {c:.1f}%<br>"
-            f"Clay (D): {d:.1f}%<br>"
-            f"<b>Class:</b> {bodenklasse}<br>"
-            f"<b>AWC:</b> {row['AWC']:.2f}"
-        )
+    continue   # 🔥 ABSOLUT ENTSCHEIDEND
 
 
     # Store coordinates for AWC-colored point
@@ -855,25 +851,6 @@ if "highom_x" in globals() and len(highom_x) > 0:
         showlegend=False
     ))
 
-if is_high_om:
-    if "highom_x" not in globals():
-        highom_x, highom_y, highom_inner_color, highom_hovertexts = [], [], [], []
-
-    highom_x.append(x_val)
-    highom_y.append(y_val)
-    highom_inner_color.append(
-        soilclass_to_color.get(bodenklasse, "rgba(0,0,0,1)")
-    )
-    highom_hovertexts.append(
-        f"<b>Index:</b> {index}<br>"
-        f"<b>Location:</b> {location}<br>"
-        f"Sand (A): {a:.1f}%<br>"
-        f"Silt (B): {b:.1f}%<br>"
-        f"Humus (C): {c:.1f}%<br>"
-        f"Clay (D): {d:.1f}%<br>"
-        f"<b>Class:</b> {bodenklasse}<br>"
-        f"<b>AWC:</b> not applicable"
-    )
 
 
 # Keep only the single global coloraxis for the AWC colorbar.
