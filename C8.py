@@ -1044,7 +1044,7 @@ fig.add_annotation(
         "Humus (C): 5.0%<br>"
         "Clay (D): 7.0%<br>"
         "Class: Loamy Sand<br>"
-        "AWC: 12.66"
+        "AWC: 12.57"
         "</b>"
     ),
 
