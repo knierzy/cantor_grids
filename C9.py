@@ -1029,7 +1029,7 @@ plot_bgcolor="white",  # Set plot background to white
     autosize=False,
     width=2260,  # Set plot width
     height=1210,  # Set plot height
-    margin=dict(l=0, r=5, t=20, b=5),  # Center the plot by minimizing margins
+    margin=dict(l=0, r=90, t=20, b=5),  # Center the plot by minimizing margins
     showlegend=False  # Disable the legend
 )
 
