@@ -992,7 +992,7 @@ for name in sorted_classes:
         f"<span style='color:gray; font-size:18px; vertical-align:super;'>"
         f"({count} pts)</span><br>"
     )
-legende_text += f"<br><b>Total points:</b> {total_points}<br>"
+    legende_text += f"<br><b>Total points:</b> {total_points}<br>"
 
 
 # Adjust layout to center
