@@ -838,7 +838,7 @@ if "highom_x" in globals() and len(highom_x) > 0:
 
     # High-OM > 8% – Inner core (soil texture class color)
 
-    fig.add_trace(go.Scatter(
+fig.add_trace(go.Scatter(
     x=highom_x,
     y=highom_y,
     mode="markers",
