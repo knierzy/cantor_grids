@@ -363,37 +363,47 @@ pio.write_html(
     include_plotlyjs='cdn'
 )
 
+
+import os
 from playwright.sync_api import sync_playwright
 from PIL import Image
-import os
 
-# PNG- und TIFF paths
-png_path = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\Daten_sammlung_APG\cantor_swith2.png"
-tiff_path = r"C:\Users\wolfgang.knierzinger\Desktop\cantor_anwend\pub\Daten_sammlung_APG\cantor_switch400_2dpi.tiff"
-html_path = "file:///C:/Users/wolfgang.knierzinger/Desktop/cantor_export_interaktiv10.html"
+# Ensure export directory exists
+EXPORT_DIR = "exports"
+os.makedirs(EXPORT_DIR, exist_ok=True)
 
-# Screenshot (PNG)
+# Paths (relative, GitHub-safe)
+html_path = os.path.join(EXPORT_DIR, "cantor_export_interaktiv10.html")
+png_path  = os.path.join(EXPORT_DIR, "cantor_switch2.png")
+tiff_path = os.path.join(EXPORT_DIR, "cantor_switch2_400dpi.tiff")
+
+# Write interactive HTML
+fig.write_html(html_path, full_html=True, include_plotlyjs="cdn")
+print("📄 HTML written:", html_path)
+
+# Create screenshot (high-resolution PNG)
 def export_highres_png():
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
-        page = browser.new_page(viewport={"width": 2260, "height": 1210, "device_scale_factor": 2})
-        page.goto(html_path, timeout=120000)
+        page = browser.new_page(
+            viewport={"width": 2260, "height": 1210, "device_scale_factor": 2}
+        )
+        page.goto(f"file://{os.path.abspath(html_path)}", timeout=120000)
         page.screenshot(path=png_path, full_page=True)
         browser.close()
-        print("✅ Screenshot gespeichert:", png_path)
+        print("✅ PNG saved:", png_path)
 
-# convert PNG into TIFF  400 dpi
+# Convert PNG to TIFF (400 dpi)
 def convert_png_to_tiff_with_dpi(png_path, tiff_path, dpi=(400, 400)):
     if os.path.exists(png_path):
         img = Image.open(png_path)
         img.save(tiff_path, dpi=dpi)
-        print("✅ TIFF mit 400 dpi gespeichert:", tiff_path)
+        print("✅ TIFF saved (400 dpi):", tiff_path)
     else:
-        print("❌ PNG nicht gefunden:", png_path)
+        print("❌ PNG not found:", png_path)
 
-# Run export
+# Run export pipeline
 export_highres_png()
 convert_png_to_tiff_with_dpi(png_path, tiff_path)
-
 # show plot
 fig.show()
