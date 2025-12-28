@@ -994,8 +994,8 @@ plot_bgcolor="white",  # Set plot background to white
     paper_bgcolor="white",  # Set whole figure background to white
     xaxis=dict(
         title=dict(
-            text="Sum of Sand % (A) and Silt % (B)",
-            font=dict(size=24, color="black")
+             text="Sum of Sand % (A) and Silt % (B)",
+             font=dict(size=28, color="black",family="Arial Black")
         ),
         range=[-10, 4250],  # korrekt
         tickformat=".0f",
@@ -1004,7 +1004,7 @@ plot_bgcolor="white",  # Set plot background to white
     yaxis=dict(
         title=dict(
             text="Humus (%) /// Difference between height of AB rectangle and the Humus content (%) equals Clay content (%)",
-            font=dict(size=21, color="black")
+            font=dict(size=18, color="black",family="Arial Black")
         ),
         range=[-0.3, 11.5],  # ✅ neuer Fokusbereich
         tickformat=".0f",
