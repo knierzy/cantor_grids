@@ -14,8 +14,30 @@ import plotly.graph_objects as go
 import plotly.express as px
 import numpy as np
 
-# file paths
 
+# Largest Remainder Method
+def normalize_to_100_with_remainders(row):
+    cols = ['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+    values = row[cols].astype(float).to_numpy()
+
+    ints = np.floor(values).astype(int)
+    remainders = values - np.floor(values)
+    missing = 100 - ints.sum()
+
+    if missing > 0:
+        order = np.argsort(-remainders)
+        for i in range(missing):
+            ints[order[i]] += 1
+    elif missing < 0:
+        order = np.argsort(remainders)
+        for i in range(abs(missing)):
+            ints[order[i]] -= 1
+
+    row[cols] = ints
+    return row
+
+
+# file paths
 
 convex_hulls_file_1 = "data/convex_hull_sandy_clay.xlsx"
 convex_hulls_file_2 = "data/convex_hull_clayey_sand.xlsx"
@@ -174,40 +196,17 @@ add_rechtecke_mit_farbverlauf(rechtecke, 0)
 file_path_gilgen = "data/compendium.xlsx"
 df = pd.read_excel(file_path_gilgen, sheet_name='Soil_Kirchdorf')
 
+# Save original decimal texture values for AWC (do NOT modify)
+df_tex = df[['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']].copy()
+
 
 # Load origin and index number
 df_parameters = df[['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']].dropna()
 df_parameters = df_parameters[df_parameters.apply(lambda row: row[['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']].sum() >= 98, axis=1)]
 
-#  Function to adjust so that the sum equals 100
-def round_to_100(row):
-    values = {
-        'Unnamed: 1': row['Unnamed: 1'],
-        'Unnamed: 2': row['Unnamed: 2'],
-        'Unnamed: 3': row['Unnamed: 3'],
-        'Unnamed: 4': row['Unnamed: 4']
-    }
+# Apply Largest Remainder Method normalization
+df_parameters = df_parameters.apply(normalize_to_100_with_remainders, axis=1)
 
-    # Round down all values and calculate rest
-    floored = {k: int(np.floor(v)) for k, v in values.items()}
-    decimal_parts = {k: values[k] - floored[k] for k in values}
-
-    total = sum(floored.values())
-    missing = 100 - total
-
-    for k in sorted(decimal_parts, key=decimal_parts.get, reverse=True):
-        if missing <= 0:
-            break
-        floored[k] += 1
-        missing -= 1
-
-
-    for k in floored:
-        row[k] = floored[k]
-    return row
-
-# Apply the function
-df_parameters = df_parameters.apply(round_to_100, axis=1)
 
 #  Load origin and index number
 df_parameters['Herkunft'] = df.loc[df_parameters.index, 'Unnamed: 5'].values
@@ -221,20 +220,6 @@ print(duplicates[duplicates > 1].head(10))
 
 print("\n=== Example variations of location names ===")
 print(df_parameters["location"].drop_duplicates().sort_values().head(20))
-
-# Update the values in the original row
-def adjust_sum_to_100(row):
-    total = row['Unnamed: 1'] + row['Unnamed: 2'] + row['Unnamed: 3'] + row['Unnamed: 4']
-    difference = 100 - total
-    if difference != 0:
-        row['Unnamed: 4'] += difference  # Passe den letzten Parameter an, um die Summe auf 100 zu bringen
-    return row
-
-# Apply the adjustment only to rows where the sum is between 98 and 100
-df_parameters = df_parameters.apply(
-    lambda row: adjust_sum_to_100(row) if 98 <= row[['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']].sum() <= 100 else row,
-    axis=1
-)
 
 
 # Calculate AB = A + B for the y-position
@@ -381,13 +366,14 @@ plot_imported_hulls_with_file_colors(grouped_hulls_combined, color_mapping_files
 # Reference: Saxton & Rawls (2006), Soil Sci. Soc. Am. J. 70:1569–1578
 
 
-# Sand and clay as fractions (0–1)
-sand = df_parameters['Unnamed: 1'] / 100.0
-clay = df_parameters['Unnamed: 4'] / 100.0
+# Sand and clay as fractions (0–1) – ORIGINAL decimal values
+sand = df_tex.loc[df_parameters.index, 'Unnamed: 1'] / 100.0
+clay = df_tex.loc[df_parameters.index, 'Unnamed: 4'] / 100.0
 
-#  OM correction (max. 8%)
-om_pct_raw = df_parameters['Unnamed: 3']          # OM in %
-om_pct = np.clip(om_pct_raw, 0, 8) / 100.0        # Saxton & Rawls valid up to 8%
+# Organic matter (OM), clipped to Saxton & Rawls range
+om_pct_raw = df_tex.loc[df_parameters.index, 'Unnamed: 3']
+om_pct = np.clip(om_pct_raw, 0, 8) / 100.0
+
 
 #  Field capacity (33 kPa) according to Saxton & Rawls (2006)
 theta33_t = (
