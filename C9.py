@@ -971,9 +971,7 @@ class_distribution = {
 # build legend text
 legende_text = "<span style='font-size:28px; font-weight:bold;'>Soil texture classes</span><br>"
 
-# Display classes in fixed order
 sorted_classes = [name for name in ordered_legende if name not in exclude_classes]
-
 
 for name in sorted_classes:
     base_color = apply_alpha(
@@ -984,14 +982,14 @@ for name in sorted_classes:
     percent = class_distribution[name]
     count = class_counts.get(name, 0)
 
-# Add total point count at the bottom
-   legende_text += (
+    legende_text += (
         f"<span style='color:{base_color}; font-size:46px;'>■</span> "
         f"<span style='font-size:26px;'>{name}</span>: "
         f"<b>{percent:.1f}%</b> "
         f"<span style='color:gray; font-size:18px; vertical-align:super;'>"
         f"({count} pts)</span><br>"
     )
+
 
 legende_text += f"<br><b>Total points:</b> {total_points}<br>"
 
