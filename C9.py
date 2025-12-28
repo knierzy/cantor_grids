@@ -838,19 +838,23 @@ if "highom_x" in globals() and len(highom_x) > 0:
     # High-OM > 8% – Inner core (soil texture class color)
 
     fig.add_trace(go.Scatter(
-        x=highom_x,
-        y=highom_y,
-        mode="markers",
-        marker=dict(
-            symbol="circle",
-            size=14,
-            color=highom_inner_color,
-            line=dict(color="black", width=0)
-        ),
-        text=highom_hovertexts,
-        hovertemplate="%{text}<extra></extra>",
-        showlegend=False
-    ))
+    x=highom_x,
+    y=highom_y,
+    mode="markers",
+    marker=dict(
+        symbol="circle",
+        size=14,
+        color=[
+            apply_alpha(col, 1.0) for col in highom_inner_color
+        ],
+        line=dict(color="black", width=0),
+        opacity=1.0
+    ),
+    text=highom_hovertexts,
+    hovertemplate="%{text}<extra></extra>",
+    showlegend=False
+))
+
 
 
 
