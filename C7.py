@@ -588,12 +588,12 @@ fig.add_trace(go.Scatter(
 fig.add_trace(go.Scatter(
     x=ring_x, y=ring_y, mode='markers',
     marker=dict(
-        size=12.8,                       # etwas größer als der Innenpunkt
-        color=awc_values,              # Farbe nach AWC
+        size=12.8,                      
+        color=awc_values,             
         colorscale="jet",
         cmin=awc_min,
         cmax=awc_max,
-        opacity=0.95,                   # 🔹 halbtransparent!
+        opacity=0.95,                   
         line=dict(width=0),
         coloraxis="coloraxis"
     ),
