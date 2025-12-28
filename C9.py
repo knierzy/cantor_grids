@@ -363,12 +363,11 @@ def plot_imported_hulls_with_file_colors(grouped_hulls, file_color_mapping):
         hull_x = np.append(hull_x, hull_x[0])
         hull_y = np.append(hull_y, hull_y[0])
 
-        # Determine the color based on the source file
         file_source = group["file_source"].iloc[0]
         color = file_color_mapping.get(file_source, "rgba(0, 0, 0, 0.5)")
 
-        # Plot  convex hull
-      fig.add_trace(go.Scatter(
+        # Plot convex hull
+        fig.add_trace(go.Scatter(
             x=hull_x,
             y=hull_y,
             mode="lines",
@@ -382,8 +381,6 @@ def plot_imported_hulls_with_file_colors(grouped_hulls, file_color_mapping):
             name=f"Class: {soil_class}, AB: {ab_value}"
         ))
 
-# Plot the imported convex hulls using file-specific colors
-plot_imported_hulls_with_file_colors(grouped_hulls_combined, color_mapping_files)
 
 
 # AWC calculation using the original decimal texture values (Saxton & Rawls 2006 with OM)
