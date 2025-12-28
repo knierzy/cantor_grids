@@ -831,7 +831,7 @@ if "highom_x" in globals() and len(highom_x) > 0:
             symbol="circle",
             size=24,
             color="rgba(0,0,0,0)",
-            line=dict(color="white", width=5)
+            line=dict(color="white", width=7)
         ),
         hoverinfo="skip",
         showlegend=False
