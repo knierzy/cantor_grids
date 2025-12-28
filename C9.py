@@ -802,7 +802,6 @@ fig.add_trace(go.Scatter(
 
 
 
-
 # High-OM > 8% – Black outer ring
 
 if "highom_x" in globals() and len(highom_x) > 0:
@@ -812,9 +811,9 @@ if "highom_x" in globals() and len(highom_x) > 0:
         mode="markers",
         marker=dict(
             symbol="circle",
-            size=22,
+            size=18,
             color="rgba(0,0,0,0)",
-            line=dict(color="black", width=4)
+            line=dict(color="black", width=0)
         ),
         hoverinfo="skip",
         showlegend=False
@@ -830,9 +829,9 @@ if "highom_x" in globals() and len(highom_x) > 0:
         mode="markers",
         marker=dict(
             symbol="circle",
-            size=20,
+            size=24,
             color="rgba(0,0,0,0)",
-            line=dict(color="white", width=3)
+            line=dict(color="white", width=5)
         ),
         hoverinfo="skip",
         showlegend=False
@@ -847,9 +846,9 @@ if "highom_x" in globals() and len(highom_x) > 0:
         mode="markers",
         marker=dict(
             symbol="circle",
-            size=12,
+            size=14,
             color=highom_inner_color,
-            line=dict(color="black", width=1)
+            line=dict(color="black", width=0)
         ),
         text=highom_hovertexts,
         hovertemplate="%{text}<extra></extra>",
