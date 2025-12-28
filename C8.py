@@ -57,22 +57,23 @@ convex_hulls_file_16 = "data/convex_hull_organicsoils.xlsx"
 
 # color mappings
 color_mapping_files = {
-    convex_hulls_file_1: "rgba(0, 0, 139, 0.45)",
-    convex_hulls_file_2: "rgba(86, 180, 233, 0.45)",
-    convex_hulls_file_3: "rgba(255, 255, 80,0.45)",
-    convex_hulls_file_4: "rgba(255, 170, 190, 0.45)",
-    convex_hulls_file_5: "rgba(178, 34, 34, 0.45)",
-    convex_hulls_file_6: "rgba(255, 140, 0, 0.45)",
-    convex_hulls_file_7: "rgba(110, 55, 30, 0.45)",
-    convex_hulls_file_8: "rgba(50, 205, 50, 0.45)",
-    convex_hulls_file_9: "rgba(0, 70, 50, 0.45)",
-    convex_hulls_file_10: "rgba(0, 128, 128, 0.45)",
-    convex_hulls_file_11: "rgba(25, 25, 25, 0.45)",
-    convex_hulls_file_12: "rgba(123, 104, 238, 0.45)",
-    convex_hulls_file_14: "rgba(120, 85, 60, 0.2)",
-    convex_hulls_file_15: "rgba(218, 112, 214, 0.45)",
-    convex_hulls_file_16:   "rgba(120, 85, 60, 0.2)"
+    convex_hulls_file_1: "rgba(160, 82, 45, 0.75)",       
+    convex_hulls_file_2: "rgba(57, 255, 20, 0.85)",    
+    convex_hulls_file_3: "rgba(178, 34, 34, 0.75)",       
+    convex_hulls_file_4: "rgba(253, 192, 134, 0.75)",     
+    convex_hulls_file_5: "rgba(70, 70, 70, 0.75)",      
+    convex_hulls_file_6: "rgba(94, 60, 153, 0.75)",       
+    convex_hulls_file_7: "rgba(110, 165, 160, 0.75)",     
+    convex_hulls_file_8: "rgba(225, 195, 65, 0.75)",      
+    convex_hulls_file_9: "rgba(0, 158, 115, 0.75)",       
+    convex_hulls_file_10: "rgba(0, 60, 140, 0.75)",      
+    convex_hulls_file_11: "rgba(17, 17, 17, 0.85)",       
+    convex_hulls_file_12: "rgba(86, 180, 233, 0.75)",     
+    convex_hulls_file_14: "rgba(100, 95, 90, 0.2)",  
+    convex_hulls_file_15: "rgba(204, 121, 167, 0.75)",  
+    convex_hulls_file_16: "rgba(100, 95, 90, 0.2)",
 }
+
 
 
 
