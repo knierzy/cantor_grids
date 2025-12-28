@@ -526,30 +526,31 @@ for idx, row in df_parameters.iterrows():
 
     # Handle samples with high organic matter (OM > 8%)
 
-    humus_val = c
+       humus_val = c
     is_high_om = humus_val > 8
 
- if is_high_om:
-    if "highom_x" not in globals():
-        highom_x, highom_y, highom_inner_color, highom_hovertexts = [], [], [], []
+    if is_high_om:
+        if "highom_x" not in globals():
+            highom_x, highom_y, highom_inner_color, highom_hovertexts = [], [], [], []
 
-    highom_x.append(x_val)
-    highom_y.append(y_val)
-    highom_inner_color.append(
-        soilclass_to_color.get(bodenklasse, "rgba(0,0,0,1)")
-    )
-    highom_hovertexts.append(
-        f"<b>Index:</b> {index}<br>"
-        f"<b>Location:</b> {location}<br>"
-        f"Sand (A): {a:.1f}%<br>"
-        f"Silt (B): {b:.1f}%<br>"
-        f"Humus (C): {c:.1f}%<br>"
-        f"Clay (D): {d:.1f}%<br>"
-        f"<b>Class:</b> {bodenklasse}<br>"
-        f"<b>AWC:</b> not applicable"
-    )
+        highom_x.append(x_val)
+        highom_y.append(y_val)
+        highom_inner_color.append(
+            soilclass_to_color.get(bodenklasse, "rgba(0,0,0,1)")
+        )
+        highom_hovertexts.append(
+            f"<b>Index:</b> {index}<br>"
+            f"<b>Location:</b> {location}<br>"
+            f"Sand (A): {a:.1f}%<br>"
+            f"Silt (B): {b:.1f}%<br>"
+            f"Humus (C): {c:.1f}%<br>"
+            f"Clay (D): {d:.1f}%<br>"
+            f"<b>Class:</b> {bodenklasse}<br>"
+            f"<b>AWC:</b> not applicable"
+        )
 
-    continue   # 🔥 ABSOLUT ENTSCHEIDEND
+        continue
+
 
 
     # Store coordinates for AWC-colored point
