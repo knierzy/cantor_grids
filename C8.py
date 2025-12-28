@@ -1,3 +1,10 @@
+# Cantor diagram of soil texture classes with humus as 4th component
+# Generates an interactive Cantor diagram showing AB rectangles,
+# soil texture subfields, and a Saxton–Rawls (2006) AWC heatmap,
+# with export to HTML, PNG, and high-resolution TIFF.
+# generation time with the current parameter settings is approximately 1 minute.
+
+
 import plotly.graph_objects as go
 import numpy as np
 import plotly.io as pio
