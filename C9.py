@@ -55,6 +55,15 @@ convex_hulls_file_14 = "data/convex_hull_organo_mineral_soils.xlsx"
 convex_hulls_file_15 = "data/convex_hull_silty_loam.xlsx"
 convex_hulls_file_16 = "data/convex_hull_organicsoils.xlsx"
 
+
+# Transparency
+ALPHA_HULL = 0.50
+ALPHA_POINT = 0.5
+ALPHA_LEGEND = 0.5
+
+
+
+
 # color mappings
 color_mapping_files = {
     convex_hulls_file_1: "rgba(160, 82, 45, 0.75)",       
@@ -96,6 +105,12 @@ legend_mapping = {
 }
 
 
+# Soil class → color
+soilclass_to_color = {}
+
+for file_path, soil_class in legend_mapping.items():
+    soilclass_to_color[soil_class] = color_mapping_files[file_path]
+
 
 # Rectangle data with the classification system up to AB1
 rechtecke = [
@@ -125,16 +140,20 @@ rechtecke = [
 fig = go.Figure()
 
 
-def ensure_transparency(color, alpha=0.45):
-    if "rgba" in color:
-        return color[:color.rfind(",")] + f", {alpha})"
+def apply_alpha(color, alpha):
+    """
+    Force a specific alpha value on any rgba / hex color.
+    This is the ONLY place where transparency is controlled.
+    """
+    if color.startswith("rgba"):
+        r, g, b, _ = color.replace("rgba(", "").replace(")", "").split(",")
+        return f"rgba({r.strip()},{g.strip()},{b.strip()},{alpha})"
     elif color.startswith("#"):
         r = int(color[1:3], 16)
         g = int(color[3:5], 16)
         b = int(color[5:7], 16)
-        return f"rgba({r}, {g}, {b}, {alpha})"
-    else:
-        return f"rgba(0, 0, 0, {alpha})"
+        return f"rgba({r},{g},{b},{alpha})"
+    return color
 
 
 # Add rectangles with color gradients along the X-axis
@@ -205,8 +224,35 @@ df_tex = df[['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']].copy()
 df_parameters = df[['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']].dropna()
 df_parameters = df_parameters[df_parameters.apply(lambda row: row[['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']].sum() >= 98, axis=1)]
 
-# Apply Largest Remainder Method normalization
-df_parameters = df_parameters.apply(normalize_to_100_with_remainders, axis=1)
+
+#  Function to adjust so that the sum equals 100
+def normalize_to_100_LRM(row):
+    cols = ['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+    values = row[cols].astype(float).to_numpy()
+
+    # 1. Abrunden (Floor)
+    ints = np.floor(values).astype(int)
+
+    # 2. Reste berechnen
+    remainders = values - ints
+
+    # 3. Differenz zur Zielsumme 100
+    missing = 100 - ints.sum()
+
+    if missing > 0:
+        order = np.argsort(-remainders)
+        for i in range(missing):
+            ints[order[i]] += 1
+
+    elif missing < 0:
+        order = np.argsort(remainders)
+        for i in range(-missing):
+            ints[order[i]] -= 1
+
+    row[cols] = ints
+    return row
+
+df_parameters = df_parameters.apply(normalize_to_100_LRM, axis=1)
 
 
 #  Load origin and index number
@@ -293,33 +339,7 @@ herkunfts_list = df_parameters['Herkunft'].unique()
 color_palette = px.colors.qualitative.Plotly
 color_mapping = {herkunft: color_palette[i % len(color_palette)] for i, herkunft in enumerate(herkunfts_list)}
 
-# Map RGBA colors to soil subclasses
-farbe_to_subklasse = {
-    "rgba(86, 180, 233, 0.75)": "Sand",
-    "rgba(0, 158, 115, 0.75)": "Silty Sand",
-    "rgba(225, 195, 65, 0.75)": "Loamy Sand",
-    "rgba(94, 60, 153, 0.75)": "Sandy Silt",
-    "rgba(70, 70, 70, 0.75)": "Silt",
-    "rgba(57, 255, 20, 0.85)": "Clayey Sand",
-    "rgba(178, 34, 34, 0.75)": "Sandy Loam",
-    "rgba(253, 192, 134, 0.75)": "Loamy Silt",
-    "rgba(160, 82, 45, 0.75)": "Sandy Clay",
-    "rgba(123, 204, 196, 0.75)": "Loam",
-    "rgba(0, 90, 160, 0.75)": "Clay Loam",
-    "rgba(17, 17, 17, 0.85)": "Clay",
-    "rgba(204, 121, 167, 0.75)": "Silty Loam",
-    "Organo-Mineral Soils": "rgba(184, 115, 51, 0.95)",
-    "Organic Soils": "rgba(120, 85, 60, 0.95)"
-}
 
-# Reverse mapping: class → color
-klasse_zu_farbe = {v: k for k, v in farbe_to_subklasse.items()}
-
-# HTML legend with fixed order and formatting
-legende_text = (
-    "<span style='font-size:19px; font-weight:bold;'>Soil texture</span><br>"
-    "<span style='line-height:19px;'>&nbsp;</span><br>"
-)
 
 #List to group points by origin and rectangle (AB)
 grouped_points = {}
@@ -366,14 +386,21 @@ plot_imported_hulls_with_file_colors(grouped_hulls_combined, color_mapping_files
 # AWC calculation using the original decimal texture values (Saxton & Rawls 2006 with OM)
 # Reference: Saxton & Rawls (2006), Soil Sci. Soc. Am. J. 70:1569–1578
 
+import numpy as np
 
-# Sand and clay as fractions (0–1) – ORIGINAL decimal values
-sand = df_tex.loc[df_parameters.index, 'Unnamed: 1'] / 100.0
-clay = df_tex.loc[df_parameters.index, 'Unnamed: 4'] / 100.0
+# --- AWC calculation from ORIGINAL (unrounded) values ---
 
-# Organic matter (OM), clipped to Saxton & Rawls range
-om_pct_raw = df_tex.loc[df_parameters.index, 'Unnamed: 3']
+tex = df_tex_raw.loc[df_parameters.index]
+
+
+sand = tex['Unnamed: 1'] / 100.0
+clay = tex['Unnamed: 4'] / 100.0
+om_pct_raw = tex['Unnamed: 3']          # OM in %
 om_pct = np.clip(om_pct_raw, 0, 8) / 100.0
+
+# OM capped at 8% (Saxton & Rawls requirement)
+om_pct = np.clip(om_pct_raw, 0, 8) / 100.0
+
 
 
 #  Field capacity (33 kPa) according to Saxton & Rawls (2006)
@@ -490,7 +517,7 @@ for idx, row in df_parameters.iterrows():
 
     # Apply a small jitter to avoid point overlap
     jitter_y = np.random.uniform(-0.0, 0.0)
-    jitter_x = np.random.uniform(-0.14, 0.14)
+    jitter_x = np.random.uniform(-0.12, 0.12)
     x_val = c + jitter_x
     y_val = y_position_punkt + jitter_y
 
@@ -524,13 +551,6 @@ for idx, row in df_parameters.iterrows():
             f"<b>AWC:</b> {row['AWC']:.2f}"
         )
 
-        # Skip normal AWC rendering for high-OM samples
-        # They are not added to the AWC lists (points_x, awc_values, ring_colors, ...)
-        continue
-
-
-    # Normal AWC point (for OM ≤ 8%)
-
 
     # Store coordinates for AWC-colored point
     points_x.append(x_val)
@@ -558,6 +578,29 @@ for idx, row in df_parameters.iterrows():
     # Soil-texture color for the inner core (fallback = black)
     subfeldfarbe = klasse_zu_farbe.get(bodenklasse, "rgba(0,0,0,0.8)")
     ring_colors.append(subfeldfarbe)
+
+
+#Grid lines
+
+for i, (start, hoehe, label) in enumerate(rechtecke):
+    if i == 0:
+        continue  # AB99 braucht keine Linie links davon
+
+    x_pos = start
+
+    fig.add_trace(go.Scatter(
+        y=[x_pos, x_pos],
+        x=[0, i],              # bis zur jeweiligen AB-Stufe
+        mode="lines",
+        line=dict(
+            color="black",
+            width=2,
+            dash="dash"
+        ),
+        hoverinfo="skip",
+        showlegend=False
+    ))
+
 
 
 # Add marker traces (circles and squares)
@@ -923,26 +966,32 @@ class_distribution = {
     for name in ordered_legende
 }
 
-# mapping soil class
-klasse_zu_farbe = {v: k for k, v in farbe_to_subklasse.items()}
+
 
 # build legend text
-legende_text = "<span style='font-size:42px; font-weight:bold;'>Soil texture</span><br>"
+legende_text = "<span style='font-size:28px; font-weight:bold;'>Soil texture classes</span><br>"
 
 # Display classes in fixed order
 sorted_classes = [name for name in ordered_legende if name not in exclude_classes]
 
 
 for name in sorted_classes:
-    farbe = klasse_zu_farbe.get(name, "rgba(0,0,0,1)")
+    base_color = apply_alpha(
+        soilclass_to_color.get(name, "rgba(0,0,0,1)"),
+        ALPHA_LEGEND
+    )
+
     percent = class_distribution[name]
     count = class_counts.get(name, 0)
-    legende_text += (
-        f"<span style='color:{farbe}; font-size:46px;'>■</span> "
-        f"{name}: <b>{percent:.1f}%</b> "
-        f"<span style='color:gray; font-size:17px; vertical-align:super;'>({count} pts)</span><br>"
-    )
+
 # Add total point count at the bottom
+   legende_text += (
+        f"<span style='color:{base_color}; font-size:46px;'>■</span> "
+        f"<span style='font-size:26px;'>{name}</span>: "
+        f"<b>{percent:.1f}%</b> "
+        f"<span style='color:gray; font-size:18px; vertical-align:super;'>"
+        f"({count} pts)</span><br>"
+    )
 legende_text += f"<br><b>Total points:</b> {total_points}<br>"
 
 
@@ -980,7 +1029,7 @@ plot_bgcolor="white",  # Set plot background to white
 )
 
 # dashed horizontal lines
-y_values = [ 2, 4, 6, 8, 10, 12, 14, 20, 30, 40, 50, 60, 70, 80, 90 ]
+y_values = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 20, 30, 40, 50, 60, 70, 80, 90 ]
 
 # add horizontal dashed lines
 for y in y_values:
@@ -998,7 +1047,7 @@ for y in y_values:
     )
 
 # X-values for vertical dashed lines
-x_values = [909.5, 3749.5, 4569.5, 1769.5, 2529.5, 3189.5, 4209.5, 4850.5, 4995.5, 442, 1352, 2162, 2872, 3482, 3992, 4402, 4712, 4922, 5037.5]  # Mittlere Positionen von AB90, AB50, AB30
+x_values = []  # Mittlere Positionen von AB90, AB50, AB30
 
 # Add vertical dashed lines
 for x in x_values:
