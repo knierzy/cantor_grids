@@ -1090,7 +1090,7 @@ fig.add_annotation(
     xanchor="left",
     yanchor="top",
     align="left",
-    width=360,
+    width=390,
     height=None
 )
 
