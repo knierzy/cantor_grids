@@ -71,7 +71,7 @@ color_mapping_files = {
     convex_hulls_file_3: "rgba(178, 34, 34, 0.75)",       
     convex_hulls_file_4: "rgba(253, 192, 134, 0.75)",     
     convex_hulls_file_5: "rgba(70, 70, 70, 0.75)",      
-    convex_hulls_file_6: "rgba(94, 60, 153, 0.75)",       
+    convex_hulls_file_6: "rgba(204, 121, 167, 0.75)",       
     convex_hulls_file_7: "rgba(110, 165, 160, 0.75)",     
     convex_hulls_file_8: "rgba(225, 195, 65, 0.75)",      
     convex_hulls_file_9: "rgba(0, 158, 115, 0.75)",       
@@ -79,7 +79,7 @@ color_mapping_files = {
     convex_hulls_file_11: "rgba(17, 17, 17, 0.85)",       
     convex_hulls_file_12: "rgba(86, 180, 233, 0.75)",     
     convex_hulls_file_14: "rgba(100, 95, 90, 0.2)",  
-    convex_hulls_file_15: "rgba(204, 121, 167, 0.75)",  
+    convex_hulls_file_15: "rgba(94, 60, 153, 0.75)",  
     convex_hulls_file_16: "rgba(100, 95, 90, 0.2)",
 }
 
@@ -467,7 +467,7 @@ outline_colors = {
     "rgba(86, 180, 233, 0.75)": "Sand",
     "rgba(0, 158, 115, 0.75)": "Silty Sand",
     "rgba(225, 195, 65, 0.75)": "Loamy Sand",
-    "rgba(94, 60, 153, 0.75)": "Sandy Silt",
+    "rgba(204, 121, 167, 0.75)": "Sandy Silt",
     "rgba(70, 70, 70, 0.75)": "Silt",
     "rgba(57, 255, 20, 0.85)": "Clayey Sand",
     "rgba(178, 34, 34, 0.75)": "Sandy Loam",
@@ -476,7 +476,7 @@ outline_colors = {
     "rgba(123, 204, 196, 0.75)": "Loam",
     "rgba(0, 90, 160, 0.75)": "Clay Loam",
     "rgba(17, 17, 17, 0.85)": "Clay",
-    "rgba(204, 121, 167, 0.75)": "Silty Loam",
+    "rgba(94, 60, 153, 0.75)": "Silty Loam",
     "Organo-Mineral Soils": "rgba(184, 115, 51, 0.95)",
     "Organic Soils": "rgba(120, 85, 60, 0.95)"
 }
