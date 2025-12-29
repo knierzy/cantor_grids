@@ -156,67 +156,7 @@ def add_rechtecke_mit_farbverlauf(rechtecke, x_offset, spiegeln=False):
 add_rechtecke_mit_farbverlauf(rechtecke, 0)
 
 
-# Load data from Excel file 
-file_path_gilgen = "data/compendium.xlsx"
-df = pd.read_excel(file_path_gilgen, sheet_name='Boden_O')
 
-# Load origin and index number (with the filtered rows without NaN)"
-df_parameters = df[['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']].dropna()
-df_parameters = df_parameters[df_parameters.apply(lambda row: row[['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']].sum() >= 98, axis=1)]
-
-#  Function to adjust so that the sum equals 100"
-def round_to_100(row):
-    values = {
-        'Unnamed: 1': row['Unnamed: 1'],
-        'Unnamed: 2': row['Unnamed: 2'],
-        'Unnamed: 3': row['Unnamed: 3'],
-        'Unnamed: 4': row['Unnamed: 4']
-    }
-
-    # Round down all values and calculate rest
-    floored = {k: int(np.floor(v)) for k, v in values.items()}
-    decimal_parts = {k: values[k] - floored[k] for k in values}
-
-    total = sum(floored.values())
-    missing = 100 - total
-
-    # Distribute the missing percentage points to the largest decimal parts
-    for k in sorted(decimal_parts, key=decimal_parts.get, reverse=True):
-        if missing <= 0:
-            break
-        floored[k] += 1
-        missing -= 1
-
-    # Aktualisiere die Werte im Original-Row
-    for k in floored:
-        row[k] = floored[k]
-    return row
-
-
-
-
-# Apply the function
-df_parameters = df_parameters.apply(round_to_100, axis=1)
-
-#  Load origin and index number
-df_parameters['Herkunft'] = df.loc[df_parameters.index, 'Unnamed: 5'].values
-df_parameters['Index'] = df.loc[df_parameters.index, 'Unnamed: 6'].values
-df_parameters['location'] = df.loc[df_parameters.index, 'Unnamed: 7'].values
-
-
-# Update the values in the original row
-def adjust_sum_to_100(row):
-    total = row['Unnamed: 1'] + row['Unnamed: 2'] + row['Unnamed: 3'] + row['Unnamed: 4']
-    difference = 100 - total
-    if difference != 0:
-        row['Unnamed: 4'] += difference
-    return row
-
-# Apply the adjustment only to rows where the sum is between 98 and 100
-df_parameters = df_parameters.apply(
-    lambda row: adjust_sum_to_100(row) if 98 <= row[['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']].sum() <= 100 else row,
-    axis=1
-)
 
 # Mapping of RGBA colors to sub-classes
 farbe_to_subklasse = {
