@@ -13,8 +13,9 @@ The project comprises modular Python scripts labeled `C1` to `C8`:
 | `C1.py` | Generates Cartesian prodct for four compositional parameters.|
 | `C2.py` | Constructs and exports convex hulls derived from Cartesian products.|
 | `C3.py` | Compares two spreadsheet datasets using the first four columns to identify identical records.|
-| `C4.py` | Visualizes scattered garnet subfields in a Cantor diagram based on their end-member compositions. |
+| `C4.py` | Visualizes scattered garnet subfields in a Cantor diagram based on their end-member compositions.|
 | `C5.py` | Visualizes scattered garnet subfields in a Cantor Diagram with an additional colorbar for interpreting samples from Pernegg. |
 | `C6.py` | Cantor diagram for the Austrian soil texture classification including humus as fourth component. |
-| `C7.py` | Cantor diagram for the Austrian soil texture classification including humus, snthetic data, and AWC. |
-| `C8.py` | Cantor diagram with soil samples of district Kirchdorf with displayed Available Water Content as halo (colorbar). |
+| `C7.py` | Cantor diagram for the Austrian soil texture classification including humus, snthetic data, and AWC.|
+| `C8.py` | AWC displayed in a Cantor diagram using scalar field visualization.|
+| `C9.py` | Cantor diagram with soil samples from the district of Kirchdorf, combined with AWC displayed via a continuous color bar.|
