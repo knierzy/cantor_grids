@@ -10,7 +10,7 @@ The project comprises modular Python scripts labeled `C1` to `C9`:
 
 | File | Description |
 |------|-------------|
-| `C1.py` | Generates Cartesian prodct for four compositional parameters.|
+| `C1.py` | Generates the constrained Cartesian product for four compositional parameters.|
 | `C2.py` | Constructs and exports convex hulls derived from Cartesian products.|
 | `C3.py` | Compares two spreadsheet datasets using the first four columns to identify identical records.|
 | `C4.py` | Visualizes scattered garnet subfields in a Cantor diagram based on their end-member compositions.|
