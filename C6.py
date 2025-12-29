@@ -352,7 +352,7 @@ for y in y_values:
     fig.add_shape(
         type="line",
         x0=0,
-        x1 = rechtecke[-1][0] + rechtecke[-1][1] # End point on the X-axis (right edge)
+        x1 = rechtecke[-1][0] + rechtecke[-1][1], # End point on the X-axis (right edge)
         y0=y,
         y1=y,
         line=dict(
