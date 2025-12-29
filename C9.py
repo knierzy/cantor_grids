@@ -1064,7 +1064,7 @@ for trace in fig.data:
 
 # AB boundary lines
 fig.add_annotation(
-    text="<b>Available Water Capacity (AWC)</b>",
+    text="<b>Available Water Capacity (Vol.%)</b>",
     xref="paper", yref="paper",
     x=1.015,
     y=0.5,
