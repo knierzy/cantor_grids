@@ -324,18 +324,18 @@ def classify_soil(a, b, c, d):
 
 farbe_to_subklasse = {
     "rgba(86, 180, 233, 0.75)": "Sand",
-    "rgba(0, 70, 50, 0.75)": "Silty Sand",
-    "rgba(90, 175, 90, 0.75)": "Loamy Sand",
-    "rgba(255, 140, 0, 0.75)": "Sandy Silt",
-    "rgba(178, 34, 34, 0.75)": "Silt",
-    "rgba(57, 255, 20, 0.75)": "Clayey Sand",
-    "rgba(0, 128, 128,  0.75)": "Sandy Loam",
-    "rgba(255, 170, 190, 0.75)": "Loamy Silt",
-    "rgba(0, 0, 139, 0.75)": "Sandy Clay",
-    "rgba(230, 210, 135, 0.75)": "Loam",
-    "rgba(110, 55, 30, 0.75)": "Clay Loam",
-    "rgba(25, 25, 25, 0.75)": "Clay",
-    "rgba(218, 112, 214, 0.75)": "Silty Loam",
+    "rgba(0, 158, 115, 0.75)": "Silty Sand",
+    "rgba(225, 195, 65, 0.75)": "Loamy Sand",
+    "rgba(204, 121, 167, 0.75)": "Sandy Silt",
+    "rgba(70, 70, 70, 0.75)": "Silt",
+    "rgba(57, 255, 20, 0.85)": "Clayey Sand",
+    "rgba(178, 34, 34, 0.75)": "Sandy Loam",
+    "rgba(253, 192, 134, 0.75)": "Loamy Silt",
+    "rgba(160, 82, 45, 0.75)": "Sandy Clay",
+    "rgba(123, 204, 196, 0.75)": "Loam",
+    "rgba(0, 90, 160, 0.75)": "Clay Loam",
+    "rgba(17, 17, 17, 0.85)": "Clay",
+    "rgba(94, 60, 153, 0.75)": "Silty Loam",
 
 }
 
