@@ -405,9 +405,9 @@ def convert_png_to_tiff_with_dpi(png_path, tiff_path, dpi=(400, 400)):
     if os.path.exists(png_path):
         img = Image.open(png_path)
         img.save(tiff_path, dpi=dpi)
-        print("✅ TIFF saved (400 dpi):", tiff_path)
+        print("TIFF saved (400 dpi):", tiff_path)
     else:
-        print("❌ PNG not found:", png_path)
+        print(" PNG not found:", png_path)
 
 # Run export pipeline
 export_highres_png()
