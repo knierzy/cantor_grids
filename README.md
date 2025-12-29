@@ -16,5 +16,5 @@ The project comprises modular Python scripts labeled `C1` to `C8`:
 | `C4.py` | Visualizes scattered garnet subfields in a Cantor diagram based on their end-member compositions. |
 | `C5.py` | Visualizes scattered garnet subfields in a Cantor Diagram with an additional colorbar for interpreting samples from Pernegg. |
 | `C6.py` | Cantor diagram for the Austrian soil texture classification including humus as fourth component. |
-| `C7.py` | Cantor diagram with synthetic data with displayed Available Water Content (colorbar)
+| `C7.py` | Cantor diagram for the Austrian soil texture classification including humus, snthetic data, and AWC. |
 | `C8.py` | Cantor diagram with soil samples of district Kirchdorf with displayed Available Water Content as halo (colorbar). |
