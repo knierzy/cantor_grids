@@ -454,7 +454,7 @@ def export_highres_png():
         page.wait_for_timeout(800)
         page.screenshot(path=png_path, full_page=True)
         browser.close()
-    print("✅ PNG gespeichert unter:", png_path)
+    print(" PNG gespeichert unter:", png_path)
 
 #  Convert PNG to TIFF with 400 dpi 
 def convert_png_to_tiff_with_dpi(png_path, tiff_path, dpi=(400, 400)):
@@ -462,13 +462,13 @@ def convert_png_to_tiff_with_dpi(png_path, tiff_path, dpi=(400, 400)):
     if os.path.exists(png_path):
         img = Image.open(png_path)
         img.save(tiff_path, dpi=dpi)
-        print("✅ TIFF gespeichert unter:", tiff_path)
+        print(" TIFF gespeichert unter:", tiff_path)
     else:
-        print("❌ PNG nicht gefunden – TIFF konnte nicht erzeugt werden:", png_path)
+        print("PNG nicht gefunden – TIFF konnte nicht erzeugt werden:", png_path)
 
 # Execute export sequence 
 export_highres_png()
 convert_png_to_tiff_with_dpi(png_path, tiff_path)
 
-print("\n🎉 EXPORT KOMPLETT – Dateien gespeichert in:", export_dir)
+print("\n EXPORT KOMPLETT – Dateien gespeichert in:", export_dir)
 
