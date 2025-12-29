@@ -656,7 +656,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="circle",
-        size=13,
+        size=16,
         color="white",
         line=dict(width=0),
         opacity=1
@@ -675,7 +675,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="circle",
-        size=13,
+        size=16,
         color=np.array(ring_colors)[mask_circle],   # soil texture class color
         line=dict(color="black", width=1),
         opacity=0.8
@@ -750,7 +750,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="square",
-        size=11,
+        size=14,
         color="white",   # background color
         line=dict(width=0),
         opacity=1
@@ -769,7 +769,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="square",
-        size=11,
+        size=14,
         color=np.array(ring_colors)[mask_square],   # soil texture class color
         line=dict(color="black", width=1),
         opacity=0.8
