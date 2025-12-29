@@ -913,7 +913,7 @@ def export_highres_png():
         page.goto(html_path)
         page.screenshot(path=png_path, full_page=True)
         browser.close()
-        print("✅ Screenshot saved:", png_path)
+        print("Screenshot saved:", png_path)
 
 
 # Convert PNG to TIFF with 400 dpi
@@ -922,9 +922,9 @@ def convert_png_to_tiff_with_dpi(png_path, tiff_path, dpi=(400, 400)):
     if os.path.exists(png_path):
         img = Image.open(png_path)
         img.save(tiff_path, dpi=dpi)
-        print("✅ TIFF saved with 400 dpi:", tiff_path)
+        print(" TIFF saved with 400 dpi:", tiff_path)
     else:
-        print("❌ PNG not found:", png_path)
+        print(" PNG not found:", png_path)
 
 
 # Execution sequence
