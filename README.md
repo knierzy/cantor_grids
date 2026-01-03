@@ -15,7 +15,7 @@ The project comprises modular Python scripts labeled `C1` to `C9`:
 | `C3.py` | Compares two spreadsheet datasets using the first four columns to identify identical records.|
 | `C4.py` | Visualizes scattered garnet subfields in a Cantor diagram based on their end-member compositions.|
 | `C5.py` | Visualizes scattered garnet subfields in a Cantor Diagram with an additional colorbar for interpreting samples from Pernegg;
-the classification is based on Mahalanobis distance|
+            the classification is based on Mahalanobis distance|
 | `C6.py` | Cantor diagram for the Austrian soil texture classification including humus as fourth component. |
 | `C7.py` | Cantor diagram for the Austrian soil texture classification including humus, snthetic data, and AWC.|
 | `C8.py` | AWC displayed in a Cantor diagram using scalar field visualization.|
