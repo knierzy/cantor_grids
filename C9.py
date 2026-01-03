@@ -619,7 +619,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="circle",
-        size=30,
+        size=32,
         color="rgba(0,0,0,0)",   # transparent
         line=dict(color="black", width=2)
     ),
@@ -638,7 +638,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="circle",
-        size=29,
+        size=31,
         color=np.array(awc_values)[mask_circle],   # AWC values → Jet colorscale
         colorscale="Jet",
         coloraxis="coloraxis",
@@ -656,7 +656,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="circle",
-        size=16,
+        size=18,
         color="white",
         line=dict(width=0),
         opacity=1
@@ -675,7 +675,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="circle",
-        size=20,
+        size=22,
         color=np.array(ring_colors)[mask_circle],   # soil texture class color
         line=dict(color="black", width=1),
         opacity=0.8
@@ -712,7 +712,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="square",
-        size=26,
+        size=28,
         color="rgba(0,0,0,0)",   # transparent fill
         line=dict(color="black", width=2)
     ),
@@ -732,7 +732,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="square",
-        size=25,
+        size=27,
         color=np.array(awc_values)[mask_square],   # AWC → Jet scale
         colorscale="Jet",
         coloraxis="coloraxis",
@@ -750,7 +750,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="square",
-        size=17,
+        size=19,
         color="white",   # background color
         line=dict(width=0),
         opacity=1
@@ -769,7 +769,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="square",
-        size=17,
+        size=19,
         color=np.array(ring_colors)[mask_square],   # soil texture class color
         line=dict(color="black", width=1),
         opacity=0.8
@@ -808,7 +808,7 @@ if "highom_x" in globals() and len(highom_x) > 0:
         mode="markers",
         marker=dict(
             symbol="circle",
-            size=30,
+            size=32,
             color="rgba(0,0,0,0)",
             line=dict(color="black", width=2)
         ),
@@ -826,7 +826,7 @@ if "highom_x" in globals() and len(highom_x) > 0:
         mode="markers",
         marker=dict(
             symbol="circle",
-            size=30,
+            size=32,
             color="white",
             line=dict(color="white", width=0),
             opacity=1
@@ -844,7 +844,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="circle",
-        size=20,
+        size=22,
         color=[
             apply_alpha(col, 1.0) for col in highom_inner_color
         ],
