@@ -198,6 +198,96 @@ df_parameters['Index'] = df.loc[df_parameters.index, 'Unnamed: 6'].values
 df_parameters['AB'] = df_parameters['Unnamed: 1'] + df_parameters['Unnamed: 2']
 
 
+
+from scipy.stats import chi2
+import numpy as np
+
+# =========================================================
+#  MAHALANOBIS-BASED PROVENANCE CLASSIFICATION
+# =========================================================
+
+# --- Subfield means (Alm, Pyr, Gro, Sp) ---
+subfield_means_raw = pd.DataFrame({
+    "alm": [65.66982555, 54.31709145, 44.23111848, 48.07424294,
+            50.65111941, 23.87808719, 55.9267222, 21.02162502],
+    "pyr": [12.21280849, 33.69541824, 31.52675381, 3.214631984,
+            6.044688795, 57.81881319, 9.93239652, 3.069200646],
+    "gro": [12.932808, 10.07050389, 23.08000919, 22.67389225,
+            2.962742713, 17.48481604, 24.99704974, 64.92615389],
+    "sp":  [9.18931335, 1.921986915, 1.177650051, 27.99386213,
+            40.3362223, 0.812181278, 9.156153933, 10.98302044]
+}, index=[
+    "Amphibolites", "Granulites", "Eclogites", "Greenschists",
+    "Granites & Pegmatites", "Ultramafic rocks",
+    "Blueschists", "Calc-silicate rocks"
+])
+
+# --- Subfield standard deviations ---
+subfield_sigmas_raw = pd.DataFrame({
+    "alm": [10.34841545, 12.29476235, 12.67775939, 17.88439765,
+            14.35396254, 8.963328014, 11.23642444, 21.2594703],
+    "pyr": [8.402774083, 14.64088125, 12.21618211, 2.160177633,
+            5.404302193, 15.99899131, 7.608415516, 2.57929375],
+    "gro": [9.198543982, 8.220985049, 8.401915528, 9.018942259,
+            1.638148843, 13.22167668, 5.837586628, 30.103043],
+    "sp":  [10.56094471, 1.610341276, 0.825854952, 21.805533,
+            17.31566399, 0.575505324, 13.55642173, 14.93862155]
+}, index=subfield_means_raw.index)
+
+# --- Reorder to: Alm, Spe, Pyr, Gro ---
+means = (subfield_means_raw
+         .rename(columns={"alm":"Alm","sp":"Spe","pyr":"Pyr","gro":"Gro"})
+         [["Alm","Spe","Pyr","Gro"]])
+
+sigmas = (subfield_sigmas_raw
+          .rename(columns={"alm":"Alm","sp":"Spe","pyr":"Pyr","gro":"Gro"})
+          [["Alm","Spe","Pyr","Gro"]])
+
+# --- Input points ---
+X_pts = df_parameters[["Unnamed: 1","Unnamed: 2","Unnamed: 3","Unnamed: 4"]].to_numpy()
+
+# Numerical stability
+sigmas_safe = sigmas.clip(lower=0.5)
+
+# Precompute inverse covariance matrices
+invcovs = {k: np.diag(1.0/(sigmas_safe.loc[k].to_numpy()**2)) for k in means.index}
+mus     = {k: means.loc[k].to_numpy() for k in means.index}
+
+labels = []
+distances = []
+
+for x in X_pts:
+    best_label, best_d2 = None, np.inf
+    for k in means.index:
+        d2 = (x - mus[k]) @ invcovs[k] @ (x - mus[k]).T
+        if d2 < best_d2:
+            best_d2 = d2
+            best_label = k
+    labels.append(best_label)
+    distances.append(np.sqrt(best_d2))
+
+df_parameters["Nearest_Subfield_Mahalanobis"] = labels
+df_parameters["Mahalanobis_Distance"] = distances
+
+# --- Ambiguity flag (1σ confidence, χ² with df=4) ---
+chi2_1sigma = chi2.ppf(0.68, df=4)
+
+ambiguous = []
+for x in X_pts:
+    inside = []
+    for k in means.index:
+        d2 = (x - mus[k]) @ invcovs[k] @ (x - mus[k]).T
+        if d2 <= chi2_1sigma:
+            inside.append(k)
+    ambiguous.append("/".join(inside) if len(inside) > 1 else np.nan)
+
+df_parameters["Ambiguous_1sigma"] = ambiguous
+
+
+
+
+
+
 # Calculate the y-position based on AB and B
 def calculate_y_position(ab_value, b_value):
     ab_index = 99 - int(ab_value)
