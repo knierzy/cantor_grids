@@ -1,6 +1,7 @@
 #### Cantor diagram for the garnet end-member system Almandine–Spessartine–Pyrope–Grossular (data example Pernegg)
 ####  A color bar displays the ratio of Almandine to the sum of Almandine and Spessartine (A / (A + B)), 
-#### adding an additional interpretative layer that reveals systematic compositional trends across the scattered Cantor subfields. 
+#### adding an additional interpretative layer that reveals systematic compositional trends across the scattered Cantor subfields. The
+#### classification is based on Mahalanobis distance.
 
 import pandas as pd
 import plotly.graph_objects as go
