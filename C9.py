@@ -1120,8 +1120,8 @@ fig.update_layout(
 )
 # Add a manual annotation pointing to a specific datapoint in the plot
 fig.add_annotation(
-    x=1070,
-    y=5.1,
+    x=1570,
+    y=6.3,
 
     ax=-100,
     ay=-100,
@@ -1132,29 +1132,47 @@ fig.add_annotation(
     ayref="pixel",
 
     text=(
-        "<b>"  
-        "Location: Almuferweg, Pettenbach, District Kirchdorf, Upper Austria, Austria<br>"
+        "<b>"
+        "Location:<br>"
+        "Almuferweg, Pettenbach<br>"
         "Sand (A): 48.0%<br>"
         "Silt (B): 40.0%<br>"
         "Humus (C): 5.0%<br>"
         "Clay (D): 7.0%<br>"
         "Class: Loamy Sand<br>"
-        "AWC: 12.57"
-        "</b>"
-    ),
+        "AWC: 12.57 Vol.%"
 
-    showarrow=True,
-    arrowhead=0,
+    ),
+  showarrow=True,
+    arrowhead=3,
     arrowsize=1.3,
-    arrowwidth=1.8,
+    arrowwidth=2,
     arrowcolor="black",
 
-    font=dict(size=18, color="black"),
+    font=dict(size=26),
     bgcolor="rgba(255,255,255,0.9)",
     bordercolor="black",
     borderwidth=1,
     align="left"
 )
+
+# arrow
+fig.add_annotation(
+    x=1080,
+    y=5.25,       
+    ax=1080,
+    ay=5.99,       
+    xref="x",
+    yref="y",
+    axref="x",
+    ayref="y",
+    showarrow=True,
+    arrowhead=3,  
+    arrowsize=1.2,
+    arrowwidth=3,
+    arrowcolor="black"
+)
+
 
 
 # Show plot
