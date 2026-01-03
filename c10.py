@@ -149,3 +149,477 @@ def add_rechtecke_mit_farbverlauf(rechtecke, x_offset, spiegeln=False):
 # Add rectangles
 add_rechtecke_mit_farbverlauf(rechtecke, 0)
 
+
+# Load data from  Excel file
+file_path_gilgen = "data/compendium.xlsx"
+df = pd.read_excel(file_path_gilgen, sheet_name='Garnet_Pernegg')
+
+# Remove rows with NaN in columns "Unnamed: 1" to "Unnamed: 4"; filter only rows where the sum is >= 98
+df_parameters = df[['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']].dropna()
+df_parameters = df_parameters[df_parameters.apply(lambda row: row[['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']].sum() >= 98, axis=1)]
+
+#Round to integers
+
+df_parameters['Herkunft'] = df.loc[df_parameters.index, 'Unnamed: 5'].values
+df_parameters['Index'] = df.loc[df_parameters.index, 'Unnamed: 6'].values
+
+# normalization LRM
+def normalize_to_100_LRM(row):
+    cols = ['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+    values = row[cols].astype(float).to_numpy()
+
+    # 1. Abrunden (Floor)
+    ints = np.floor(values).astype(int)
+
+    # 2. Reste berechnen
+    remainders = values - ints
+
+    # 3. Differenz zur Zielsumme 100
+    missing = 100 - ints.sum()
+
+    if missing > 0:
+        # fehlende Einheiten → zu den größten Resten
+        order = np.argsort(-remainders)
+        for i in range(missing):
+            ints[order[i]] += 1
+
+    elif missing < 0:
+        # zu viele Einheiten → bei kleinsten Resten abziehen
+        order = np.argsort(remainders)
+        for i in range(-missing):
+            ints[order[i]] -= 1
+
+    row[cols] = ints
+    return row
+
+
+df_parameters = df_parameters.apply(normalize_to_100_LRM, axis=1)
+
+
+
+# Calculate AB (A + B) for the y-position
+df_parameters['AB'] = df_parameters['Unnamed: 1'] + df_parameters['Unnamed: 2']
+
+
+# Calculate the y-position based on AB and B
+def calculate_y_position(ab_value, b_value):
+    ab_index = 99 - int(ab_value)
+    if ab_index >= 0 and ab_index < len(rechtecke):
+        start_zeile = rechtecke[ab_index][0]
+        hoehe = rechtecke[ab_index][1]
+        y_position = start_zeile + b_value + 0.5
+        return y_position
+    return None
+
+# Legend
+legende_text = "<b>Garnet Provenance Groups</b><br>"
+
+
+#  Manually ordered list of convex hulls in the legend
+ordered_hulls = [
+    convex_hulls_file_5,
+    convex_hulls_file_4,
+    convex_hulls_file_7,
+    convex_hulls_file_9,
+    convex_hulls_file_11,
+    convex_hulls_file_6,
+    convex_hulls_file_12,
+    convex_hulls_file_8,
+]
+
+# Prepare legend text
+legende_text += ""
+for file_path in ordered_hulls:
+    color = color_mapping_files[file_path]
+    hull_name = legend_mapping.get(file_path, file_path.split("\\")[-1].split(".")[0])
+    legende_text += f'<span style="color:{color};">■</span> {hull_name}<br>'
+
+# Mean values (centers) of provenance groups
+mean_fields = (
+    df_parameters
+    .groupby("Herkunft")[["Unnamed: 1", "Unnamed: 2", "Unnamed: 3", "Unnamed: 4"]]
+    .mean()
+    .rename(columns={
+        "Unnamed: 1": "Alm",
+        "Unnamed: 2": "Spe",
+        "Unnamed: 3": "Pyr",
+        "Unnamed: 4": "Gro"
+    })
+)
+
+print("\n=== Mean values of provenance groups calculated from chemical data) ===")
+print(mean_fields)
+
+# List to group points by origin and rectangle (AB)
+grouped_points = {}
+
+# Load convex hull data
+df_hulls_4 = pd.read_excel(convex_hulls_file_4)
+df_hulls_5 = pd.read_excel(convex_hulls_file_5)
+df_hulls_6 = pd.read_excel(convex_hulls_file_6)
+df_hulls_7 = pd.read_excel(convex_hulls_file_7)
+df_hulls_8 = pd.read_excel(convex_hulls_file_8)
+df_hulls_9 = pd.read_excel(convex_hulls_file_9)
+df_hulls_11 = pd.read_excel(convex_hulls_file_11)
+df_hulls_12 = pd.read_excel(convex_hulls_file_12)
+
+# Combine the files
+df_hulls_combined = pd.concat([
+    df_hulls_4, df_hulls_5, df_hulls_6, df_hulls_7,
+    df_hulls_8, df_hulls_9, df_hulls_11, df_hulls_12
+])
+
+# Groups of hull data based on origin and AB value
+grouped_hulls_combined = df_hulls_combined.groupby(["Herkunft", "AB_Value"])
+
+
+# Function to plot convex hulls with different colors based on source file
+def plot_imported_hulls_with_file_colors(grouped_hulls, file_color_mapping):
+    for (herkunft, ab_value), group in grouped_hulls:
+        hull_x = group["X"].values
+        hull_y = group["Y"].values
+
+        hull_x = np.append(hull_x, hull_x[0])
+        hull_y = np.append(hull_y, hull_y[0])
+
+        # Determine the color based on the source file
+        file_source = group["file_source"].iloc[0]
+        color = file_color_mapping.get(file_source, "rgba(0, 0, 0, 0.5)")
+
+        # Plot  convex hull
+        fig.add_trace(go.Scatter(
+            x=hull_x,
+            y=hull_y,
+            mode="lines",
+            line=dict(color=color, width=1.5),
+            fill="toself",
+            fillcolor=ensure_transparency(color, alpha=0.4),
+            name=f"Herkunft: {herkunft}, AB: {ab_value}"
+        ))
+
+# Add a column to the DataFrames to mark the source file
+
+df_hulls_4["file_source"] = convex_hulls_file_4
+df_hulls_5["file_source"] = convex_hulls_file_5
+df_hulls_6["file_source"] = convex_hulls_file_6
+df_hulls_7["file_source"] = convex_hulls_file_7
+df_hulls_8["file_source"] = convex_hulls_file_8
+df_hulls_9["file_source"] = convex_hulls_file_9
+df_hulls_11["file_source"] = convex_hulls_file_11
+df_hulls_12["file_source"] = convex_hulls_file_12
+
+# Combine the DataFrames
+df_hulls_combined = pd.concat([df_hulls_4, df_hulls_5,df_hulls_6,df_hulls_7,df_hulls_8,df_hulls_9, df_hulls_11, df_hulls_12])
+
+# Group the combined data
+grouped_hulls_combined = df_hulls_combined.groupby(["Herkunft", "AB_Value"])
+
+# Plot the imported convex hulls with file-specific colors
+plot_imported_hulls_with_file_colors(grouped_hulls_combined, color_mapping_files)
+
+# Calculate the ratio for color coding
+df_parameters['Ratio'] = df_parameters['Unnamed: 1'] / (df_parameters['Unnamed: 1'] + df_parameters['Unnamed: 2'])
+
+
+# List to store values for the color legend
+x_values, y_values, color_values = [], [], []
+
+# Collect points for the color legend
+for idx, row in df_parameters.iterrows():
+    a = row['Unnamed: 1']
+    b = row['Unnamed: 2']
+    c = row['Unnamed: 3']
+    d = row['Unnamed: 4']
+    herkunft = row['Herkunft']
+    index = row['Index']
+    ab_value = row['AB']
+    ratio = row['Ratio']
+
+    y_position_punkt = calculate_y_position(ab_value, b)
+    if y_position_punkt is not None:
+        x_values.append(c)
+        y_values.append(y_position_punkt)
+        color_values.append(ratio)
+
+
+custom_colorscale = [
+    [0.0,  "#00007F"],   # Dunkelblau
+    [0.20, "#007FFF"],   # Mittelblau
+    [0.40, "#00FFFF"],   # Türkis
+    [0.60, "#FFFF80"],   # Hellgelb
+    [0.80, "#FF9F40"],   # Hellorange
+    [1.0,  "#FF4040"]    # Helles Rot
+]
+
+
+
+# === Plot colored points with new scale
+
+fig.add_trace(go.Scatter(
+    x=x_values,
+    y=y_values,
+    mode='markers',
+    marker=dict(
+        symbol='circle',
+        size=12,
+        color=color_values,
+        colorscale=custom_colorscale,
+        cmin=0,
+        cmax=1,
+        colorbar=dict(
+            title='',
+            thickness=20,
+            len=0.9,
+            y=0.5,
+            yanchor="middle",
+            tickfont=dict(size=24, color="black")
+        ),
+        showscale=True,
+        line=dict(color="black", width=2)
+    ),
+    name="Datenpunkte"
+))
+
+# Adjust layout
+fig.update_layout(
+plot_bgcolor="white",
+    paper_bgcolor="white",
+    xaxis=dict(
+        title=dict(
+            text="Sum of Almandine (%) + Spessartine (%)",
+            font=dict(size=35, color="black", family="Arial Black")
+        ),
+        range=[0, rechtecke[-1][0] + rechtecke[-1][1]+ 20],
+        tickformat=".0f",
+        tickfont=dict(size=24, color="black")
+    ),
+    yaxis=dict(
+        title=dict(
+            text="Pyrope (%) /// Grossular (%) = height<sub>AB</sub> − Pyrope (%)",
+            font=dict(size=32, color="black", family="Arial Black")
+        ),
+        range=[-2, 100],
+        constrain="domain",
+        tickformat=".0f",
+        dtick=10,
+        tickfont=dict(size=28, color="black"),
+        linecolor="gray"
+    ),
+    autosize=False,
+    width=2260,
+    height=1210,
+    margin=dict(l=0, r=5, t=20, b=5),
+    showlegend=False
+)
+
+# Values for dashed lines
+y_values = [ 10, 20, 30, 40, 50, 60, 70, 80, 90 ]
+
+# Insert horizontal dashed lines
+for y in y_values:
+    fig.add_shape(
+        type="line",
+        x0=0, #
+        x1=max(df_parameters['Unnamed: 3']) + rechtecke[-1][0] + rechtecke[-1][1],  # Ending point of the line on the X-axis (right edge)
+        y0=y,
+        y1=y,
+        line=dict(
+            color="black",
+            width=0.5,
+            dash="dash"
+        )
+    )
+
+# Positions for the vertical dashed lines
+x_values = [909.5, 3749.5, 4569.5, 1769.5, 2529.5, 3189.5, 4209.5, 4850.5, 4995.5, 442, 1352, 2162, 2872, 3482, 3992, 4402, 4712, 4922, 5037.5]  # Mittlere Positionen von AB90, AB50, AB30
+
+# Insert vertical dashed lines
+for x in x_values:
+    fig.add_shape(
+        type="line",
+        x0=x,
+        x1=x,
+        y0=0,
+        y1=100,
+        line=dict(
+            color="black",
+            width=1,
+            dash="dash"
+        )
+    )
+
+# Rotate the plot by 90 degrees (swap X and Y data)
+for trace in fig.data:
+    trace.x, trace.y = trace.y, trace.x
+
+
+from scipy.spatial.distance import cdist
+
+# Extract chemical data (Alm, Spe, Pyr, Gro)
+X = df_parameters[["Unnamed: 1", "Unnamed: 2", "Unnamed: 3", "Unnamed: 4"]].values
+Y = mean_fields[["Alm", "Spe", "Pyr", "Gro"]].values
+
+# Compute distance matrix
+dist_matrix = cdist(X, Y)
+
+# Index of the nearest provenance group
+closest_idx = np.argmin(dist_matrix, axis=1)
+df_parameters["Nearest_Field"] = mean_fields.index[closest_idx]
+df_parameters["Distance"] = dist_matrix[np.arange(len(X)), closest_idx]
+
+# Show sample classification
+print("\n=== Beispielhafte Klassifikation (erste 20 Zeilen) ===")
+print(df_parameters[["Herkunft", "Nearest_Field", "Distance"]].head(20))
+
+
+from scipy.stats import chi2
+import numpy as np
+
+
+#  Subfield means (provided as alm,pyr,gro,sp)
+subfield_means_raw = pd.DataFrame({
+    "alm": [65.66982555, 54.31709145, 44.23111848, 48.07424294, 50.65111941, 23.87808719, 55.9267222, 21.02162502],
+    "pyr": [12.21280849, 33.69541824, 31.52675381, 3.214631984, 6.044688795, 57.81881319, 9.93239652, 3.069200646],
+    "gro": [12.932808, 10.07050389, 23.08000919, 22.67389225, 2.962742713, 17.48481604, 24.99704974, 64.92615389],
+    "sp":  [9.18931335, 1.921986915, 1.177650051, 27.99386213, 40.3362223, 0.812181278, 9.156153933, 10.98302044]
+}, index=[
+    "Amphibolites", "Granulites", "Eclogites", "Greenschists",
+    "Granites & Pegmatites", "Ultramafic rocks", "Blueschists", "Calc-silicate rocks"
+])
+
+# Subfield standard deviations (provided as alm,pyr,gro,sp)
+subfield_sigmas_raw = pd.DataFrame({
+    "alm": [10.34841545, 12.29476235, 12.67775939, 17.88439765, 14.35396254, 8.963328014, 11.23642444, 21.2594703],
+    "pyr": [8.402774083, 14.64088125, 12.21618211, 2.160177633, 5.404302193, 15.99899131, 7.608415516, 2.57929375],
+    "gro": [9.198543982, 8.220985049, 8.401915528, 9.018942259, 1.638148843, 13.22167668, 5.837586628, 30.103043],
+    "sp":  [10.56094471, 1.610341276, 0.825854952, 21.805533, 17.31566399, 0.575505324, 13.55642173, 14.93862155]
+}, index=subfield_means_raw.index)
+
+# Convert to order: Alm, Spe, Pyr, Gro ---
+# # Mapping: alm->Alm, sp->Spe, pyr->Pyr, gro->Gro
+means = (subfield_means_raw
+         .rename(columns={"alm":"Alm","sp":"Spe","pyr":"Pyr","gro":"Gro"})
+         [["Alm","Spe","Pyr","Gro"]])
+
+sigmas = (subfield_sigmas_raw
+          .rename(columns={"alm":"Alm","sp":"Spe","pyr":"Pyr","gro":"Gro"})
+          [["Alm","Spe","Pyr","Gro"]])
+
+# Classification using Mahalanobis (diagonal covariance)
+X_pts = df_parameters[["Unnamed: 1","Unnamed: 2","Unnamed: 3","Unnamed: 4"]].to_numpy()  # Alm,Spe,Pyr,Gro
+
+labels = []
+d_min  = []
+
+# numerically stable variance (if σ is very small ~0
+sigmas_safe = sigmas.clip(lower=0.5)
+invcovs = {k: np.diag(1.0/(sigmas_safe.loc[k].to_numpy()**2)) for k in means.index}
+mus     = {k: means.loc[k].to_numpy() for k in means.index}
+
+for x in X_pts:
+    best_label, best_d = None, np.inf
+    for k in means.index:
+        mu = mus[k]
+        VI = invcovs[k]
+        d2 = (x-mu) @ VI @ (x-mu).T   # Mahalanobis^2
+        if d2 < best_d:
+            best_d = d2
+            best_label = k
+    labels.append(best_label)
+    d_min.append(np.sqrt(best_d))
+
+df_parameters["Nearest_Subfield_Mahalanobis"] = labels
+df_parameters["Mahalanobis_Distance"] = d_min
+
+# Ambiguous-flag using Chi² threshold for 1σ (68% in d=4)
+chi2_1sigma = chi2.ppf(0.68, df=4)  # ≈ 4.72
+ambig = []
+for x in X_pts:
+    inside = []
+    for k in means.index:
+        mu = mus[k]
+        VI = invcovs[k]
+        d2 = (x-mu) @ VI @ (x-mu).T
+        if d2 <= chi2_1sigma:
+            inside.append(k)
+    ambig.append("/".join(inside) if len(inside) >= 2 else np.nan)
+df_parameters["Ambiguous_1sigma"] = ambig
+
+# Summary
+summary = df_parameters["Nearest_Subfield_Mahalanobis"].value_counts().sort_index()
+summary_pct = (summary/len(df_parameters)*100).round(1)
+print("\n=== Zusammenfassung (Mahalanobis, korrekt gemappt) ===")
+print(pd.DataFrame({"Anzahl Punkte": summary, "Prozent": summary_pct}))
+
+#  (Optional) small diagnostic output
+print("\nCheck Spalten-Reihenfolge:")
+print("Means cols:", list(means.columns))
+print("Sigmas cols:", list(sigmas.columns))
+print("Points cols: ['Alm','Spe','Pyr','Gro']")
+
+# New legend with point counts & percentages from Mahalanobis classification
+summary = df_parameters["Nearest_Subfield_Mahalanobis"].value_counts().sort_index()
+summary_pct = (summary / len(df_parameters) * 100).round(1)
+
+
+# Mapping file paths
+legend_text = (
+    "<span style='font-size:40px; font-weight:bold;'>Garnet Provenance Groups</span><br>"
+    "<span style='font-size:28px; font-style:italic;'>Classification based on Mahalanobis distance</span><br><br>"
+)
+
+
+for file_path in ordered_hulls:
+    color = color_mapping_files[file_path]
+    hull_name = legend_mapping.get(file_path, file_path.split("\\")[-1].split(".")[0])
+
+    # Numbers for this subfield (if available)
+    count = summary.get(hull_name, 0)
+    pct = summary_pct.get(hull_name, 0)
+
+    # Format entry in English
+    legend_text += (
+        f'<span style="color:{color}; font-size:62px;">■</span> '
+        f'<span style="font-size:32px; font-weight:bold;">{hull_name}</span> '
+        f'– {int(count)} points ({pct:.1f}%)<br>'
+        f'<span style="font-size:8px;">&nbsp;</span><br>'
+    )
+
+print("\nLegend content with counts and percentages:")
+print(legend_text)
+
+# === Add both the colorbar title and the legend block ===
+fig.add_annotation(
+    text="Almandine / (Almandine + Spessartine)",
+    x=1.02,
+    y=0.5,
+    textangle=-90,
+    showarrow=False,
+    xref="paper",
+    yref="paper",
+    font=dict(size=30, color="black")
+)
+
+fig.update_layout(
+    annotations=[
+        dict(
+            x=0.02,
+            y=0.98,
+            xref="paper",
+            yref="paper",
+            text=legend_text,
+            showarrow=False,
+            font=dict(size=28, color="black"),
+            bgcolor="rgba(255, 255, 255, 1)",
+            bordercolor="black",
+            borderwidth=3,
+            xanchor="left",
+            yanchor="top",
+            align="left",
+            textangle=0
+        )
+    ]
+)
+
+# show plot
+fig.show()
