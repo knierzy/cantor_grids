@@ -750,36 +750,37 @@ for name in sorted_classes:
     )
 
 
+
 # Adjust layout to center
 fig.update_layout(
 plot_bgcolor="white",
     paper_bgcolor="white",
     xaxis=dict(
         title=dict(
-             text="Sum of Sand % (A) and Silt % (B)",
-             font=dict(size=24, color="black", family="Arial Black")
+            text="Sum of Sand % (A) and Silt % (B)",
+            font=dict(size=35, color="black", family="Arial Black")
         ),
         range=[-10, 1170],
         tickformat=".0f",
-        tickfont=dict(size=25, color="black")
+        tickfont=dict(size=30, color="black")
     ),
     yaxis=dict(
         title=dict(
-            text="Humus (%) /// Difference between height of AB rectangle and the Humus content (%) equals Clay content (%)",
-            font=dict(size=19, color="black", family="Arial Black")
+            text="Humus (%) ///  Clay (%) = height<sub>AB</sub> − Humus (%)",
+            font=dict(size=28, color="black", family="Arial Black")
         ),
         range=[-0.3, 8.2],
         tickformat=".0f",
         dtick=2,
         color="black",
         linecolor="gray",
-        tickfont=dict(size=25, color="black")
+        tickfont=dict(size=30, color="black")
     ),
 
     autosize=False,
     width=2260,  # Set plot width
     height=1210,  # Set plot height
-    margin=dict(l=0, r=5, t=20, b=5),  # Center the plot by minimizing margins
+    margin=dict(l=0, r=140, t=20, b=5),  # Center the plot by minimizing margins
     showlegend=False  # Disable the legend
 )
 
