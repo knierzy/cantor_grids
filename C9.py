@@ -976,7 +976,9 @@ class_distribution = {
 
 
 # build legend text
-legende_text = "<span style='font-size:28px; font-weight:bold;'>Soil texture classes</span><br>"
+legende_text = (
+    "<span style='font-size:34px; font-weight:bold;'>Soil texture classes</span><br><br>"
+)
 
 sorted_classes = [name for name in ordered_legende if name not in exclude_classes]
 
@@ -990,16 +992,17 @@ for name in sorted_classes:
     count = class_counts.get(name, 0)
 
     legende_text += (
-        f"<span style='color:{base_color}; font-size:46px;'>■</span> "
-        f"<span style='font-size:26px;'>{name}</span>: "
-        f"<b>{percent:.1f}%</b> "
-        f"<span style='color:gray; font-size:18px; vertical-align:super;'>"
-        f"({count} pts)</span><br>"
+        f"<span style='color:{base_color}; font-size:55px;'>■</span> "
+        f"<span style='font-size:25px; font-weight:600;'>{name}</span>: "
+        f"<span style='font-size:25px;'><b>{percent:.1f}%</b></span> "
+        f"<span style='color:gray; font-size:22px; vertical-align:super;'>"
+        f"({count} pts)</span>"
+        f"<br><span style='font-size:10px;'>&nbsp;</span><br>"
     )
 
-
-legende_text += f"<br><b>Total points:</b> {total_points}<br>"
-
+legende_text += (
+    f"<span style='font-size:26px;'><b>Total points:</b> {total_points}</span>"
+)
 
 # Adjust layout to center
 fig.update_layout(
