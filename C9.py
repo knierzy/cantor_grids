@@ -867,13 +867,26 @@ fig.update_layout(
         cmax=awc_max,
         colorbar=dict(
             title="",
-            tickfont=dict(size=18),
+            tickfont=dict(size=28),
             thickness=20,
             len=0.95,
             y=0.5,
             yanchor="middle",
         )
     )
+)
+
+# Add a vertical annotation for the colorbar title
+fig.add_annotation(
+    text="Available Water Capacity (Vol.%)",
+    xref="paper", yref="paper",
+    x=1.05,
+    y=0.5,
+    showarrow=False,
+    textangle=270,
+    font=dict(size=27, color="black",family="Arial Black"),
+    xanchor="left",
+    yanchor="middle"
 )
 
 
