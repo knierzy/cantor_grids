@@ -1010,30 +1010,30 @@ plot_bgcolor="white",  # Set plot background to white
     paper_bgcolor="white",  # Set whole figure background to white
     xaxis=dict(
         title=dict(
-             text="Sum of Sand % (A) and Silt % (B)",
-             font=dict(size=28, color="black",family="Arial Black")
+            text="Sum of Sand % (A) and Silt % (B)",
+            font=dict(size=35, color="black", family="Arial Black")
         ),
-        range=[-10, 4250],  # korrekt
+        range=[-10, 4250],  
         tickformat=".0f",
-        tickfont=dict(size=25, color="black")
+        tickfont=dict(size=28, color="black")
     ),
     yaxis=dict(
         title=dict(
-            text="Humus (%) /// Difference between height of AB rectangle and the Humus content (%) equals Clay content (%)",
-            font=dict(size=18, color="black",family="Arial Black")
+            text="Humus (%) ///  Clay (%) = height<sub>AB</sub> − Humus (%)",
+            font=dict(size=32, color="black", family="Arial Black")
         ),
-        range=[-0.3, 11.5],  # ✅ neuer Fokusbereich
+        range=[-0.3,11.5],  
         tickformat=".0f",
-        dtick=2,  # feinere Ticks (alle 2 %)
+        dtick=2,  
         color="black",
         linecolor="gray",
-        tickfont=dict(size=25, color="black")
+        tickfont=dict(size=28, color="black")
     ),
 
     autosize=False,
     width=2260,  # Set plot width
     height=1210,  # Set plot height
-    margin=dict(l=0, r=90, t=20, b=5),  # Center the plot by minimizing margins
+    margin=dict(l=0, r=140, t=20, b=5),  # Center the plot by minimizing margins
     showlegend=False  # Disable the legend
 )
 
