@@ -1078,18 +1078,7 @@ for trace in fig.data:
     trace.x, trace.y = trace.y, trace.x
 
 
-# AB boundary lines
-fig.add_annotation(
-    text="<b>Available Water Capacity (Vol.%)</b>",
-    xref="paper", yref="paper",
-    x=1.015,
-    y=0.5,
-    showarrow=False,
-    textangle=270,
-    font=dict(size=20, color="black"),
-    xanchor="center",
-    yanchor="middle"
-)
+
 
 # legend after rotation
 fig.add_annotation(
