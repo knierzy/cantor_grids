@@ -693,7 +693,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="circle",
-        size=3,
+        size=5,
         color="black",
         opacity=1
     ),
@@ -789,7 +789,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="square",
-        size=3,
+        size=5,
         color="black",
         opacity=1
     ),
@@ -864,7 +864,7 @@ if "highom_x" in globals() and len(highom_x) > 0:
         mode="markers",
         marker=dict(
             symbol="circle",
-            size=3,         
+            size=5,         
             color="black",
             opacity=1
         ),
