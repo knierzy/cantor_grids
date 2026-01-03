@@ -856,6 +856,22 @@ fig.add_trace(go.Scatter(
     showlegend=False
 ))
 
+# High-OM > 8% – Black central dot 
+if "highom_x" in globals() and len(highom_x) > 0:
+    fig.add_trace(go.Scatter(
+        x=highom_x,
+        y=highom_y,
+        mode="markers",
+        marker=dict(
+            symbol="circle",
+            size=3,         
+            color="black",
+            opacity=1
+        ),
+        hoverinfo="skip",
+        showlegend=False
+    ))
+
 
 
 
