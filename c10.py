@@ -623,3 +623,58 @@ fig.update_layout(
 
 # show plot
 fig.show()
+
+
+#        EXPORT SECTION (HTML / PNG / TIFF) — GARNET SCRIPT
+
+import os
+from playwright.sync_api import sync_playwright
+from PIL import Image
+
+# Determine the directory where this script is located
+base_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Create export directory (if not exists)
+export_dir = os.path.join(base_dir, "exports")
+os.makedirs(export_dir, exist_ok=True)
+
+# UNIQUE FILENAMES FOR THIS SCRIPT 
+png_path  = os.path.join(export_dir, "cantor_export_garnet_system.png")
+tiff_path = os.path.join(export_dir, "cantor_export_garnet_system.tiff")
+html_output = os.path.join(export_dir, "cantor_export_garnet_system.html")
+
+#Export HTML version of the figure 
+fig.write_html(html_output, include_plotlyjs="cdn", full_html=True)
+
+# Convert file path to a local browser URL
+html_path = "file:///" + html_output.replace("\\", "/")
+
+# Create high-resolution PNG using Playwright 
+def export_highres_png():
+    print("📸 Erstelle hochauflösendes PNG ...")
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        page = browser.new_page(
+            viewport={"width": 2260, "height": 1210, "device_scale_factor": 2}
+        )
+        page.goto(html_path)
+        page.wait_for_timeout(800)  
+        page.screenshot(path=png_path, full_page=True)
+        browser.close()
+    print("✅ PNG gespeichert unter:", png_path)
+
+#  Convert PNG to TIFF with 400 dpi 
+def convert_png_to_tiff_with_dpi(png_path, tiff_path, dpi=(400, 400)):
+    print("🖼️ Konvertiere PNG → TIFF (400 dpi) ...")
+    if os.path.exists(png_path):
+        img = Image.open(png_path)
+        img.save(tiff_path, dpi=dpi)
+        print("✅ TIFF gespeichert unter:", tiff_path)
+    else:
+        print("❌ PNG nicht gefunden – TIFF konnte nicht erzeugt werden:", png_path)
+
+# Execute export sequence 
+export_highres_png()
+convert_png_to_tiff_with_dpi(png_path, tiff_path)
+
+print("\n🎉 EXPORT KOMPLETT – Dateien gespeichert in:", export_dir)
