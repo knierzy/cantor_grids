@@ -34,7 +34,7 @@ fig = go.Figure()
 # Add rectangles with color gradients along the new x-axis (after rotation)
 def add_rechtecke_horizontal(rechtecke):
     for i, (x_start, breite, label) in enumerate(rechtecke):
-        hoehe = i + 1  # entspricht AB-Breite
+        hoehe = i + 1  
 
         gradient_steps = 14
         grau_start, grau_ende = 150, 200
@@ -57,7 +57,7 @@ def add_rechtecke_horizontal(rechtecke):
                 showlegend=False
             ))
 
-        # feine vertikale Linien
+        # vertical lines
         for y in range(1, hoehe):
             fig.add_trace(go.Scatter(
                 x=[x_start, x_start + breite],
@@ -73,10 +73,10 @@ def add_rechtecke_horizontal(rechtecke):
     ab_tick_text = []
 
     for x_start, breite, label in rechtecke:
-        ab_value = int(label.replace("AB", ""))  # z.B. "AB95" → 95
+        ab_value = int(label.replace("AB", ""))  
 
         if ab_value % 5 == 0 or ab_value == 99:
-            ab_tick_vals.append(x_start + breite)  # rechte Kante des AB-Rechtecks
+            ab_tick_vals.append(x_start + breite)  
             ab_tick_text.append(label)
 
     fig.update_layout(
@@ -100,7 +100,7 @@ def saxton_awc(sand_pct, clay_pct, humus_pct):
 
     sand = sand_pct / 100.0
     clay = clay_pct / 100.0
-    om = np.clip(humus_pct, 0, 8)  # gültig bis 8 %
+    om = np.clip(humus_pct, 0, 8)  # valid until 8 %
 
     theta33_t = (
         -0.251 * sand
@@ -352,9 +352,6 @@ fig.update_layout(
         font_family="Arial"
     )
 )
-
-
-
 
 # White background for plot and page
 fig.update_layout(
