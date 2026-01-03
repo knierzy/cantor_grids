@@ -808,7 +808,7 @@ if "highom_x" in globals() and len(highom_x) > 0:
         mode="markers",
         marker=dict(
             symbol="circle",
-            size=24,
+            size=26,
             color="rgba(0,0,0,0)",
             line=dict(color="black", width=2)
         ),
@@ -826,7 +826,7 @@ if "highom_x" in globals() and len(highom_x) > 0:
         mode="markers",
         marker=dict(
             symbol="circle",
-            size=24,
+            size=26,
             color="white",
             line=dict(color="white", width=0),
             opacity=1
@@ -844,7 +844,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="circle",
-        size=14,
+        size=18,
         color=[
             apply_alpha(col, 1.0) for col in highom_inner_color
         ],
