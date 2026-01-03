@@ -856,7 +856,7 @@ for i, (start, hoehe, label) in enumerate(rechtecke):
 # legend after rotation
 
 fig.add_annotation(
-    x=0.00, y=0.995,
+    x=0.02, y=0.995,
     xref="paper", yref="paper",
     text=legende_text,
     showarrow=False,
