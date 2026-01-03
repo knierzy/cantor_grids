@@ -371,30 +371,29 @@ for (herkunft, ab_value), points in grouped_points.items():
     plot_convex_hull(points, color)
 
 # Adjust layout
-fig.update_layout(
-    plot_bgcolor="white",  # Hintergrund des Plots auf Weiß setzen
-    paper_bgcolor="white",  # Hintergrund des gesamten Diagramms auf Weiß setzen
+plot_bgcolor="white",
+    paper_bgcolor="white",
     xaxis=dict(
-    title=dict(
-        text="Sum of Almandine (%) + Spessartine (%)",
-        font=dict(size=35, color="black", family="Arial Black")
+        title=dict(
+            text="Sum of Almandine (%) + Spessartine (%)",
+            font=dict(size=35, color="black", family="Arial Black")
+        ),
+        range=[0, rechtecke[-1][0] + rechtecke[-1][1]+ 20],
+        tickformat=".0f",
+        tickfont=dict(size=24, color="black")
     ),
-    range=[0, rechtecke[-1][0] + rechtecke[-1][1]+ 20],
-    tickformat=".0f",
-    tickfont=dict(size=24, color="black")
-),
-yaxis=dict(
-    title=dict(
-        text="Pyrope (%) /// Difference between height of AB rectangle and Pyrope content (%) equals Grossular content (%)",
-        font=dict(size=19, color="black", family="Arial Black")
-    ),
-    range=[-2, 100],
+    yaxis=dict(
+        title=dict(
+            text="Pyrope (%) /// Grossular (%) = height<sub>AB</sub> − Pyrope (%)",
+            font=dict(size=32, color="black", family="Arial Black")
+        ),
+        range=[-2, 100],
         constrain="domain",
         tickformat=".0f",
         dtick=10,
-        tickfont=dict(size=24, color="black"),
+        tickfont=dict(size=28, color="black"),
         linecolor="gray"
-),
+    ),
 
     autosize=False,
     width=2260,
