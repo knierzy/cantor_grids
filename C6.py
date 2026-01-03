@@ -301,23 +301,23 @@ plot_bgcolor="white",
     xaxis=dict(
         title=dict(
             text="Sum of Sand % (A) and Silt % (B)",
-            font=dict(size=24, color="black")
+            font=dict(size=35, color="black", family="Arial Black")
         ),
         range=[0, rechtecke[-1][0] + rechtecke[-1][1]],  # korrekt
         tickformat=".0f",
-        tickfont=dict(size=25, color="black")
+        tickfont=dict(size=26, color="black")
     ),
     yaxis=dict(
         title=dict(
-            text="Humus (%) /// Difference between height of AB rectangle and the Humus content (%) equals Clay content (%)",
-            font=dict(size=21, color="black")
+            text="Humus (%) ///  Clay (%) = height<sub>AB</sub> − Humus (%)",
+            font=dict(size=32, color="black", family="Arial Black")
         ),
         range=[0, 100],
         tickformat=".0f",
         dtick=5,
         color="black",
         linecolor="gray",
-        tickfont=dict(size=25, color="black")
+        tickfont=dict(size=28, color="black")
     ),
     autosize=False,
     width=2260,  # Set plot width
