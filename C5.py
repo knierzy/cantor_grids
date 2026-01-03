@@ -371,6 +371,7 @@ for (herkunft, ab_value), points in grouped_points.items():
     plot_convex_hull(points, color)
 
 # Adjust layout
+fig.update_layout(
 plot_bgcolor="white",
     paper_bgcolor="white",
     xaxis=dict(
@@ -394,7 +395,6 @@ plot_bgcolor="white",
         tickfont=dict(size=28, color="black"),
         linecolor="gray"
     ),
-
     autosize=False,
     width=2260,
     height=1210,
