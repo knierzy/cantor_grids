@@ -342,10 +342,8 @@ farbe_to_subklasse = {
 
 # Legend text as HTML with fixed display order
 legende_text = (
-    "<span style='font-size:26px; font-weight:bold;'>Soil texture classes</span><br>"
-    "<span style='line-height:25px;'>&nbsp;</span><br>"
+    "<span style='font-size:28px; font-weight:bold;'>Soil texture classes</span><br>"
 )
-
 
 # Display order of the legend
 ordered_legende = [
@@ -353,8 +351,8 @@ ordered_legende = [
     "Silty Sand",
     "Sandy Silt",
           "Silt",
-    "Clayey Sand",
     "Loamy Sand",
+    "Clayey Sand",
     "Sandy Loam",
     "Loamy Silt",
     "Silty Loam",
@@ -370,16 +368,16 @@ for name in ordered_legende:
     if name in ["Organo-Mineral Soils", "Organic Soils"]:
         farbe_combined = "rgba(80, 45, 15, 0.14)"
         legende_text += (
-            f'<span style="color:{farbe_combined}; font-size:40px;">■</span> '
+            f'<span style="color:{farbe_combined}; font-size:45px;">■</span> '
             f'{name}<br>'
         )
 
     else:
         farbe = next((k for k, v in farbe_to_subklasse.items() if v == name), None)
         if farbe:
-            farbe_legende = apply_alpha(farbe, 0.60)
+            farbe_legende = apply_alpha(farbe, 0.40)
             legende_text += (
-                f'<span style="color:{farbe_legende}; font-size:40px;">■</span> '
+                f'<span style="color:{farbe_legende}; font-size:45px;">■</span> '
                 f'{name}<br>'
             )
 
@@ -626,7 +624,7 @@ fig.update_layout(
         cmax=awc_max,
         colorbar=dict(
             title="",  # leer lassen, wir ersetzen es durch Annotation
-            tickfont=dict(size=18),
+            tickfont=dict(size=28),
             thickness=20,
             len=0.95,
             y=0.5,
@@ -634,6 +632,19 @@ fig.update_layout(
             x=1.02
         )
     )
+)
+fig.add_annotation(
+    text="Available Water Capacity (Vol.%)",
+    xref="paper",
+    yref="paper",
+    x=1.049,          # feinjustieren
+    y=0.5,
+    showarrow=False,
+    textangle=270,    # ✅ hier funktioniert Rotation!
+    font=dict(size=27, color="black",
+        family="Arial Black"),   # 🔹 fett),
+    xanchor="left",
+    yanchor="middle"
 )
 
 
@@ -730,14 +741,13 @@ sorted_classes = [name for name in ordered_legende if name not in exclude_classe
 
 
 for name in sorted_classes:
-    farbe = klasse_zu_farbe.get(name, "rgba(0,0,0,1)")
-    legende_text += (
-        f"<span style='color:{farbe}; font-size:46px;'>■</span> "
-        f"<span style='font-size:36px;'>{name}</span><br>"
-    )
+    farbe_raw = klasse_zu_farbe.get(name, "rgba(0,0,0,1)")
+    farbe_legende = apply_alpha(farbe_raw, 0.50)
 
-# Add total point count at the bottom
-legende_text += f"<br><b>Total points:</b> {total_points}<br>"
+    legende_text += (
+        f"<span style='color:{farbe_legende}; font-size:54px;'>■</span> "
+        f"<span style='font-size:38px;'>{name}</span><br>"
+    )
 
 
 # Adjust layout to center
