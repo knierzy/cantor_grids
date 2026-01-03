@@ -133,7 +133,7 @@ def add_saxton_polygons(fig, rechtecke, saxton_awc,
 
     from plotly.colors import sample_colorscale
 
-    AB_MIN = 41  # 🔴 Heatmap nur bis AB41
+    AB_MIN = 41  # Heatmap until AB41
 
     for ab_index, (x_start, breite, label) in enumerate(rechtecke):
 
@@ -148,7 +148,7 @@ def add_saxton_polygons(fig, rechtecke, saxton_awc,
         hoehe = ab_index + 1
 
         B_vals = np.linspace(0, AB, n_x + 1)
-        C_MAX_HEAT = 8  # 🔴 absolute Obergrenze für Heatmap
+        C_MAX_HEAT = 8  
         C_max_plot = min(max_c, C_MAX_HEAT)
         C_vals = np.arange(0, C_max_plot + 1)
 
@@ -187,16 +187,16 @@ def add_saxton_polygons(fig, rechtecke, saxton_awc,
 add_saxton_polygons(fig, rechtecke, saxton_awc)
 
 fig.add_trace(go.Heatmap(
-    z=[[3, 35]],                 # min / max
+    z=[[3, 35]],                 
     colorscale="Turbo",
     showscale=True,
     colorbar=dict(
         title=dict(
             text="Available Water Capacity (Vol.%)",
-            side="right",        # vertikaler Titel
-            font=dict(size=22, family="Arial Black")
+            side="right",        
+            font=dict(size=24, family="Arial Black")
         ),
-        tickfont=dict(size=20),
+        tickfont=dict(size=26),
         len=0.55,
         thickness=24,
         x=0.945,
@@ -205,7 +205,7 @@ fig.add_trace(go.Heatmap(
         yanchor="middle",
         outlinewidth=2
     ),
-    opacity=0,                   # unsichtbar
+    opacity=0,                   
     hoverinfo="skip"
 ))
 
@@ -218,8 +218,8 @@ fig.update_layout(
     xaxis=dict(
 
         title=dict(
-            text="Sum of Sand % (A) + Silt % (B)",
-            font=dict(size=28, family="Arial Black", color="black")
+            text="Sum of Sand % (A) and Silt % (B)",
+            font=dict(size=35, color="black", family="Arial Black")
         ),
         range=[0, 4500],
         tickfont=dict(size=25, color="black"),
@@ -232,10 +232,10 @@ fig.update_layout(
 
     yaxis=dict(
         title=dict(
-            text="Humus (%) /// Difference between height of AB rectangle and the Humus content (%) equals Clay content (%)",
-            font=dict(size=18, family="Arial Black", color="black")
+            text="Humus (%) ///  Clay (%) = height<sub>AB</sub> − Humus (%)",
+            font=dict(size=28, color="black", family="Arial Black")
         ),
-        range=[-0.35, 8.5],     # oder 15
+        range=[-0.35, 8.5],     # or 15
         dtick=1,
         tickfont=dict(size=25, color="black"),
         showline=True,
@@ -305,13 +305,13 @@ def add_ab_boundaries_with_arrows(fig, rechtecke,
 add_ab_boundaries_with_arrows(
     fig,
     rechtecke,
-    y_top=9    # muss zu yaxis.range passen!
+    y_top=9    
 )
 
 # Add dashed horizontal reference lines
 y_values = [10, 20, 30, 40, 50, 60, 70, 80, 90]
 
-x_max = rechtecke[-1][0] + rechtecke[-1][1]  # 🔴 rechnerisch korrektes Diagrammende
+x_max = rechtecke[-1][0] + rechtecke[-1][1]  # 
 
 for y in y_values:
     fig.add_shape(
