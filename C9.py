@@ -619,7 +619,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="circle",
-        size=28,
+        size=30,
         color="rgba(0,0,0,0)",   # transparent
         line=dict(color="black", width=2)
     ),
@@ -638,7 +638,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="circle",
-        size=27,
+        size=29,
         color=np.array(awc_values)[mask_circle],   # AWC values → Jet colorscale
         colorscale="Jet",
         coloraxis="coloraxis",
@@ -656,7 +656,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="circle",
-        size=14,
+        size=16,
         color="white",
         line=dict(width=0),
         opacity=1
@@ -675,7 +675,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="circle",
-        size=18,
+        size=20,
         color=np.array(ring_colors)[mask_circle],   # soil texture class color
         line=dict(color="black", width=1),
         opacity=0.8
