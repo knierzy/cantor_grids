@@ -808,7 +808,7 @@ if "highom_x" in globals() and len(highom_x) > 0:
         mode="markers",
         marker=dict(
             symbol="circle",
-            size=22,
+            size=24,
             color="rgba(0,0,0,0)",
             line=dict(color="black", width=1)
         ),
