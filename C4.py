@@ -249,13 +249,13 @@ plot_bgcolor="white",  # Set plot background to white
         ),
         range=[0, rechtecke[-1][0] + rechtecke[-1][1]],
         tickformat=".0f",
-        tickfont=dict(size=24, color="black")
+        tickfont=dict(size=26, color="black")
     ),
 
     yaxis=dict(
         title=dict(
-            text="Pyrope (%) /// Difference between height of AB rectangle and Pyrope content (%) equals Grossular content (%)",
-            font=dict(size=19, color="black", family="Arial Black")
+            text="Pyrope (%) /// Grossular (%) = height<sub>AB</sub> − Pyrope (%)",
+            font=dict(size=32, color="black", family="Arial Black")
         ),
         range=[0, 100],
         constrain="domain",
@@ -263,8 +263,9 @@ plot_bgcolor="white",  # Set plot background to white
         dtick=10,
         color="black",  # Set axis label and axis line color to black
         linecolor="gray",
-        tickfont=dict(size=24, color="black")
+        tickfont=dict(size=28, color="black")
     ),
+
 
     autosize=False,  # disable automatic resizing
     width=2260,
