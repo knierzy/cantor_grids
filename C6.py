@@ -199,34 +199,46 @@ farbe_to_subklasse = {
 
 # Legend text as HTML
 legende_text = (
-    "<span style='font-size:24px; font-weight:bold;'>Soil texture classes</span><br>"
-
+    "<span style='font-size:36px; font-weight:bold;'>Soil texture classes</span><br><br>"
 )
 
 
 # Display order of the legend
 ordered_legende = [
-    "Clay", "Clay Loam", "Sandy Clay", "Clayey Sand", "Loam",
-    "Loamy Silt",  "Silty Loam", "Sandy Loam", "Loamy Sand","Silt",
-    "Sandy Silt", "Silty Sand", "Sand", "Organic & Organo-Mineral Soils"
+    "Sand",
+    "Silty Sand",
+    "Sandy Silt",
+          "Silt",
+    "Clayey Sand",
+    "Loamy Sand",
+    "Sandy Loam",
+    "Loamy Silt",
+    "Silty Loam",
+    "Loam",
+    "Sandy Clay",
+    "Clay Loam",
+    "Clay",
+
 ]
 
 for name in ordered_legende:
-    if name == "Organic & Organo-Mineral Soils":
-        # einheitliche Mischfarbe (mittleres Braun)
-        farbe_combined = "rgba(80, 45, 15, 0.14)"  # etwas kräftiger als die Originalfarben
 
+    if name in ["Organo-Mineral Soils", "Organic Soils"]:
+        farbe_combined = "rgba(80, 45, 15, 0.14)"
         legende_text += (
             f'<span style="color:{farbe_combined}; font-size:40px;">■</span> '
-            f'Organo-Mineral & Organic Soils<br>'
+            f'{name}<br>'
         )
 
     else:
         farbe = next((k for k, v in farbe_to_subklasse.items() if v == name), None)
         if farbe:
             farbe_legende = legend_rgba(farbe, alpha_factor=0.6)
-            legende_text += f'<span style="color:{farbe}; font-size:40px;">■</span> {name}<br>'
-
+            # 🔴 HIER
+            legende_text += (
+                f'<span style="color:{farbe_legende}; font-size:56px;">■</span> '
+                f'<span style="font-size:42px;">{name}</span><br>'
+            )
 
 df_hulls_combined = pd.concat([
     pd.read_excel(path).assign(file_source=path)
