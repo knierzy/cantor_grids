@@ -678,7 +678,7 @@ fig.add_trace(go.Scatter(
         size=22,
         color=np.array(ring_colors)[mask_circle],   # soil texture class color
         line=dict(color="black", width=1),
-        opacity=0.8
+        opacity=0.6
     ),
     text=np.array(hover_texts)[mask_circle],
     hovertemplate="%{text}<extra></extra>",
