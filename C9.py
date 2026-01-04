@@ -1011,7 +1011,7 @@ for name in sorted_classes:
         f"<span style='color:{base_color}; font-size:55px;'>■</span> "
         f"<span style='font-size:25px; font-weight:600;'>{name}</span>: "
         f"<span style='font-size:25px;'><b>{percent:.1f}%</b></span> "
-        f"<span style='color:gray; font-size:22px; vertical-align:super;'>"
+        f"<span style='color:gray; font-size:30px; vertical-align:super;'>"
         f"({count} pts)</span>"
         f"<br><span style='font-size:10px;'>&nbsp;</span><br>"
     )
