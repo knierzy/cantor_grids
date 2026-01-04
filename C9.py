@@ -1,4 +1,4 @@
-# Cantor diagram of Austrian soil texture classes with humus as 4th component (data Kirchbach)
+# Cantor diagram of Austrian soil texture classes with humus as 4th component (data Kirchdorf)
 # -------------------------------------------------------------------------
 # Creates an interactive Cantor plot showing:
 #   • AB-rectangles (AB99–AB1)
@@ -7,7 +7,7 @@
 #   • AWC (Available Water Capacity) displayed as color halo
 #   • Inner points colored by soil texture class
 #   • Export to HTML, PNG (Playwright), and TIFF (400 dpi)
-#   • Plots 108 points from the district Kirchdorf
+#   • Plots 107 points from the district Kirchdorf
 
 import pandas as pd
 import plotly.graph_objects as go
