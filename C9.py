@@ -678,7 +678,7 @@ fig.add_trace(go.Scatter(
         size=22,
         color=np.array(ring_colors)[mask_circle],   # soil texture class color
         line=dict(color="black", width=1),
-        opacity=0.6
+        opacity=0.7
     ),
     text=np.array(hover_texts)[mask_circle],
     hovertemplate="%{text}<extra></extra>",
@@ -772,7 +772,7 @@ fig.add_trace(go.Scatter(
         size=19,
         color=np.array(ring_colors)[mask_square],   # soil texture class color
         line=dict(color="black", width=1),
-        opacity=0.8
+        opacity=0.7
     ),
     text=np.array(hover_texts)[mask_square],
     hovertemplate="%{text}<extra></extra>",
@@ -849,7 +849,7 @@ fig.add_trace(go.Scatter(
             apply_alpha(col, 1.0) for col in highom_inner_color
         ],
         line=dict(color="black", width=0),
-        opacity=1.0
+        opacity=0.7
     ),
     text=highom_hovertexts,
     hovertemplate="%{text}<extra></extra>",
