@@ -192,11 +192,6 @@ farbe_to_subklasse = {
 }
 
 
-
-
-
-
-
 # Legend text as HTML
 legende_text = (
     "<span style='font-size:36px; font-weight:bold;'>Soil texture classes</span><br><br>"
@@ -234,7 +229,7 @@ for name in ordered_legende:
         farbe = next((k for k, v in farbe_to_subklasse.items() if v == name), None)
         if farbe:
             farbe_legende = legend_rgba(farbe, alpha_factor=0.6)
-            # 🔴 HIER
+           
             legende_text += (
                 f'<span style="color:{farbe_legende}; font-size:56px;">■</span> '
                 f'<span style="font-size:42px;">{name}</span><br>'
@@ -286,7 +281,7 @@ fig.add_shape(
     y0=35,
     y1=35,
     line=dict(
-        color="rgba(50, 25, 10, 1)",  # dunkles Braun
+        color="rgba(50, 25, 10, 1)",  
         width=3.8,
         dash="dash"
     ),
@@ -303,7 +298,7 @@ plot_bgcolor="white",
             text="Sum of Sand % (A) and Silt % (B)",
             font=dict(size=35, color="black", family="Arial Black")
         ),
-        range=[0, rechtecke[-1][0] + rechtecke[-1][1]],  # korrekt
+        range=[0, rechtecke[-1][0] + rechtecke[-1][1]],  
         tickformat=".0f",
         tickfont=dict(size=26, color="black")
     ),
