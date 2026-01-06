@@ -210,23 +210,23 @@ def normalize_to_100_LRM(row):
     cols = ['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
     values = row[cols].astype(float).to_numpy()
 
-    # 1. Abrunden (Floor)
+ 
     ints = np.floor(values).astype(int)
 
-    # 2. Reste berechnen
+   
     remainders = values - ints
 
-    # 3. Differenz zur Zielsumme 100
+  
     missing = 100 - ints.sum()
 
     if missing > 0:
-        # fehlende Einheiten → an die größten Reste
+      
         order = np.argsort(-remainders)
         for i in range(missing):
             ints[order[i]] += 1
 
     elif missing < 0:
-        # zu viele Einheiten → bei kleinsten Resten reduzieren
+     
         order = np.argsort(remainders)
         for i in range(-missing):
             ints[order[i]] -= 1
@@ -292,7 +292,7 @@ def calculate_y_position_exact(a, b, c, d):
             frac_c = frac_d = 0.5
 
 
-        offset_ratio = field_frac * frac_c  # Anteil nach oben im Feld
+        offset_ratio = field_frac * frac_c  
 
 
         y_position = start_zeile + b + offset_ratio * hoehe
@@ -623,7 +623,7 @@ fig.update_layout(
         cmin=awc_min,
         cmax=awc_max,
         colorbar=dict(
-            title="",  # leer lassen, wir ersetzen es durch Annotation
+            title="",  
             tickfont=dict(size=28),
             thickness=20,
             len=0.95,
@@ -637,12 +637,12 @@ fig.add_annotation(
     text="Available Water Capacity (Vol.%)",
     xref="paper",
     yref="paper",
-    x=1.049,          # feinjustieren
+    x=1.049,        
     y=0.5,
     showarrow=False,
-    textangle=270,    # ✅ hier funktioniert Rotation!
+    textangle=270,   
     font=dict(size=27, color="black",
-        family="Arial Black"),   # 🔹 fett),
+        family="Arial Black"),  
     xanchor="left",
     yanchor="middle"
 )
