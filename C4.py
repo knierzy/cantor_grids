@@ -90,14 +90,14 @@ def add_rechtecke_mit_farbverlauf(rechtecke, x_offset, spiegeln=False):
         gradient_steps = 14  # Number of steps in the color gradient
 
         grau_start = 155  # darker gray at the bottom
-        grau_ende = 220  # brighter gray at the top (must stay below 255)
+        grau_ende = 220  # brighter gray at the top
 
         for step in range(gradient_steps):
             # Calculate the gray value within an AB-rectangle
             grau_wert = int(grau_start + (grau_ende - grau_start) * (step / (gradient_steps - 1)))
 
             # transparency variation for smoother shading
-            alpha = 0.8 - (0.6 * (step / (gradient_steps - 1)))  # Reduziert Alpha von 0.8 auf 0.2
+            alpha = 0.8 - (0.6 * (step / (gradient_steps - 1)))  
             color = f'rgba({grau_wert}, {grau_wert}, {grau_wert}, {alpha})'
 
             # Determine the coordinates for the gradient along the  X-axis (sum A + B)
@@ -203,7 +203,7 @@ def plot_imported_hulls_with_file_colors(grouped_hulls, file_color_mapping):
         hull_y = np.append(hull_y, hull_y[0])
 
         # Determine the color based on the file
-        file_source = group["file_source"].iloc[0]  #
+        file_source = group["file_source"].iloc[0]  
         color = file_color_mapping.get(file_source, "rgba(0, 0, 0, 0.5)")
 
         # plot convex hull
@@ -349,22 +349,22 @@ from PIL import Image
 # Determine the directory where this script is located
 base_dir = os.path.dirname(os.path.abspath(__file__))
 
-# Create export directory (if it does not exist)
+# Create export directory 
 export_dir = os.path.join(base_dir, "exports")
 os.makedirs(export_dir, exist_ok=True)
 
-# === UNIQUE FILENAMES FOR THIS SCRIPT ===
+# UNIQUE FILENAMES FOR THIS SCRIPT
 png_path  = os.path.join(export_dir, "cantor_export_garnet_simple.png")
 tiff_path = os.path.join(export_dir, "cantor_export_garnet_simple.tiff")
 html_output = os.path.join(export_dir, "cantor_export_garnet_simple.html")
 
-# ---- Export HTML version of the figure ----
+# Export HTML version of the figure 
 fig.write_html(html_output, include_plotlyjs="cdn", full_html=True)
 
 # Convert file path to a local browser URL for Playwright
 html_path = "file:///" + html_output.replace("\\", "/")
 
-# ---- Create high-resolution PNG using Playwright ----
+#  Create high-resolution PNG using Playwright 
 def export_highres_png():
     print("📸 Erstelle hochauflösendes PNG ...")
     with sync_playwright() as p:
