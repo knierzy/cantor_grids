@@ -91,7 +91,7 @@ def add_rechtecke_mit_farbverlauf(rechtecke, x_offset, spiegeln=False):
 
 
         grau_start = 200  # darker gray at the bottom
-        grau_ende = 230 # brighter gray at the top (must stay below 255)
+        grau_ende = 230 # brighter gray at the top 
 
         for step in range(gradient_steps):
             # Calculate the gray value within an AB-rectangle
@@ -117,7 +117,7 @@ def add_rechtecke_mit_farbverlauf(rechtecke, x_offset, spiegeln=False):
                 fill="toself",
                 mode="lines",
                 fillcolor=color,
-                line=dict(color="gray", width=0)  # Optional: schmale Umrandung
+                line=dict(color="gray", width=0)  
             ))
 
         for x_pos in range(1, breite):
@@ -168,23 +168,23 @@ def normalize_to_100_LRM(row):
     cols = ['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
     values = row[cols].astype(float).to_numpy()
 
-    # 1. Abrunden (Floor)
+   
     ints = np.floor(values).astype(int)
 
-    # 2. Reste berechnen
+ 
     remainders = values - ints
 
-    # 3. Differenz zur Zielsumme 100
+  
     missing = 100 - ints.sum()
 
     if missing > 0:
-        # fehlende Einheiten → zu den größten Resten
+    
         order = np.argsort(-remainders)
         for i in range(missing):
             ints[order[i]] += 1
 
     elif missing < 0:
-        # zu viele Einheiten → bei kleinsten Resten abziehen
+      
         order = np.argsort(remainders)
         for i in range(-missing):
             ints[order[i]] -= 1
@@ -343,12 +343,12 @@ for idx, row in df_parameters.iterrows():
 
 
 custom_colorscale = [
-    [0.0,  "#00007F"],   # Dunkelblau
-    [0.20, "#007FFF"],   # Mittelblau
-    [0.40, "#00FFFF"],   # Türkis
-    [0.60, "#FFFF80"],   # Hellgelb
-    [0.80, "#FF9F40"],   # Hellorange
-    [1.0,  "#FF4040"]    # Helles Rot
+    [0.0,  "#00007F"],   
+    [0.20, "#007FFF"],  
+    [0.40, "#00FFFF"],   
+    [0.60, "#FFFF80"],   
+    [0.80, "#FF9F40"],   
+    [1.0,  "#FF4040"]    
 ]
 
 
@@ -588,7 +588,7 @@ for file_path in ordered_hulls:
 print("\nLegend content with counts and percentages:")
 print(legend_text)
 
-# === Add both the colorbar title and the legend block ===
+#Add both the colorbar title and the legend block 
 fig.add_annotation(
     text="Almandine / (Almandine + Spessartine)",
     x=1.02,
