@@ -230,13 +230,12 @@ def normalize_to_100_LRM(row):
     cols = ['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
     values = row[cols].astype(float).to_numpy()
 
-    # 1. Abrunden (Floor)
+
     ints = np.floor(values).astype(int)
 
-    # 2. Reste berechnen
+  
     remainders = values - ints
 
-    # 3. Differenz zur Zielsumme 100
     missing = 100 - ints.sum()
 
     if missing > 0:
@@ -390,7 +389,7 @@ plot_imported_hulls_with_file_colors(grouped_hulls_combined, color_mapping_files
 
 import numpy as np
 
-# --- AWC calculation from ORIGINAL (unrounded) values ---
+# AWC calculation from ORIGINAL (unrounded) values 
 
 tex = df_tex_raw.loc[df_parameters.index]
 
@@ -585,13 +584,13 @@ for idx, row in df_parameters.iterrows():
 
 for i, (start, hoehe, label) in enumerate(rechtecke):
     if i == 0:
-        continue  # AB99 braucht keine Linie links davon
+        continue  
 
     x_pos = start
 
     fig.add_trace(go.Scatter(
         y=[x_pos, x_pos],
-        x=[0, i],              # bis zur jeweiligen AB-Stufe
+        x=[0, i],             
         mode="lines",
         line=dict(
             color="black",
@@ -620,7 +619,7 @@ fig.add_trace(go.Scatter(
     marker=dict(
         symbol="circle",
         size=32,
-        color="rgba(0,0,0,0)",   # transparent
+        color="rgba(0,0,0,0)",   
         line=dict(color="black", width=2)
     ),
     hoverinfo="skip",
@@ -1072,7 +1071,7 @@ for y in y_values:
     )
 
 # X-values for vertical dashed lines
-x_values = []  # Mittlere Positionen von AB90, AB50, AB30
+x_values = []  
 
 # Add vertical dashed lines
 for x in x_values:
