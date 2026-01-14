@@ -3,7 +3,7 @@
 
 ## Overview
 
-This repository provides a framework for the graphical representation and analysis of four-component systems using customized Cantor grids. The approach preserves the explicit contribution of all four parameters, avoids geometric distortions inherent to extended ternary diagrams, and enables high-resolution discrimination of subfields.
+This repository provides a framework for the graphical representation and analysis of four-component systems using customized Cantor grids. The approach preserves the explicit contribution of all four parameters, avoids geometric distortions inherent to extended ternary diagrams, and enables high-resolution discrimination of subfields. Additional input and derived datasets are stored in the data/ directory of the repository.
 
 
 The project comprises modular Python scripts labeled `C1` to `C9`:
