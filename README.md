@@ -22,10 +22,13 @@ The project comprises modular Python scripts labeled `C1` to `C9`:
 
 The project further includes the following data files and documents:
 
-| `D1.xlsx` |Garnet endmember compositions used for the definition and visualization of compositional subfields.|
-| `D2.xlxs` |Constrained Cartesian product of parameters used for amphibolite modeling.|
-| `D3.xxls` |Constrained Cartesian product of parameters used for blueschist modeling.|
-| `D4.xlsx` |Constrained Cartesian product of parameters used for granite & pegmatite modeling.|
-| `D5.xlsx` |Constrained Cartesian product of parameters used for greenschist modeling.|
-| `D6.xlsx` |Constrained Cartesian product of parameters used for soil texture class Sandy Clay.|
-| `D7.pdf` |AWC calculated using pedotransfer functions of Saxton & Rawls (2006).|
+| File | Description |
+|------|-------------|
+| `D1.xlsx` | Garnet endmember compositions used for the definition and visualization of compositional subfields. |
+| `D2.xlsx` | Constrained Cartesian product of parameters used for amphibolite modeling. |
+| `D3.xlsx` | Constrained Cartesian product of parameters used for blueschist modeling. |
+| `D4.xlsx` | Constrained Cartesian product of parameters used for granite & pegmatite modeling. |
+| `D5.xlsx` | Constrained Cartesian product of parameters used for greenschist modeling. |
+| `D6.xlsx` | Constrained Cartesian product of parameters used for soil texture class Sandy Clay. |
+| `D7.pdf`  | AWC calculated using pedotransfer functions of Saxton & Rawls (2006). |
+
