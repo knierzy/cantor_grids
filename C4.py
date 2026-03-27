@@ -394,7 +394,7 @@ fig.add_shape(
     y1=100,
     line=dict(
         color="black",
-        width=2
+        width=3
     )
 )
 
