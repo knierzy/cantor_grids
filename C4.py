@@ -384,8 +384,9 @@ fig.update_layout(
     ] + cd_annotations   # 
 )
 
-x_min = -30
-x_max = rechtecke[-1][0] + rechtecke[-1][1]
+# nach der Rotation!
+x_min = fig.layout.xaxis.range[0]
+x_max = fig.layout.xaxis.range[1]
 
 fig.add_shape(
     type="line",
