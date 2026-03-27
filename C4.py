@@ -263,7 +263,7 @@ plot_bgcolor="white",  # Set plot background to white
         dtick=10,
         color="black",  # Set axis label and axis line color to black
         linecolor="gray",
-        tickfont=dict(size=28, color="black")
+        tickfont=dict(size=28, color="black"),
         showline=False 
     ),
 
