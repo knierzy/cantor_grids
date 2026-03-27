@@ -131,12 +131,16 @@ def add_rechtecke_mit_farbverlauf(rechtecke, x_offset, spiegeln=False):
             ))
 
 
-    # Create  axis labels
-    x_labels = {50: "AB99",440: "AB95",  915: "AB90", 1350: "AB85", 1760: "AB80", 2158: "AB75", 2540: "AB70",
-                 2870: "AB65", 3195: "AB60", 3480: "AB55", 3755: "AB50", 3995: "AB45", 4209: "AB40", 4405: "AB35", 4570: "AB30", 4830: "AB20", 4990: "AB10" }
+# === Create axis labels (GLOBAL, NOT inside function!) ===
+x_labels = {
+    50: "AB99", 440: "AB95", 915: "AB90", 1350: "AB85",
+    1760: "AB80", 2158: "AB75", 2540: "AB70",
+    2870: "AB65", 3195: "AB60", 3480: "AB55",
+    3755: "AB50", 3995: "AB45", 4209: "AB40",
+    4405: "AB35", 4570: "AB30", 4830: "AB20", 4990: "AB10"
+}
 
-
-    # Update X-axis with labels
+# === Update X-axis with labels ===
 fig.update_layout(
     xaxis=dict(
         title="Summe A + B (%)",
@@ -148,7 +152,6 @@ fig.update_layout(
         tickangle=0,
     )
 )
-
 
 # Add rectangles
 add_rechtecke_mit_farbverlauf(rechtecke, 0)
