@@ -346,7 +346,7 @@ def plot_linz_scatter(df):
         y=y_vals,
         mode="markers",
         marker=dict(
-            size=10,
+            size=14,
             color="red",
             symbol="square",
             line=dict(color="black", width=1)
@@ -421,7 +421,7 @@ fig.add_trace(go.Scatter(
     mode='markers',
     marker=dict(
         symbol='circle',
-        size=12,
+        size=16,
         color=color_values,
         colorscale=custom_colorscale,
         cmin=0,
