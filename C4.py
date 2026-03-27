@@ -312,28 +312,90 @@ for x in x_values:
         )
     )
 
-# Rotate plot by swapping x and y values; the The AB-grid was constructed
-# vertically for easier computation and was later rotated
+# Rotate the plot 90 degrees by swapping X and Y data
+# Rotation
 for trace in fig.data:
     trace.x, trace.y = trace.y, trace.x
 
-# Add the legend to the plot as an annotation (as in the first script)
+# definieren                #march26
+x_min = -30
+x_max = rechtecke[-1][0] + rechtecke[-1][1]
+
+# verwenden
+fig.add_shape(
+    type="line",
+    x0=x_min,
+    x1=x_min,
+    y0=0,
+    y1=100,
+    line=dict(color="black", width=3)
+)
+
+
+
+# Update hover label styling
+fig.update_layout(
+    hoverlabel=dict(
+        font_size=22,
+        font_family="Arial"
+    )
+)
+
+#26 march !!!!!!!!!!!!!!!!
+
+cd_positions = [50, 440, 915, 1350, 1760, 2158, 2540, 2870,
+                3195, 3480, 3755, 3995, 4209, 4405, 4570, 4830]
+
+cd_labels = ["CD1", "CD5", "CD10", "CD15", "CD20", "CD25", "CD30",
+             "CD35", "CD40", "CD45", "CD50", "CD55", "CD60",
+             "CD65", "CD70", "CD80"]
+
+cd_annotations = []
+
+for x, label in zip(cd_positions, cd_labels):
+    cd_annotations.append(
+        dict(
+            x=x,
+            y=101,  # 👈 leicht über 100 setzen
+            text=label,
+            showarrow=False,
+            xanchor="center",
+            yanchor="bottom",
+            font=dict(size=24, color="black")
+        )
+    )
+
 fig.update_layout(
     annotations=[
         dict(
-            x=650,
-            y=80,
+            x=250,
+            y=95,
             text=legende_text,
             showarrow=False,
-            font=dict(size=35, color="black"),
+            font=dict(size=28, color="black"),
             bgcolor="rgba(249, 249, 249,1)",
             bordercolor="black",
-            borderwidth=3,
+            borderwidth=2,
             xanchor="left",
             yanchor="top",
             align="left"
         )
-    ]
+    ] + cd_annotations   # 👈 HIER hinzufügen
+)
+
+x_min = -30
+x_max = rechtecke[-1][0] + rechtecke[-1][1]
+
+fig.add_shape(
+    type="line",
+    x0=x_min,
+    x1=x_max,
+    y0=100,
+    y1=100,
+    line=dict(
+        color="black",
+        width=2
+    )
 )
 
 # show plot
