@@ -328,7 +328,7 @@ fig.add_shape(
     x1=x_min,
     y0=0,
     y1=100,
-    line=dict(color="black", width=3)
+    line=dict(color="black", width=1)
 )
 
 
@@ -394,7 +394,7 @@ fig.add_shape(
     y1=100,
     line=dict(
         color="black",
-        width=3
+        width=2
     )
 )
 
