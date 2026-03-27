@@ -319,19 +319,22 @@ for trace in fig.data:
     trace.x, trace.y = trace.y, trace.x
 
 # 
-x_min = -30
-x_max = rechtecke[-1][0] + rechtecke[-1][1]
+# NACH der Rotation!
+x_min = fig.layout.xaxis.range[0]   # 👉 DAS ist die echte Achse
 
-# verwenden
 fig.add_shape(
     type="line",
     x0=x_min,
     x1=x_min,
     y0=0,
     y1=100,
-    line=dict(color="black", width=0.1)
+    xref="x",
+    yref="y",
+    line=dict(
+        color="black",
+        width=3   # 👈 sichtbar!
+    )
 )
-
 
 
 # Update hover label styling
