@@ -202,6 +202,11 @@ df_linz_params = df_linz_params[
     df_linz_params.apply(lambda row: row.sum() >= 98, axis=1)
 ]
 
+# 👉 HIER EINFÜGEN
+df_parameters['Herkunft'] = df.loc[df_parameters.index, 'Unnamed: 5'].values
+df_parameters['Index'] = df.loc[df_parameters.index, 'Unnamed: 6'].values
+
+
 df_linz_params = df_linz_params.astype(float).round().astype(int)
 
 df_linz_params = df_linz_params.apply(normalize_to_100_LRM, axis=1)
