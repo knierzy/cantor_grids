@@ -371,8 +371,11 @@ df_hulls_combined = pd.concat([df_hulls_4, df_hulls_5,df_hulls_6,df_hulls_7,df_h
 grouped_hulls_combined = df_hulls_combined.groupby(["Herkunft", "AB_Value"])
 
 # Plot the imported convex hulls with file-specific colors
+
 plot_imported_hulls_with_file_colors(grouped_hulls_combined, color_mapping_files)
 
+#  DAS HIER FEHLT
+plot_linz_rectangles(df_linz_params)
 # Calculate the ratio for color coding
 df_parameters['Ratio'] = df_parameters['Unnamed: 1'] / (df_parameters['Unnamed: 1'] + df_parameters['Unnamed: 2'])
 
