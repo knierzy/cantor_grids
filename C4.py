@@ -348,47 +348,6 @@ fig.update_layout(
     )
 )
 
-# CD positions
-
-cd_positions = [50, 440, 915, 1350, 1760, 2158, 2540, 2870,
-                3195, 3480, 3755, 3995, 4209, 4405, 4570, 4830]
-
-cd_labels = ["CD1", "CD5", "CD10", "CD15", "CD20", "CD25", "CD30",
-             "CD35", "CD40", "CD45", "CD50", "CD55", "CD60",
-             "CD65", "CD70", "CD80"]
-
-cd_annotations = []
-
-for x, label in zip(cd_positions, cd_labels):
-    cd_annotations.append(
-        dict(
-            x=x,
-            y=101,  # 
-            text=label,
-            showarrow=False,
-            xanchor="center",
-            yanchor="bottom",
-            font=dict(size=24, color="black")
-        )
-    )
-
-fig.update_layout(
-    annotations=[
-        dict(
-            x=650,
-            y=80,
-            text=legende_text,
-            showarrow=False,
-            font=dict(size=35, color="black"),
-            bgcolor="rgba(249, 249, 249,1)",
-            bordercolor="black",
-            borderwidth=3,
-            xanchor="left",
-            yanchor="top",
-            align="left"
-        )
-    ] + cd_annotations   # 
-)
 
 # nach der Rotation!
 x_min = fig.layout.xaxis.range[0]
