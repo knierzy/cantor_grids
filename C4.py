@@ -254,10 +254,10 @@ plot_bgcolor="white",  # Set plot background to white
 
     yaxis=dict(
         title=dict(
-            text="Pyrope (%) /// Grossular (%) = height<sub>AB</sub> − Pyrope (%)",
+            text="Pyrope (%) /// Grossular (%) = height rectangle<sub>ABCD</sub> − Pyrope (%)",
             font=dict(size=32, color="black", family="Arial Black")
         ),
-        range=[0, 100],
+        range=[0, 102],
         constrain="domain",
         tickformat=".0f",
         dtick=10,
@@ -317,7 +317,7 @@ for x in x_values:
 for trace in fig.data:
     trace.x, trace.y = trace.y, trace.x
 
-# definieren                #march26
+# 
 x_min = -30
 x_max = rechtecke[-1][0] + rechtecke[-1][1]
 
@@ -341,7 +341,7 @@ fig.update_layout(
     )
 )
 
-#26 march !!!!!!!!!!!!!!!!
+# CD positions
 
 cd_positions = [50, 440, 915, 1350, 1760, 2158, 2540, 2870,
                 3195, 3480, 3755, 3995, 4209, 4405, 4570, 4830]
@@ -356,7 +356,7 @@ for x, label in zip(cd_positions, cd_labels):
     cd_annotations.append(
         dict(
             x=x,
-            y=101,  # 👈 leicht über 100 setzen
+            y=101,  # 
             text=label,
             showarrow=False,
             xanchor="center",
@@ -380,7 +380,7 @@ fig.update_layout(
             yanchor="top",
             align="left"
         )
-    ] + cd_annotations   # 👈 HIER hinzufügen
+    ] + cd_annotations   # 
 )
 
 x_min = -30
