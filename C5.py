@@ -402,14 +402,14 @@ plot_bgcolor="white",
     ),
     yaxis=dict(
         title=dict(
-            text="Pyrope (%) /// Grossular (%) = height<sub>AB</sub> − Pyrope (%)",
+            text="Pyrope (%) /// Grossular (%) = height rectangle <sub>ABCD</sub> − Pyrope (%)",
             font=dict(size=32, color="black", family="Arial Black")
         ),
-        range=[-2, 100],
+        range=[-1, 103],
         constrain="domain",
         tickformat=".0f",
         dtick=10,
-        tickfont=dict(size=28, color="black"),
+        tickfont=dict(size=26, color="black"),
         linecolor="gray"
     ),
     autosize=False,
