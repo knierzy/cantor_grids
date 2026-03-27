@@ -460,6 +460,22 @@ for trace in fig.data:
     trace.x, trace.y = trace.y, trace.x
 
 
+# definieren                #march26
+x_min = -30
+x_max = rechtecke[-1][0] + rechtecke[-1][1]
+
+# verwenden
+fig.add_shape(
+    type="line",
+    x0=x_min,
+    x1=x_min,
+    y0=0,
+    y1=100,
+    line=dict(color="black", width=3)
+)
+
+
+
 from scipy.spatial.distance import cdist
 
 # Extract chemical data (Alm, Spe, Pyr, Gro)
