@@ -173,7 +173,7 @@ df_linz_params = df_linz_params[
 
 df_linz_params = df_linz_params.astype(float).round().astype(int)
 
-df_linz_params = df_linz_params.apply(adjust_sum_to_100, axis=1)
+df_linz_params = df_linz_params.apply(normalize_to_100_LRM, axis=1)
 
 # normalization LRM
 def normalize_to_100_LRM(row):
