@@ -139,7 +139,10 @@ def add_rechtecke_mit_farbverlauf(rechtecke, x_offset, spiegeln=False):
         xaxis=dict(
             title="Summe A and B (%)",
             tickvals=list(x_labels.keys()),
-            ticktext=list(x_labels.values()),
+             ticktext=[
+                f"{ab}<br>CD{str(100 - int(ab[2:])).zfill(2)}"
+                for ab in x_labels.values()
+            ],
             tickangle=0,
         ))
 
