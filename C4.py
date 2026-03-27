@@ -252,7 +252,7 @@ plot_bgcolor="white",  # Set plot background to white
         ),
         range=[0, rechtecke[-1][0] + rechtecke[-1][1]],
         tickformat=".0f",
-        tickfont=dict(size=24, color="black")
+        tickfont=dict(size=21, color="black")
     ),
 
     yaxis=dict(
