@@ -405,7 +405,7 @@ plot_bgcolor="white",
             text="Pyrope (%) /// Grossular (%) = height rectangle <sub>ABCD</sub> − Pyrope (%)",
             font=dict(size=32, color="black", family="Arial Black")
         ),
-        range=[-1, 103],
+        range=[-1, 100],
         constrain="domain",
         tickformat=".0f",
         dtick=10,
