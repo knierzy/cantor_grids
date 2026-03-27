@@ -368,14 +368,14 @@ for x, label in zip(cd_positions, cd_labels):
 fig.update_layout(
     annotations=[
         dict(
-            x=250,
-            y=95,
+            x=650,
+            y=80,
             text=legende_text,
             showarrow=False,
-            font=dict(size=28, color="black"),
+            font=dict(size=35, color="black"),
             bgcolor="rgba(249, 249, 249,1)",
             bordercolor="black",
-            borderwidth=2,
+            borderwidth=3,
             xanchor="left",
             yanchor="top",
             align="left"
