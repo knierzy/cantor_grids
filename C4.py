@@ -255,7 +255,7 @@ plot_bgcolor="white",  # Set plot background to white
     yaxis=dict(
         title=dict(
             text="Pyrope (%) /// Grossular (%) = height rectangle<sub>ABCD</sub> − Pyrope (%)",
-            font=dict(size=32, color="black", family="Arial Black")
+            font=dict(size=28, color="black", family="Arial Black")
         ),
         range=[0, 102],
         constrain="domain",
