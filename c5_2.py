@@ -70,6 +70,37 @@ rechtecke = [
 # Set up diagram
 fig = go.Figure()
 
+# normalization LRM
+def normalize_to_100_LRM(row):
+    cols = ['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+    values = row[cols].astype(float).to_numpy()
+
+   
+    ints = np.floor(values).astype(int)
+
+ 
+    remainders = values - ints
+
+  
+    missing = 100 - ints.sum()
+
+    if missing > 0:
+    
+        order = np.argsort(-remainders)
+        for i in range(missing):
+            ints[order[i]] += 1
+
+    elif missing < 0:
+      
+        order = np.argsort(remainders)
+        for i in range(-missing):
+            ints[order[i]] -= 1
+
+    row[cols] = ints
+    return row
+
+
+
 
 def ensure_transparency(color, alpha=0.7):
     if "rgba" in color:
@@ -175,34 +206,7 @@ df_linz_params = df_linz_params.astype(float).round().astype(int)
 
 df_linz_params = df_linz_params.apply(normalize_to_100_LRM, axis=1)
 
-# normalization LRM
-def normalize_to_100_LRM(row):
-    cols = ['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
-    values = row[cols].astype(float).to_numpy()
 
-   
-    ints = np.floor(values).astype(int)
-
- 
-    remainders = values - ints
-
-  
-    missing = 100 - ints.sum()
-
-    if missing > 0:
-    
-        order = np.argsort(-remainders)
-        for i in range(missing):
-            ints[order[i]] += 1
-
-    elif missing < 0:
-      
-        order = np.argsort(remainders)
-        for i in range(-missing):
-            ints[order[i]] -= 1
-
-    row[cols] = ints
-    return row
 
 
 df_parameters = df_parameters.apply(normalize_to_100_LRM, axis=1)
