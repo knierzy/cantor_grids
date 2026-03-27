@@ -398,7 +398,7 @@ plot_bgcolor="white",
         ),
         range=[0, rechtecke[-1][0] + rechtecke[-1][1]+ 20],
         tickformat=".0f",
-        tickfont=dict(size=26, color="black")
+        tickfont=dict(size=24, color="black")
     ),
     yaxis=dict(
         title=dict(
@@ -409,7 +409,7 @@ plot_bgcolor="white",
         constrain="domain",
         tickformat=".0f",
         dtick=10,
-        tickfont=dict(size=22, color="black"),
+        tickfont=dict(size=24, color="black"),
         linecolor="gray"
     ),
     autosize=False,
