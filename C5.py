@@ -409,7 +409,7 @@ plot_bgcolor="white",
         constrain="domain",
         tickformat=".0f",
         dtick=10,
-        tickfont=dict(size=26, color="black"),
+        tickfont=dict(size=22, color="black"),
         linecolor="gray"
     ),
     autosize=False,
