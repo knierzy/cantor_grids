@@ -202,7 +202,11 @@ df_linz_params = df_linz_params[
     df_linz_params.apply(lambda row: row.sum() >= 98, axis=1)
 ]
 
-# 👉 HIER EINFÜGEN
+print("len(df_linz) =", len(df_linz))
+print("len(df_linz_params) nach dropna/filter =", len(df_linz_params))
+print(df_linz_params.head(10))
+
+# 👉 HIER EINFÜGE
 df_parameters['Herkunft'] = df.loc[df_parameters.index, 'Unnamed: 5'].values
 df_parameters['Index'] = df.loc[df_parameters.index, 'Unnamed: 6'].values
 
@@ -319,39 +323,36 @@ def plot_imported_hulls_with_file_colors(grouped_hulls, file_color_mapping):
         ))
 
 
-def plot_linz_rectangles(df):
+def plot_linz_scatter(df):
+    x_vals = []
+    y_vals = []
+
     for _, row in df.iterrows():
         a = int(row['Unnamed: 1'])
         b = int(row['Unnamed: 2'])
         c = int(row['Unnamed: 3'])
-        d = int(row['Unnamed: 4'])
 
         ab = a + b
 
-        # Position im Diagramm
         y_pos = calculate_y_position(ab, b)
         if y_pos is None:
             continue
 
-        # Rechteckhöhe (z. B. 1 Einheit)
-        height = 1
+        x_vals.append(c)
+        y_vals.append(y_pos)
 
-        # Rechteckbreite (z. B. 1 Einheit)
-        width = 1
-
-        fig.add_shape(
-            type="rect",
-            x0=c - width/2,
-            x1=c + width/2,
-            y0=y_pos - height/2,
-            y1=y_pos + height/2,
-            xref="x",
-            yref="y",
-            line=dict(color="black", width=1),
-            fillcolor="rgba(255, 0, 0, 0.6)"  # 👉 Farbe anpassen!
-        )
-
-
+    fig.add_trace(go.Scatter(
+        x=x_vals,
+        y=y_vals,
+        mode="markers",
+        marker=dict(
+            size=10,
+            color="red",
+            symbol="square",
+            line=dict(color="black", width=1)
+        ),
+        name="Linz/Melk"
+    ))
 
 # Add a column to the DataFrames to mark the source file
 
@@ -375,7 +376,7 @@ grouped_hulls_combined = df_hulls_combined.groupby(["Herkunft", "AB_Value"])
 plot_imported_hulls_with_file_colors(grouped_hulls_combined, color_mapping_files)
 
 #  DAS HIER FEHLT
-plot_linz_rectangles(df_linz_params)
+plot_linz_scatter(df_linz_params)
 # Calculate the ratio for color coding
 df_parameters['Ratio'] = df_parameters['Unnamed: 1'] / (df_parameters['Unnamed: 1'] + df_parameters['Unnamed: 2'])
 
