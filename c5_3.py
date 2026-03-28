@@ -658,7 +658,7 @@ print("Points cols: ['Alm','Spe','Pyr','Gro']")
 legend_text = (
     "<span style='font-size:40px; font-weight:bold;'>Garnet Provenance Groups</span><br>"
     "<span style='font-size:28px; font-style:italic;'>Classification based on Mahalanobis distance</span><br><br>"
-    "<span style='font-size:24px;'>Symbols: circles = Mica schist (MS) Pernegg, squares = Linz–Melk Formation</span><br><br>"
+    "<span style='font-size:24px;'>Symbols: circles = Mica schist (MS) Pernegg; squares = Linz–Melk Formation</span><br><br>"
 )
 
 for file_path in ordered_hulls:
@@ -675,7 +675,7 @@ for file_path in ordered_hulls:
         f'<span style="color:{color}; font-size:62px;">■</span> '
         f'<span style="font-size:30px; font-weight:bold;">{hull_name}</span> '
         f'<span style="font-size:24px;">'
-        f'MS Pernegg: {int(count_pf)} points ({pct_pf:.1f}%) &nbsp;&nbsp; '
+        f'MS Pernegg: {int(count_pf)} points ({pct_pf:.1f}%) / '
         f'LMF: {int(count_lmf)} points ({pct_lmf:.1f}%)'
         f'</span><br>'
     )
