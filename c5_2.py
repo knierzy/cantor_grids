@@ -376,7 +376,7 @@ grouped_hulls_combined = df_hulls_combined.groupby(["Herkunft", "AB_Value"])
 plot_imported_hulls_with_file_colors(grouped_hulls_combined, color_mapping_files)
 
 #  DAS HIER FEHLT
-plot_linz_scatter(df_linz_params)   #
+
 df_linz_params['Ratio'] = df_linz_params['Unnamed: 1'] / (
     df_linz_params['Unnamed: 1'] + df_linz_params['Unnamed: 2']
 )
@@ -456,34 +456,6 @@ fig.add_trace(go.Scatter(
 ))
 
 
-
-
-# === Plot colored points with new scale
-
-fig.add_trace(go.Scatter(
-    x=x_values,
-    y=y_values,
-    mode='markers',
-    marker=dict(
-        symbol='circle',
-        size=16,
-        color=color_values,
-        colorscale=custom_colorscale,
-        cmin=0,
-        cmax=1,
-        colorbar=dict(
-            title='',
-            thickness=20,
-            len=0.9,
-            y=0.5,
-            yanchor="middle",
-            tickfont=dict(size=24, color="black")
-        ),
-        showscale=True,
-        line=dict(color="black", width=2)
-    ),
-    name="Datenpunkte"
-))
 
 # Adjust layout
 fig.update_layout(
