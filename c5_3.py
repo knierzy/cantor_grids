@@ -691,12 +691,12 @@ for i in range(max(len(left), len(right))):
     left_text = make_entry(left[i]) if i < len(left) else ""
     right_text = make_entry(right[i]) if i < len(right) else ""
 
-legend_text += (
-    left_text
-    + "&nbsp;" * 25
-    + right_text
-    + "<br><br>"
-)
+    legend_text += (
+        left_text
+        + "&nbsp;" * 25
+        + right_text
+        + "<br><br>"
+    )
 
 print("\nLegend content with counts and percentages:")
 print(legend_text)
