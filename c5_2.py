@@ -384,6 +384,15 @@ df_linz_params['Ratio'] = df_linz_params['Unnamed: 1'] / (
 # Calculate the ratio for color coding
 df_parameters['Ratio'] = df_parameters['Unnamed: 1'] / (df_parameters['Unnamed: 1'] + df_parameters['Unnamed: 2'])
 
+custom_colorscale = [
+    [0.0,  "#00007F"],   
+    [0.20, "#007FFF"],  
+    [0.40, "#00FFFF"],   
+    [0.60, "#FFFF80"],   
+    [0.80, "#FF9F40"],   
+    [1.0,  "#FF4040"]    
+]
+
 
 # List to store values for the color legend
 x_values, y_values, color_values = [], [], []
@@ -412,6 +421,13 @@ for _, row in df_linz_params.iterrows():
     c = row['Unnamed: 3']
     ratio = row['Ratio']
 
+    y_position_punkt = calculate_y_position(a + b, b)
+    if y_position_punkt is not None:
+        x_values.append(c)
+        y_values.append(y_position_punkt)
+        color_values.append(ratio)
+        symbols.append("square")
+
 
 # === Plot ===
 fig.add_trace(go.Scatter(
@@ -439,14 +455,6 @@ fig.add_trace(go.Scatter(
     name="Datenpunkte"
 ))
 
-custom_colorscale = [
-    [0.0,  "#00007F"],   
-    [0.20, "#007FFF"],  
-    [0.40, "#00FFFF"],   
-    [0.60, "#FFFF80"],   
-    [0.80, "#FF9F40"],   
-    [1.0,  "#FF4040"]    
-]
 
 
 
