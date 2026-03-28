@@ -669,20 +669,23 @@ legend_text = (
 )
 
 
-for file_path in ordered_hulls:
+for i, file_path in enumerate(ordered_hulls):
     color = color_mapping_files[file_path]
     hull_name = legend_mapping.get(file_path, file_path.split("\\")[-1].split(".")[0])
 
-    # Numbers for this subfield (if available)
-    count = summary.get(hull_name, 0)
-    pct = summary_pct.get(hull_name, 0)
+    count_pf = summary_pf.get(hull_name, 0)
+    pct_pf = summary_pf_pct.get(hull_name, 0)
 
-    # Format entry in English
+    count_lmf = summary_lmf.get(hull_name, 0)
+    pct_lmf = summary_lmf_pct.get(hull_name, 0)
+
     legend_text += (
-        f'<span style="color:{color}; font-size:49px;">■</span> '
-        f'<span style="font-size:28px; font-weight:bold;">{hull_name}</span> '
-        f'– {int(count)} points ({pct:.1f}%)<br>'
-        f'<span style="font-size:8px;">&nbsp;</span><br>'
+        "<div>"
+        f'<span style="color:{color}; font-size:50px;">■</span> '
+        f'<span style="font-size:26px; font-weight:bold;">{hull_name}</span><br>'
+        f'<span style="font-size:22px;">PF: {int(count_pf)} ({pct_pf:.1f}%)</span><br>'
+        f'<span style="font-size:22px;">LMF: {int(count_lmf)} ({pct_lmf:.1f}%)</span>'
+        "</div>"
     )
 
 
