@@ -629,23 +629,8 @@ df_linz_params = classify_dataset(df_linz_params, means, sigmas) # LMF
 
 
 # Classification using Mahalanobis (diagonal covariance)
-X_pts = df_parameters[["Unnamed: 1","Unnamed: 2","Unnamed: 3","Unnamed: 4"]].to_numpy()  # Alm,Spe,Pyr,Gro
 
-
-
-# Ambiguous-flag using Chi² threshold for 1σ (68% in d=4)
-chi2_1sigma = chi2.ppf(0.68, df=4)  # ≈ 4.72
-ambig = []
-for x in X_pts:
-    inside = []
-    for k in means.index:
-        mu = mus[k]
-        VI = invcovs[k]
-        d2 = (x-mu) @ VI @ (x-mu).T
-        if d2 <= chi2_1sigma:
-            inside.append(k)
-    ambig.append("/".join(inside) if len(inside) >= 2 else np.nan)
-df_parameters["Ambiguous_1sigma"] = ambig
+ 
 
 # Summary
 summary_pf = df_parameters["Nearest_Subfield_Mahalanobis"].value_counts()
