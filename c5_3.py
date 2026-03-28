@@ -635,7 +635,9 @@ df_linz_params = classify_dataset(df_linz_params, means, sigmas) # LMF
 # Summary
 summary_pf = df_parameters["Nearest_Subfield_Mahalanobis"].value_counts()
 summary_lmf = df_linz_params["Nearest_Subfield_Mahalanobis"].value_counts()
-summary_pct = (summary/len(df_parameters)*100).round(1)
+
+summary_pf_pct = (summary_pf / len(df_parameters) * 100).round(1)
+summary_lmf_pct = (summary_lmf / len(df_linz_params) * 100).round(1)
 print("\n=== Zusammenfassung (Mahalanobis, korrekt gemappt) ===")
 print(pd.DataFrame({"Anzahl Punkte": summary, "Prozent": summary_pct}))
 
@@ -646,9 +648,11 @@ print("Sigmas cols:", list(sigmas.columns))
 print("Points cols: ['Alm','Spe','Pyr','Gro']")
 
 # New legend with point counts & percentages from Mahalanobis classification
-summary = df_parameters["Nearest_Subfield_Mahalanobis"].value_counts().sort_index()
-summary_pct = (summary / len(df_parameters) * 100).round(1)
+summary_pf = df_parameters["Nearest_Subfield_Mahalanobis"].value_counts().sort_index()
+summary_pf_pct = (summary_pf / len(df_parameters) * 100).round(1)
 
+summary_lmf = df_linz_params["Nearest_Subfield_Mahalanobis"].value_counts().sort_index()
+summary_lmf_pct = (summary_lmf / len(df_linz_params) * 100).round(1)
 
 # Mapping file paths
 legend_text = (
