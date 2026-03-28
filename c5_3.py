@@ -693,7 +693,7 @@ for i in range(max(len(left), len(right))):
 
     legend_text += (
         left_text
-        + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "
+        ++ "&nbsp;" * 25 +
         + right_text
         + "<br><br>"
     )
