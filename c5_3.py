@@ -674,8 +674,8 @@ for file_path in ordered_hulls:
         f'<span style="color:{color}; font-size:50px;">■</span> '
         f'<span style="font-size:30px; font-weight:bold;">{hull_name}</span> '
         f'<span style="font-size:24px;">'
-        f'PF: {int(count_pf)} ({pct_pf:.1f}%) &nbsp;&nbsp; '
-        f'LMF: {int(count_lmf)} ({pct_lmf:.1f}%)'
+        f'PF: {int(count_pf)} points ({pct_pf:.1f}%) &nbsp;&nbsp; '
+        f'LMF: {int(count_lmf)} points ({pct_lmf:.1f}%)'
         f'</span><br>'
     )
 
