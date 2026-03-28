@@ -679,8 +679,8 @@ for file_path in ordered_hulls:
 
     # Format entry in English
     legend_text += (
-        f'<span style="color:{color}; font-size:62px;">■</span> '
-        f'<span style="font-size:32px; font-weight:bold;">{hull_name}</span> '
+        f'<span style="color:{color}; font-size:49px;">■</span> '
+        f'<span style="font-size:28px; font-weight:bold;">{hull_name}</span> '
         f'– {int(count)} points ({pct:.1f}%)<br>'
         f'<span style="font-size:8px;">&nbsp;</span><br>'
     )
