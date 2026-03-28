@@ -438,11 +438,6 @@ fig.add_trace(go.Scatter(
     ),
     name="Datenpunkte"
 ))
-    y_position_punkt = calculate_y_position(a + b, b)
-    if y_position_punkt is not None:
-        x_values.append(c)
-        y_values.append(y_position_punkt)
-        color_values.append(ratio)
 
 custom_colorscale = [
     [0.0,  "#00007F"],   
