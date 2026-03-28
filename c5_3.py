@@ -639,7 +639,15 @@ summary_lmf = df_linz_params["Nearest_Subfield_Mahalanobis"].value_counts()
 summary_pf_pct = (summary_pf / len(df_parameters) * 100).round(1)
 summary_lmf_pct = (summary_lmf / len(df_linz_params) * 100).round(1)
 print("\n=== Zusammenfassung (Mahalanobis, korrekt gemappt) ===")
-print(pd.DataFrame({"Anzahl Punkte": summary, "Prozent": summary_pct}))
+print(pd.DataFrame({
+    "PF Anzahl": summary_pf,
+    "PF %": summary_pf_pct
+}))
+
+print(pd.DataFrame({
+    "LMF Anzahl": summary_lmf,
+    "LMF %": summary_lmf_pct
+}))
 
 #  (Optional) small diagnostic output
 print("\nCheck Spalten-Reihenfolge:")
@@ -665,16 +673,18 @@ for file_path in ordered_hulls:
     color = color_mapping_files[file_path]
     hull_name = legend_mapping.get(file_path, file_path.split("\\")[-1].split(".")[0])
 
-    # Numbers for this subfield (if available)
-    count = summary.get(hull_name, 0)
-    pct = summary_pct.get(hull_name, 0)
+    count_pf = summary_pf.get(hull_name, 0)
+    pct_pf = summary_pf_pct.get(hull_name, 0)
 
-    # Format entry in English
+    count_lmf = summary_lmf.get(hull_name, 0)
+    pct_lmf = summary_lmf_pct.get(hull_name, 0)
+
     legend_text += (
         f'<span style="color:{color}; font-size:62px;">■</span> '
-        f'<span style="font-size:32px; font-weight:bold;">{hull_name}</span> '
-        f'– {int(count)} points ({pct:.1f}%)<br>'
-        f'<span style="font-size:8px;">&nbsp;</span><br>'
+        f'<span style="font-size:32px; font-weight:bold;">{hull_name}</span><br>'
+        f'<span style="font-size:26px;">PF: {int(count_pf)} ({pct_pf:.1f}%)</span><br>'
+        f'<span style="font-size:26px;">LMF: {int(count_lmf)} ({pct_lmf:.1f}%)</span><br>'
+        f'<span style="font-size:10px;">&nbsp;</span><br>'
     )
 
 print("\nLegend content with counts and percentages:")
