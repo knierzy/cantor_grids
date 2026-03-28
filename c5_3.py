@@ -671,7 +671,7 @@ for file_path in ordered_hulls:
     pct_lmf = summary_lmf_pct.get(hull_name, 0)
 
     legend_text += (
-        f'<span style="color:{color}; font-size:62px;">■</span> '
+        f'<span style="color:{color}; font-size:42px;">■</span> '
         f'<span style="font-size:32px; font-weight:bold;">{hull_name}</span><br>'
         f'<span style="font-size:26px;">PF: {int(count_pf)} ({pct_pf:.1f}%)</span><br>'
         f'<span style="font-size:26px;">LMF: {int(count_lmf)} ({pct_lmf:.1f}%)</span><br>'
