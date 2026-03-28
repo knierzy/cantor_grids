@@ -665,25 +665,30 @@ summary_lmf_pct = (summary_lmf / len(df_linz_params) * 100).round(1)
 # Mapping file paths
 legend_text = ""
 
-for i in range(len(left)):
-    def make_entry(file_path):
-        color = color_mapping_files[file_path]
-        name = legend_mapping[file_path]
+mid = len(ordered_hulls) // 2
+left = ordered_hulls[:mid]
+right = ordered_hulls[mid:]
 
-        count_pf = summary_pf.get(name, 0)
-        pct_pf = summary_pf_pct.get(name, 0)
+def make_entry(file_path):
+    color = color_mapping_files[file_path]
+    name = legend_mapping[file_path]
 
-        count_lmf = summary_lmf.get(name, 0)
-        pct_lmf = summary_lmf_pct.get(name, 0)
+    count_pf = summary_pf.get(name, 0)
+    pct_pf = summary_pf_pct.get(name, 0)
 
-        return (
-            f'<span style="color:{color};">■</span> '
-            f'<b>{name}</b><br>'
-            f'PF: {int(count_pf)} ({pct_pf:.1f}%)<br>'
-            f'LMF: {int(count_lmf)} ({pct_lmf:.1f}%)'
-        )
+    count_lmf = summary_lmf.get(name, 0)
+    pct_lmf = summary_lmf_pct.get(name, 0)
 
-    left_text = make_entry(left[i])
+    return (
+        f'<span style="color:{color};">■</span> '
+        f'<b>{name}</b><br>'
+        f'PF: {int(count_pf)} ({pct_pf:.1f}%)<br>'
+        f'LMF: {int(count_lmf)} ({pct_lmf:.1f}%)'
+    )
+
+for i in range(max(len(left), len(right))):
+
+    left_text = make_entry(left[i]) if i < len(left) else ""
     right_text = make_entry(right[i]) if i < len(right) else ""
 
     legend_text += (
