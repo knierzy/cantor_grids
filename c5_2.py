@@ -437,7 +437,7 @@ fig.add_trace(go.Scatter(
     marker=dict(
         size=16,
         color=color_values,
-        colorscale=custom_colorscale,
+        colorscale="Viridis",
         cmin=0,
         cmax=1,
         symbol=symbols,   # 👈 HIER IST DER KEY
