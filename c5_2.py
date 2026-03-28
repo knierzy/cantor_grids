@@ -387,15 +387,13 @@ df_parameters['Ratio'] = df_parameters['Unnamed: 1'] / (df_parameters['Unnamed: 
 
 # List to store values for the color legend
 x_values, y_values, color_values = [], [], []
+symbols = []   # 👈 NEU
 
-# Collect points for the color legend
+# === Pernegg ===
 for idx, row in df_parameters.iterrows():
     a = row['Unnamed: 1']
     b = row['Unnamed: 2']
     c = row['Unnamed: 3']
-    d = row['Unnamed: 4']
-    herkunft = row['Herkunft']
-    index = row['Index']
     ab_value = row['AB']
     ratio = row['Ratio']
 
@@ -404,14 +402,49 @@ for idx, row in df_parameters.iterrows():
         x_values.append(c)
         y_values.append(y_position_punkt)
         color_values.append(ratio)
+        symbols.append("circle")   # 👈 Pernegg = Kreis
 
-# === NEU (Linz/Melk)
+
+# === Linz/Melk ===
 for _, row in df_linz_params.iterrows():
     a = row['Unnamed: 1']
     b = row['Unnamed: 2']
     c = row['Unnamed: 3']
     ratio = row['Ratio']
 
+    y_position_punkt = calculate_y_position(a + b, b)
+    if y_position_punkt is not None:
+        x_values.append(c)
+        y_values.append(y_position_punkt)
+        color_values.append(ratio)
+        symbols.append("square")   # 👈 Linz = Quadrat
+
+
+# === Plot ===
+fig.add_trace(go.Scatter(
+    x=x_values,
+    y=y_values,
+    mode='markers',
+    marker=dict(
+        size=16,
+        color=color_values,
+        colorscale=custom_colorscale,
+        cmin=0,
+        cmax=1,
+        symbol=symbols,   # 👈 HIER IST DER KEY
+        colorbar=dict(
+            title='',
+            thickness=20,
+            len=0.9,
+            y=0.5,
+            yanchor="middle",
+            tickfont=dict(size=24, color="black")
+        ),
+        showscale=True,
+        line=dict(color="black", width=2)
+    ),
+    name="Datenpunkte"
+))
     y_position_punkt = calculate_y_position(a + b, b)
     if y_position_punkt is not None:
         x_values.append(c)
