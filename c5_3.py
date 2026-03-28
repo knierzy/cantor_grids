@@ -664,8 +664,8 @@ summary_lmf_pct = (summary_lmf / len(df_linz_params) * 100).round(1)
 
 # Mapping file paths
 legend_text = (
-    "<span style='font-size:40px; font-weight:bold;'>Garnet Provenance Groups</span><br>"
-    "<span style='font-size:28px; font-style:italic;'>Classification based on Mahalanobis distance</span><br><br>"
+    "<span style='font-size:28px; font-weight:bold;'>Garnet Provenance Groups</span><br>"
+    "<span style='font-size:24px; font-style:italic;'>Classification based on Mahalanobis distance</span><br><br>"
 )
 
 
