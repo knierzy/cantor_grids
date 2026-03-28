@@ -412,13 +412,6 @@ for _, row in df_linz_params.iterrows():
     c = row['Unnamed: 3']
     ratio = row['Ratio']
 
-    y_position_punkt = calculate_y_position(a + b, b)
-    if y_position_punkt is not None:
-        x_values.append(c)
-        y_values.append(y_position_punkt)
-        color_values.append(ratio)
-        symbols.append("square")   # 👈 Linz = Quadrat
-
 
 # === Plot ===
 fig.add_trace(go.Scatter(
