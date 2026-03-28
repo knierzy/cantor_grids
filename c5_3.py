@@ -655,47 +655,28 @@ print("Means cols:", list(means.columns))
 print("Sigmas cols:", list(sigmas.columns))
 print("Points cols: ['Alm','Spe','Pyr','Gro']")
 
-# New legend with point counts & percentages from Mahalanobis classification
-summary_pf = df_parameters["Nearest_Subfield_Mahalanobis"].value_counts().sort_index()
-summary_pf_pct = (summary_pf / len(df_parameters) * 100).round(1)
-
-summary_lmf = df_linz_params["Nearest_Subfield_Mahalanobis"].value_counts().sort_index()
-summary_lmf_pct = (summary_lmf / len(df_linz_params) * 100).round(1)
-
-# Mapping file paths
-legend_text = ""
-
-mid = len(ordered_hulls) // 2
-left = ordered_hulls[:mid]
-right = ordered_hulls[mid:]
-
-def make_entry(file_path):
-    color = color_mapping_files[file_path]
-    name = legend_mapping[file_path]
-
-    count_pf = summary_pf.get(name, 0)
-    pct_pf = summary_pf_pct.get(name, 0)
-
-    count_lmf = summary_lmf.get(name, 0)
-    pct_lmf = summary_lmf_pct.get(name, 0)
-
-    return (
-        f'<span style="color:{color};">■</span> '
-        f'<b>{name}</b><br>'
-        f'PF: {int(count_pf)} ({pct_pf:.1f}%)<br>'
-        f'LMF: {int(count_lmf)} ({pct_lmf:.1f}%)'
-    )
-
-for i in range(max(len(left), len(right))):
-
-    left_text = make_entry(left[i]) if i < len(left) else ""
-    right_text = make_entry(right[i]) if i < len(right) else ""
-
-legend_text += (
-    f'<span style="display:inline-block; width:500px; vertical-align:top;">{left_text}</span>'
-    f'<span style="display:inline-block; width:500px; vertical-align:top;">{right_text}</span>'
-    "<br><br>"
+legend_text = (
+    "<span style='font-size:40px; font-weight:bold;'>Garnet Provenance Groups</span><br>"
+    "<span style='font-size:28px; font-style:italic;'>Classification based on Mahalanobis distance</span><br><br>"
 )
+
+for file_path in ordered_hulls:
+    color = color_mapping_files[file_path]
+    hull_name = legend_mapping[file_path]
+
+    count_pf = summary_pf.get(hull_name, 0)
+    pct_pf = summary_pf_pct.get(hull_name, 0)
+
+    count_lmf = summary_lmf.get(hull_name, 0)
+    pct_lmf = summary_lmf_pct.get(hull_name, 0)
+
+    legend_text += (
+        f'<span style="color:{color}; font-size:62px;">■</span> '
+        f'<span style="font-size:32px; font-weight:bold;">{hull_name}</span><br>'
+        f'<span style="font-size:26px;">PF: {int(count_pf)} ({pct_pf:.1f}%)</span><br>'
+        f'<span style="font-size:26px;">LMF: {int(count_lmf)} ({pct_lmf:.1f}%)</span><br>'
+        f'<span style="font-size:8px;">&nbsp;</span><br>'
+    )
 
 print("\nLegend content with counts and percentages:")
 print(legend_text)
