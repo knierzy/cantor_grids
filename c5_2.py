@@ -376,7 +376,11 @@ grouped_hulls_combined = df_hulls_combined.groupby(["Herkunft", "AB_Value"])
 plot_imported_hulls_with_file_colors(grouped_hulls_combined, color_mapping_files)
 
 #  DAS HIER FEHLT
-plot_linz_scatter(df_linz_params)
+plot_linz_scatter(df_linz_params)   #
+df_linz_params['Ratio'] = df_linz_params['Unnamed: 1'] / (
+    df_linz_params['Unnamed: 1'] + df_linz_params['Unnamed: 2']
+)
+
 # Calculate the ratio for color coding
 df_parameters['Ratio'] = df_parameters['Unnamed: 1'] / (df_parameters['Unnamed: 1'] + df_parameters['Unnamed: 2'])
 
@@ -401,6 +405,18 @@ for idx, row in df_parameters.iterrows():
         y_values.append(y_position_punkt)
         color_values.append(ratio)
 
+# === NEU (Linz/Melk)
+for _, row in df_linz_params.iterrows():
+    a = row['Unnamed: 1']
+    b = row['Unnamed: 2']
+    c = row['Unnamed: 3']
+    ratio = row['Ratio']
+
+    y_position_punkt = calculate_y_position(a + b, b)
+    if y_position_punkt is not None:
+        x_values.append(c)
+        y_values.append(y_position_punkt)
+        color_values.append(ratio)
 
 custom_colorscale = [
     [0.0,  "#00007F"],   
