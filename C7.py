@@ -775,7 +775,7 @@ plot_bgcolor="white",
     yaxis=dict(
         title=dict(
             text="SOM (%) ///  Clay (%) = height rectangle<sub>ABCD</sub> − SOM (%)",
-            font=dict(size=30, color="black", family="Arial Black")
+            font=dict(size=28.5, color="black", family="Arial Black")
         ),
         range=[-0.3, 8.2],
         tickformat=".0f",
