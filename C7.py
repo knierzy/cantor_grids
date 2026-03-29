@@ -170,19 +170,27 @@ def add_rechtecke_mit_farbverlauf(rechtecke, x_offset, spiegeln=False):
                 showlegend=False
             ))
 
- # Create  axis labels
-    x_labels = {50: "AB99",440: "AB95",  915: "AB90", 1350: "AB85", 1760: "AB80", 2158: "AB75", 2540: "AB70",
-                 2870: "AB65", 3195: "AB60", 3480: "AB55", 3755: "AB50", 3995: "AB45", 4209: "AB40", 4405: "AB35", 4570: "AB30", 4830: "AB20", 4990: "AB10" }
+# Create axis labels
+x_labels = {
+    50: "AB99", 440: "AB95", 915: "AB90", 1350: "AB85",
+    1760: "AB80", 2158: "AB75", 2540: "AB70",
+    2870: "AB65", 3195: "AB60", 3480: "AB55",
+    3755: "AB50", 3995: "AB45", 4209: "AB40",
+    4405: "AB35", 4570: "AB30", 4830: "AB20", 4990: "AB10"
+}
 
-    # Update X-axis with labels
-    fig.update_layout(
-        xaxis=dict(
-            title="Summe A + B (%)",
-            tickvals=list(x_labels.keys()),
-            ticktext=list(x_labels.values()),
-            tickangle=0,
-
-        ))
+# Update X-axis with labels
+fig.update_layout(
+    xaxis=dict(
+        title="Summe A + B (%)",
+        tickvals=list(x_labels.keys()),
+        ticktext=[
+            f"{ab}<br>CD{str(100 - int(ab[2:])).zfill(2)}"
+            for ab in x_labels.values()
+        ],
+        tickangle=0,
+    )
+)
 
 # Add rectangles
 add_rechtecke_mit_farbverlauf(rechtecke, 0)
@@ -767,7 +775,7 @@ plot_bgcolor="white",
     yaxis=dict(
         title=dict(
             text="SOM (%) ///  Clay (%) = height rectangle<sub>ABCD</sub> − SOM (%)",
-            font=dict(size=28, color="black", family="Arial Black")
+            font=dict(size=30, color="black", family="Arial Black")
         ),
         range=[-0.3, 8.2],
         tickformat=".0f",
