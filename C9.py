@@ -1027,6 +1027,19 @@ legende_text += (
     f"<span style='font-size:26px;'><b>Total points:</b> {total_points}</span>"
 )
 
+legende_text += (
+    "<br><br>"
+    "<span style='font-size:28px; font-weight:bold;'>Depth classes</span><br><br>"
+    
+    "<span style='font-size:40px;'>●</span> "
+    "<span style='font-size:25px;'>Top soil (0–20 cm)</span><br><br>"
+    
+    "<span style='font-size:40px;'>■</span> "
+    "<span style='font-size:25px;'>Deep soil (70–200 cm)</span>"
+)
+
+
+
 # Adjust layout to center
 fig.update_layout(
 plot_bgcolor="white",  # Set plot background to white
