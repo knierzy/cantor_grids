@@ -450,7 +450,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="circle",
-        size=17,
+        size=19,
         color="rgba(0,0,0,0)",
         line=dict(color="black", width=2)
     ),
@@ -465,7 +465,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="circle",
-        size=17,
+        size=19,
         color=ratios[mask_circle],
         colorscale="Viridis",
         cmin=0,
@@ -535,7 +535,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="square",
-        size=15,
+        size=18,
         color="rgba(0,0,0,0)",
         line=dict(color="black", width=2)
     ),
@@ -550,7 +550,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="square",
-        size=15,
+        size=18,
         color=ratios[mask_square],
         colorscale="Viridis",
         cmin=0,
