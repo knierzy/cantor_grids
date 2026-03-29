@@ -348,7 +348,7 @@ def plot_linz_scatter(df):
         marker=dict(
             size=14,
             color="red",
-            symbol="square",
+            symbol="diamond",
             line=dict(color="black", width=1)
         ),
         name="Linz/Melk"
@@ -426,7 +426,7 @@ for _, row in df_linz_params.iterrows():
         x_values.append(c)
         y_values.append(y_position_punkt)
         color_values.append(ratio)
-        symbols.append("square")
+        symbols.append("diamond")
 
 # 🔥 HIER EINFÜGEN (direkt nach den Schleifen!)
 
@@ -436,7 +436,7 @@ ratios = np.array(color_values)
 symbols_arr = np.array(symbols)
 
 mask_circle = symbols_arr == "circle"
-mask_square = symbols_arr == "square"
+mask_diamond = symbols_arr == "diamond"
 
 
 # =========================
@@ -525,16 +525,16 @@ fig.add_trace(go.Scatter(
 ))
 
 # =========================
-# 🟥 SQUARES (Linz/Melk)
+# 🟥 DIAMOND (Linz/Melk)
 # =========================
 
 # 1. Schwarzer Rahmen
 fig.add_trace(go.Scatter(
-    x=x_vals[mask_square],
-    y=y_vals[mask_square],
+    x=x_vals[mask_diamond],
+    y=y_vals[mask_diamond],
     mode="markers",
     marker=dict(
-        symbol="square",
+        symbol="diamond",
         size=18,
         color="rgba(0,0,0,0)",
         line=dict(color="black", width=2)
@@ -545,13 +545,13 @@ fig.add_trace(go.Scatter(
 
 # 2. Farbiger Halo
 fig.add_trace(go.Scatter(
-    x=x_vals[mask_square],
-    y=y_vals[mask_square],
+    x=x_vals[mask_diamond],
+    y=y_vals[mask_diamond],
     mode="markers",
     marker=dict(
-        symbol="square",
+        symbol="diamond",
         size=18,
-        color=ratios[mask_square],
+        color=ratios[mask_diamond],
         colorscale="Viridis",
         cmin=0,
         cmax=1,
@@ -565,11 +565,11 @@ fig.add_trace(go.Scatter(
 
 # 3. Weißer Cutout
 fig.add_trace(go.Scatter(
-    x=x_vals[mask_square],
-    y=y_vals[mask_square],
+    x=x_vals[mask_diamond],
+    y=y_vals[mask_diamond],
     mode="markers",
     marker=dict(
-        symbol="square",
+        symbol="diamond",
         size=1,
         color="white",
         line=dict(width=0)
@@ -580,13 +580,13 @@ fig.add_trace(go.Scatter(
 
 # 4. Innerer Farbpunkt
 fig.add_trace(go.Scatter(
-    x=x_vals[mask_square],
-    y=y_vals[mask_square],
+    x=x_vals[mask_diamond],
+    y=y_vals[mask_diamond],
     mode="markers",
     marker=dict(
-        symbol="square",
+        symbol="diamond",
         size=1,
-        color=ratios[mask_square],
+        color=ratios[mask_diamond],
         colorscale="Viridis",
         cmin=0,
         cmax=1,
@@ -597,11 +597,11 @@ fig.add_trace(go.Scatter(
 
 # 5. 🔥 Schwarzer Mittelpunkt
 fig.add_trace(go.Scatter(
-    x=x_vals[mask_square],
-    y=y_vals[mask_square],
+    x=x_vals[mask_diamond],
+    y=y_vals[mask_diamond],
     mode="markers",
     marker=dict(
-        symbol="square",
+        symbol="diamond",
         size=3,
         color="black"
     ),
@@ -831,7 +831,7 @@ print("Points cols: ['Alm','Spe','Pyr','Gro']")
 legend_text = (
     "<span style='font-size:45px; font-weight:bold;'>Garnet Provenance Groups</span><br>"
     "<span style='font-size:34px; font-style:italic;'>Classification based on Mahalanobis distance</span><br><br>"
-    "<span style='font-size:30px;'>Symbols: circles = mica schist (MS) Pernegg; squares = Linz–Melk Formation (LMF)</span><br><br>"
+    "<span style='font-size:30px;'>Symbols: circles = mica schist (MS) Pernegg; diamonds = Linz–Melk Formation (LMF)</span><br><br>"
 )
 
 for file_path in ordered_hulls:
