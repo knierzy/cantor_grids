@@ -829,9 +829,9 @@ print("Sigmas cols:", list(sigmas.columns))
 print("Points cols: ['Alm','Spe','Pyr','Gro']")
 
 legend_text = (
-    "<span style='font-size:40px; font-weight:bold;'>Garnet Provenance Groups</span><br>"
-    "<span style='font-size:28px; font-style:italic;'>Classification based on Mahalanobis distance</span><br><br>"
-    "<span style='font-size:26px;'>Symbols: circles = mica schist (MS) Pernegg; squares = Linz–Melk Formation (LMF)</span><br><br>"
+    "<span style='font-size:45px; font-weight:bold;'>Garnet Provenance Groups</span><br>"
+    "<span style='font-size:34px; font-style:italic;'>Classification based on Mahalanobis distance</span><br><br>"
+    "<span style='font-size:30px;'>Symbols: circles = mica schist (MS) Pernegg; squares = Linz–Melk Formation (LMF)</span><br><br>"
 )
 
 for file_path in ordered_hulls:
