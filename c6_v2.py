@@ -425,6 +425,22 @@ fig.update_layout(
     )
 )
 
+x_min = -30
+x_max = rechtecke[-1][0] + rechtecke[-1][1]
+
+fig.add_shape(
+    type="line",
+    x0=x_min,
+    x1=x_max,
+    y0=100,
+    y1=100,
+    line=dict(
+        color="black",
+        width=2
+    )
+)
+
+
 # Show plot
 fig.show()
 
