@@ -885,7 +885,7 @@ if "highom_x" in globals() and len(highom_x) > 0:
 # Keep only the single global coloraxis for the AWC colorbar.
 fig.update_layout(
     coloraxis=dict(
-        colorscale="Jet",
+        colorscale="Viridis",
         cmin=awc_min,
         cmax=awc_max,
         colorbar=dict(
