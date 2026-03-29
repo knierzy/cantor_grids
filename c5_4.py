@@ -450,7 +450,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="circle",
-        size=24,
+        size=22,
         color="rgba(0,0,0,0)",
         line=dict(color="black", width=2)
     ),
@@ -465,7 +465,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="circle",
-        size=24,
+        size=22,
         color=ratios[mask_circle],
         colorscale="Viridis",
         cmin=0,
@@ -500,7 +500,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="circle",
-        size=12,
+        size=1,
         color=ratios[mask_circle],
         colorscale="Viridis",
         cmin=0,
@@ -517,7 +517,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="circle",
-        size=5,
+        size=3,
         color="black"
     ),
     hoverinfo="skip",
@@ -831,7 +831,7 @@ print("Points cols: ['Alm','Spe','Pyr','Gro']")
 legend_text = (
     "<span style='font-size:40px; font-weight:bold;'>Garnet Provenance Groups</span><br>"
     "<span style='font-size:28px; font-style:italic;'>Classification based on Mahalanobis distance</span><br><br>"
-    "<span style='font-size:24px;'>Symbols: circles = Mica schist (MS) Pernegg; squares = Linz–Melk Formation</span><br><br>"
+    "<span style='font-size:24px;'>Symbols: circles = mica schist (MS) Pernegg; squares = Linz–Melk Formation</span><br><br>"
 )
 
 for file_path in ordered_hulls:
