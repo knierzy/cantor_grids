@@ -452,7 +452,7 @@ fig.add_trace(go.Scatter(
         symbol="circle",
         size=18,
         color="rgba(0,0,0,0)",
-        line=dict(color="black", width=4)
+        line=dict(color="black", width=5)
     ),
     hoverinfo="skip",
     showlegend=False
@@ -510,7 +510,7 @@ fig.add_trace(go.Scatter(
     showlegend=False
 ))
 
-# 5. 🔥 Schwarzer Mittelpunkt
+# 5.  Schwarzer Mittelpunkt
 fig.add_trace(go.Scatter(
     x=x_vals[mask_circle],
     y=y_vals[mask_circle],
@@ -537,7 +537,7 @@ fig.add_trace(go.Scatter(
         symbol="cross",
         size=18,
         color="rgba(0,0,0,0)",
-        line=dict(color="black", width=2)
+        line=dict(color="black", width=5)
     ),
     hoverinfo="skip",
     showlegend=False
