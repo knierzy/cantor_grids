@@ -647,7 +647,7 @@ fig.add_trace(go.Scatter(
         symbol="circle",
         size=31,
         color=np.array(awc_values)[mask_circle],   # AWC values → Viridis colorscale
-        colorscale="Viridis",
+        colorscale="Cividis",
         coloraxis="coloraxis",
         opacity=0.90,
         line=dict(width=0)
@@ -741,7 +741,7 @@ fig.add_trace(go.Scatter(
         symbol="square",
         size=27,
         color=np.array(awc_values)[mask_square],   # AWC → Viridis scale
-        colorscale="Viridis",
+        colorscale="Cividis",
         coloraxis="coloraxis",
         opacity=0.90,
         line=dict(width=0)
@@ -885,7 +885,7 @@ if "highom_x" in globals() and len(highom_x) > 0:
 # Keep only the single global coloraxis for the AWC colorbar.
 fig.update_layout(
     coloraxis=dict(
-        colorscale="Viridis",
+        colorscale="Cividis",
         cmin=awc_min,
         cmax=awc_max,
         colorbar=dict(
