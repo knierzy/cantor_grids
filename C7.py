@@ -589,7 +589,7 @@ fig.add_trace(go.Scatter(
     marker=dict(
         size=12.8,                      
         color=awc_values,             
-        colorscale="jet",
+        colorscale="Plasma",
         cmin=awc_min,
         cmax=awc_max,
         opacity=0.95,                   
@@ -766,7 +766,7 @@ plot_bgcolor="white",
     ),
     yaxis=dict(
         title=dict(
-            text="Humus (%) ///  Clay (%) = height<sub>AB</sub> − Humus (%)",
+            text="SOM (%) ///  Clay (%) = height rectangle<sub>ABCD</sub> − SOM (%)",
             font=dict(size=28, color="black", family="Arial Black")
         ),
         range=[-0.3, 8.2],
@@ -774,7 +774,7 @@ plot_bgcolor="white",
         dtick=2,
         color="black",
         linecolor="gray",
-        tickfont=dict(size=30, color="black")
+        tickfont=dict(size=26, color="black")
     ),
 
     autosize=False,
