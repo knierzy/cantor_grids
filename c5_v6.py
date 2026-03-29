@@ -534,7 +534,7 @@ fig.add_trace(go.Scatter(
     y=y_vals[mask_cross],
     mode="markers",
     marker=dict(
-        symbol="corss",
+        symbol="cross",
         size=18,
         color="rgba(0,0,0,0)",
         line=dict(color="black", width=2)
