@@ -681,7 +681,7 @@ for y in y_values:
     )
 
 # Positions for the vertical dashed lines
-x_values = [909.5, 3749.5, 4569.5, 1769.5, 2529.5, 3189.5, 4209.5, 4850.5, 4995.5, 442, 1352, 2162, 2872, 3482, 3992, 4402, 4712, 4922, 5037.5]  # Mittlere Positionen von AB90, AB50, AB30
+x_values = [909.5, 3749.5, 4569.5, 1769.5, 2529.5, 3189.5, 4209.5, 4850.5, 4995.5, 442, 1352, 2162, 2872, 3482, 3992, 4402, 4712, 4922, 5037.5]  # central positions of AB90, AB50, AB30
 
 # Insert vertical dashed lines
 for x in x_values:
@@ -831,7 +831,7 @@ print("Points cols: ['Alm','Spe','Pyr','Gro']")
 legend_text = (
     "<span style='font-size:40px; font-weight:bold;'>Garnet Provenance Groups</span><br>"
     "<span style='font-size:28px; font-style:italic;'>Classification based on Mahalanobis distance</span><br><br>"
-    "<span style='font-size:24px;'>Symbols: circles = mica schist (MS) Pernegg; squares = Linz–Melk Formation (LMF)</span><br><br>"
+    "<span style='font-size:26px;'>Symbols: circles = mica schist (MS) Pernegg; squares = Linz–Melk Formation (LMF)</span><br><br>"
 )
 
 for file_path in ordered_hulls:
