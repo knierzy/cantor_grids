@@ -846,8 +846,8 @@ for file_path in ordered_hulls:
 
     legend_text += (   # ✅ jetzt korrekt innerhalb der Schleife
         f'<span style="color:{color}; font-size:62px;">■</span> '
-        f'<span style="font-size:30px; font-weight:bold;">{hull_name}</span> '
-        f'<span style="font-size:26px;">'
+        f'<span style="font-size:35px; font-weight:bold;">{hull_name}</span> '
+        f'<span style="font-size:30px;">'
         f'MS Pernegg: {int(count_pf)} points ({pct_pf:.1f}%) / '
         f'LMF: {int(count_lmf)} points ({pct_lmf:.1f}%)'
         f'</span><br>'
