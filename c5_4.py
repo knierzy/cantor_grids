@@ -428,33 +428,206 @@ for _, row in df_linz_params.iterrows():
         color_values.append(ratio)
         symbols.append("square")
 
+# 🔥 HIER EINFÜGEN (direkt nach den Schleifen!)
 
-# === Plot ===
+x_vals = np.array(x_values)
+y_vals = np.array(y_values)
+ratios = np.array(color_values)
+symbols_arr = np.array(symbols)
+
+mask_circle = symbols_arr == "circle"
+mask_square = symbols_arr == "square"
+
+
+# =========================
+# 🔵 CIRCLES (Pernegg)
+# =========================
+
+# 1. Schwarzer Außenring
 fig.add_trace(go.Scatter(
-    x=x_values,
-    y=y_values,
-    mode='markers',
+    x=x_vals[mask_circle],
+    y=y_vals[mask_circle],
+    mode="markers",
     marker=dict(
-        size=16,
-        color=color_values,
+        symbol="circle",
+        size=30,
+        color="rgba(0,0,0,0)",
+        line=dict(color="black", width=2)
+    ),
+    hoverinfo="skip",
+    showlegend=False
+))
+
+# 2. Farbiger Halo
+fig.add_trace(go.Scatter(
+    x=x_vals[mask_circle],
+    y=y_vals[mask_circle],
+    mode="markers",
+    marker=dict(
+        symbol="circle",
+        size=28,
+        color=ratios[mask_circle],
         colorscale="Viridis",
         cmin=0,
         cmax=1,
-        symbol=symbols,   # 👈 HIER IST DER KEY
+        coloraxis="coloraxis",
+        opacity=0.9,
+        line=dict(width=0)
+    ),
+    hoverinfo="skip",
+    showlegend=False
+))
+
+# 3. Weißer Cutout
+fig.add_trace(go.Scatter(
+    x=x_vals[mask_circle],
+    y=y_vals[mask_circle],
+    mode="markers",
+    marker=dict(
+        symbol="circle",
+        size=18,
+        color="white",
+        line=dict(width=0)
+    ),
+    hoverinfo="skip",
+    showlegend=False
+))
+
+# 4. Innerer Farbpunkt
+fig.add_trace(go.Scatter(
+    x=x_vals[mask_circle],
+    y=y_vals[mask_circle],
+    mode="markers",
+    marker=dict(
+        symbol="circle",
+        size=20,
+        color=ratios[mask_circle],
+        colorscale="Viridis",
+        cmin=0,
+        cmax=1,
+        line=dict(color="black", width=1)
+    ),
+    showlegend=False
+))
+
+# 5. 🔥 Schwarzer Mittelpunkt
+fig.add_trace(go.Scatter(
+    x=x_vals[mask_circle],
+    y=y_vals[mask_circle],
+    mode="markers",
+    marker=dict(
+        symbol="circle",
+        size=5,
+        color="black"
+    ),
+    hoverinfo="skip",
+    showlegend=False
+))
+
+# =========================
+# 🟥 SQUARES (Linz/Melk)
+# =========================
+
+# 1. Schwarzer Rahmen
+fig.add_trace(go.Scatter(
+    x=x_vals[mask_square],
+    y=y_vals[mask_square],
+    mode="markers",
+    marker=dict(
+        symbol="square",
+        size=28,
+        color="rgba(0,0,0,0)",
+        line=dict(color="black", width=2)
+    ),
+    hoverinfo="skip",
+    showlegend=False
+))
+
+# 2. Farbiger Halo
+fig.add_trace(go.Scatter(
+    x=x_vals[mask_square],
+    y=y_vals[mask_square],
+    mode="markers",
+    marker=dict(
+        symbol="square",
+        size=26,
+        color=ratios[mask_square],
+        colorscale="Viridis",
+        cmin=0,
+        cmax=1,
+        coloraxis="coloraxis",
+        opacity=0.9,
+        line=dict(width=0)
+    ),
+    hoverinfo="skip",
+    showlegend=False
+))
+
+# 3. Weißer Cutout
+fig.add_trace(go.Scatter(
+    x=x_vals[mask_square],
+    y=y_vals[mask_square],
+    mode="markers",
+    marker=dict(
+        symbol="square",
+        size=18,
+        color="white",
+        line=dict(width=0)
+    ),
+    hoverinfo="skip",
+    showlegend=False
+))
+
+# 4. Innerer Farbpunkt
+fig.add_trace(go.Scatter(
+    x=x_vals[mask_square],
+    y=y_vals[mask_square],
+    mode="markers",
+    marker=dict(
+        symbol="square",
+        size=18,
+        color=ratios[mask_square],
+        colorscale="Viridis",
+        cmin=0,
+        cmax=1,
+        line=dict(color="black", width=1)
+    ),
+    showlegend=False
+))
+
+# 5. 🔥 Schwarzer Mittelpunkt
+fig.add_trace(go.Scatter(
+    x=x_vals[mask_square],
+    y=y_vals[mask_square],
+    mode="markers",
+    marker=dict(
+        symbol="square",
+        size=5,
+        color="black"
+    ),
+    hoverinfo="skip",
+    showlegend=False
+))
+
+# =========================
+# 🎨 COLORBAR (global!)
+# =========================
+
+fig.update_layout(
+    coloraxis=dict(
+        colorscale="Viridis",
+        cmin=0,
+        cmax=1,
         colorbar=dict(
-            title='',
+            title="",
             thickness=20,
             len=0.9,
             y=0.5,
             yanchor="middle",
-            tickfont=dict(size=24, color="black")
-        ),
-        showscale=True,
-        line=dict(color="black", width=2)
-    ),
-    name="Datenpunkte"
-))
-
+            tickfont=dict(size=24)
+        )
+    )
+)
 
 
 # Adjust layout
