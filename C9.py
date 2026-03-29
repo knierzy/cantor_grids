@@ -1034,7 +1034,7 @@ plot_bgcolor="white",  # Set plot background to white
     ),
     yaxis=dict(
         title=dict(
-            text="Humus (%) ///  Clay (%) = height<sub>AB</sub> − Humus (%)",
+            text="SOM (%) ///  Clay (%) = height rectangle <sub>ABCD</sub> − SOM (%)",
             font=dict(size=32, color="black", family="Arial Black")
         ),
         range=[-0.3,11.5],  
