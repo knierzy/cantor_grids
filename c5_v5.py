@@ -396,7 +396,7 @@ custom_colorscale = [
 
 # List to store values for the color legend
 x_values, y_values, color_values = [], [], []
-symbols = []   # 👈 NEU
+symbols = []   
 
 # === Pernegg ===
 for idx, row in df_parameters.iterrows():
@@ -428,7 +428,7 @@ for _, row in df_linz_params.iterrows():
         color_values.append(ratio)
         symbols.append("diamond")
 
-# 🔥 HIER EINFÜGEN (direkt nach den Schleifen!)
+#  HIER EINFÜGEN (direkt nach den Schleifen!)
 
 x_vals = np.array(x_values)
 y_vals = np.array(y_values)
@@ -450,7 +450,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="circle",
-        size=19,
+        size=18,
         color="rgba(0,0,0,0)",
         line=dict(color="black", width=2)
     ),
@@ -465,7 +465,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="circle",
-        size=19,
+        size=18,
         color=ratios[mask_circle],
         colorscale="Viridis",
         cmin=0,
@@ -535,7 +535,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="diamond",
-        size=18,
+        size=16,
         color="rgba(0,0,0,0)",
         line=dict(color="black", width=2)
     ),
@@ -550,7 +550,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="diamond",
-        size=18,
+        size=16,
         color=ratios[mask_diamond],
         colorscale="Viridis",
         cmin=0,
@@ -595,7 +595,7 @@ fig.add_trace(go.Scatter(
     showlegend=False
 ))
 
-# 5. 🔥 Schwarzer Mittelpunkt
+# 5. Schwarzer Mittelpunkt
 fig.add_trace(go.Scatter(
     x=x_vals[mask_diamond],
     y=y_vals[mask_diamond],
@@ -648,7 +648,7 @@ plot_bgcolor="white",
             text="Pyrope (%) /// Grossular (%) = height rectangle <sub>ABCD</sub> − Pyrope (%)",
             font=dict(size=28, color="black", family="Arial Black")
         ),
-        range=[-1, 100],
+        range=[-1.3, 100],
         constrain="domain",
         tickformat=".0f",
         dtick=10,
