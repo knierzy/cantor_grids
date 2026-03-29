@@ -740,8 +740,8 @@ fig.add_trace(go.Scatter(
     marker=dict(
         symbol="square",
         size=27,
-        color=np.array(awc_values)[mask_square],   # AWC → Jet scale
-        colorscale="Jet",
+        color=np.array(awc_values)[mask_square],   # AWC → Viridis scale
+        colorscale="Viridis",
         coloraxis="coloraxis",
         opacity=0.90,
         line=dict(width=0)
