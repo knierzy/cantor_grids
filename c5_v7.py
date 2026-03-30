@@ -534,8 +534,8 @@ fig.add_trace(go.Scatter(
 
 # 1. Schwarzer Rahmen
 fig.add_trace(go.Scatter(
-    x=x_vals[mask_cross-thin],
-    y=y_vals[mask_cross-thin],
+    x=x_vals[mask_cross],
+    y=y_vals[mask_cross],
     mode="markers",
     marker=dict(
         symbol="cross-thin",
@@ -549,8 +549,8 @@ fig.add_trace(go.Scatter(
 
 # 2. Farbiger Halo
 fig.add_trace(go.Scatter(
-    x=x_vals[mask_cross-thin],
-    y=y_vals[mask_cross-thin],
+    x=x_vals[mask_cross],
+    y=y_vals[mask_cross],
     mode="markers",
     marker=dict(
         symbol="cross-thin",
@@ -569,8 +569,8 @@ fig.add_trace(go.Scatter(
 
 # 3. Weißer Cutout
 fig.add_trace(go.Scatter(
-    x=x_vals[mask_cross-thin],
-    y=y_vals[mask_cross-thin],
+    x=x_vals[mask_cross],
+    y=y_vals[mask_cross],
     mode="markers",
     marker=dict(
         symbol="cross-thin",
@@ -584,8 +584,8 @@ fig.add_trace(go.Scatter(
 
 # 4. Innerer Farbpunkt
 fig.add_trace(go.Scatter(
-    x=x_vals[mask_cross-thin],
-    y=y_vals[mask_cross-thin],
+    x=x_vals[mask_cross],
+    y=y_vals[mask_cross],
     mode="markers",
     marker=dict(
         symbol="cross-thin",
@@ -601,8 +601,8 @@ fig.add_trace(go.Scatter(
 
 # 5. Schwarzer Mittelpunkt
 fig.add_trace(go.Scatter(
-    x=x_vals[mask_cross-thin],
-    y=y_vals[mask_cross-thin],
+    x=x_vals[mask_cross],
+    y=y_vals[mask_cross],
     mode="markers",
     marker=dict(
         symbol="cross-thin",
