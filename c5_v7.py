@@ -450,7 +450,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="circle",
-        size=18,
+        size=20,
         color="rgba(0,0,0,0)",
         line=dict(color="black", width=7)
     ),
