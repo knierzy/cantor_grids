@@ -619,11 +619,10 @@ fig.add_trace(go.Scatter(
 
 fig.update_layout(
     coloraxis=dict(
-        colorscale="Plasma",
+        colorscale=cubehelix_colorscale,
         cmin=0,
         cmax=1,
         colorbar=dict(
-            title="",
             thickness=20,
             len=0.9,
             y=0.5,
