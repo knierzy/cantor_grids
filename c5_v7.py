@@ -474,7 +474,6 @@ fig.add_trace(go.Scatter(
         colorscale=cubehelix_colorscale,
         cmin=0,
         cmax=1,
-        coloraxis="coloraxis",
         opacity=0.9,
         line=dict(width=0)
     ),
@@ -559,7 +558,6 @@ fig.add_trace(go.Scatter(
         colorscale=cubehelix_colorscale,
         cmin=0,
         cmax=1,
-        coloraxis="coloraxis",
         opacity=0.9,
         line=dict(width=0)
     ),
