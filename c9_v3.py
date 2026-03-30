@@ -736,9 +736,11 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="square",
-        size=28,
-        color="rgba(0,0,0,0)",   # transparent fill
-        line=dict(color="black", width=2)
+        size=27,
+        colorscale=cubehelix_colorscale,
+        coloraxis="coloraxis",
+        opacity=0.90,
+        line=dict(width=0)
     ),
     hoverinfo="skip",
     showlegend=False
@@ -757,6 +759,7 @@ fig.add_trace(go.Scatter(
     marker=dict(
         symbol="square",
         size=27,
+        color=np.array(awc_values)[mask_square],   # <- DAS FEHLT
         colorscale=cubehelix_colorscale,
         coloraxis="coloraxis",
         opacity=0.90,
