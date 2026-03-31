@@ -510,7 +510,7 @@ fig.add_trace(go.Scatter(
     showlegend=False
 ))
 
-# 5.  Schwarzer Mittelpunkt
+# 5.  central point
 fig.add_trace(go.Scatter(
     x=x_vals[mask_circle],
     y=y_vals[mask_circle],
@@ -525,10 +525,10 @@ fig.add_trace(go.Scatter(
 ))
 
 # =========================
-# Cross (Linz/Melk)
+# Diamond (Linz/Melk)
 # =========================
 
-# 1. Schwarzer Rahmen
+# 1. Black frame
 fig.add_trace(go.Scatter(
     x=x_vals[mask_cross],
     y=y_vals[mask_cross],
@@ -543,7 +543,7 @@ fig.add_trace(go.Scatter(
     showlegend=False
 ))
 
-# 2. Farbiger Halo
+# 2. halo 
 fig.add_trace(go.Scatter(
     x=x_vals[mask_cross],
     y=y_vals[mask_cross],
@@ -563,7 +563,7 @@ fig.add_trace(go.Scatter(
     showlegend=False
 ))
 
-# 3. Weißer Cutout
+# 3.white Cutout
 fig.add_trace(go.Scatter(
     x=x_vals[mask_cross],
     y=y_vals[mask_cross],
@@ -578,7 +578,7 @@ fig.add_trace(go.Scatter(
     showlegend=False
 ))
 
-# 4. Innerer Farbpunkt
+# 4. Central point
 fig.add_trace(go.Scatter(
     x=x_vals[mask_cross],
     y=y_vals[mask_cross],
@@ -831,7 +831,7 @@ print("Points cols: ['Alm','Spe','Pyr','Gro']")
 legend_text = (
     "<span style='font-size:45px; font-weight:bold;'>Garnet Provenance Groups</span><br>"
     "<span style='font-size:34px; font-style:italic;'>Classification based on Mahalanobis distance</span><br><br>"
-    "<span style='font-size:30px;'>Symbols: circles = mica schist (MS) Pernegg; crosses = Linz–Melk Formation (LMF)</span><br><br>"
+    "<span style='font-size:30px;'>Symbols: circles = mica schist (MS) Pernegg; diamonds = Linz–Melk Formation (LMF)</span><br><br>"
 )
 
 for file_path in ordered_hulls:
