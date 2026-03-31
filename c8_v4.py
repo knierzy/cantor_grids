@@ -402,7 +402,7 @@ def export_highres_png():
         page = browser.new_page(
             viewport={"width": 2260, "height": 1210, "device_scale_factor": 2}
         )
-        page.goto(f"file://{os.path.abspath(html_path)}", timeout=120000)
+        page.goto(f"file://{os.path.abspath(html_path)}", timeout=0)
         page.screenshot(path=png_path, full_page=True)
         browser.close()
         print("✅ PNG saved:", png_path)
