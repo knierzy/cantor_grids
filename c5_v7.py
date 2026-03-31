@@ -535,7 +535,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="diamond-wide",
-        size=18,
+        size=22,
         color="rgba(0,0,0,0)",
         line=dict(color="black", width=4)
     ),
@@ -550,7 +550,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="diamond-wide",
-        size=18,
+        size=22,
         color=ratios[mask_cross],
         colorscale="Plasma",
         cmin=0,
