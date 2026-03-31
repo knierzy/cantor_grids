@@ -436,7 +436,7 @@ ratios = np.array(color_values)
 symbols_arr = np.array(symbols)
 
 mask_circle = symbols_arr == "circle"
-mask_cross = symbols_arr == "tirangle-down"
+mask_cross = symbols_arr == "triangle-down"
 
 
 # =========================
