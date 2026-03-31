@@ -549,7 +549,7 @@ fig.add_trace(go.Scatter(
     y=y_vals[mask_cross],
     mode="markers",
     marker=dict(
-        symbol="cross",
+        symbol="triangle-down",
         size=18,
         color=ratios[mask_cross],
         colorscale="Plasma",
