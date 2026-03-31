@@ -348,7 +348,7 @@ def plot_linz_scatter(df):
         marker=dict(
             size=14,
             color="red",
-            symbol="triangle-down",
+            symbol="diamond-wide",
             line=dict(color="black", width=1)
         ),
         name="Linz/Melk"
@@ -426,7 +426,7 @@ for _, row in df_linz_params.iterrows():
         x_values.append(c)
         y_values.append(y_position_punkt)
         color_values.append(ratio)
-        symbols.append("triangle-down")
+        symbols.append("diamond-wide")
 
 #  HIER EINFÜGEN (direkt nach den Schleifen!)
 
@@ -436,7 +436,7 @@ ratios = np.array(color_values)
 symbols_arr = np.array(symbols)
 
 mask_circle = symbols_arr == "circle"
-mask_cross = symbols_arr == "triangle-down"
+mask_cross = symbols_arr == "diamond-wide"
 
 
 # =========================
@@ -534,7 +534,7 @@ fig.add_trace(go.Scatter(
     y=y_vals[mask_cross],
     mode="markers",
     marker=dict(
-        symbol="triangle-down",
+        symbol="diamond-wide",
         size=18,
         color="rgba(0,0,0,0)",
         line=dict(color="black", width=7)
@@ -549,7 +549,7 @@ fig.add_trace(go.Scatter(
     y=y_vals[mask_cross],
     mode="markers",
     marker=dict(
-        symbol="triangle-down",
+        symbol="diamond-wide",
         size=18,
         color=ratios[mask_cross],
         colorscale="Plasma",
@@ -584,7 +584,7 @@ fig.add_trace(go.Scatter(
     y=y_vals[mask_cross],
     mode="markers",
     marker=dict(
-        symbol="triangle-down",
+        symbol="diamond-wide",
         size=1,
         color=ratios[mask_cross],
         colorscale="Viridis",
@@ -601,7 +601,7 @@ fig.add_trace(go.Scatter(
     y=y_vals[mask_cross],
     mode="markers",
     marker=dict(
-        symbol="triangle-down",
+        symbol="diamond-wide",
         size=3,
         color="black"
     ),
