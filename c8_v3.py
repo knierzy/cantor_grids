@@ -129,7 +129,7 @@ def saxton_awc(sand_pct, clay_pct, humus_pct):
 
 def add_saxton_polygons(fig, rechtecke, saxton_awc,
                         n_x=40, zmin=3, zmax=35,
-                        colorscale="Greys"):
+                        colorscale="Cividis"):
 
     from plotly.colors import sample_colorscale
 
@@ -188,7 +188,7 @@ add_saxton_polygons(fig, rechtecke, saxton_awc)
 
 fig.add_trace(go.Heatmap(
     z=[[3, 35]],                 
-    colorscale="Greys",
+    colorscale="Cividis",
     showscale=True,
     colorbar=dict(
         title=dict(
