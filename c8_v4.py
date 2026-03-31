@@ -138,7 +138,7 @@ def saxton_awc(sand_pct, clay_pct, humus_pct):
 
 
 def add_saxton_polygons(fig, rechtecke, saxton_awc,
-                        n_x=120, zmin=3, zmax=28,
+                        n_x=120, zmin=3, zmax=35,
                         colorscale="Jet"):
 
     from plotly.colors import sample_colorscale
