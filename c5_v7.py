@@ -601,7 +601,7 @@ fig.add_trace(go.Scatter(
     y=y_vals[mask_cross],
     mode="markers",
     marker=dict(
-        symbol="diamond-wide",
+        symbol="circle",
         size=5,
         color="black"
     ),
