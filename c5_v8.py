@@ -467,7 +467,7 @@ fig.add_trace(go.Scatter(
         symbol="circle",
         size=18,
         color=ratios[mask_circle],
-        colorscale="PLasma",
+        colorscale="Viridis",
         cmin=0,
         cmax=1,
         coloraxis="coloraxis",
@@ -502,7 +502,7 @@ fig.add_trace(go.Scatter(
         symbol="circle",
         size=1,
         color=ratios[mask_circle],
-        colorscale="Plasma",
+        colorscale="Viridis",
         cmin=0,
         cmax=1,
         line=dict(color="black", width=1)
@@ -552,7 +552,7 @@ fig.add_trace(go.Scatter(
         symbol="diamond-wide",
         size=22,
         color=ratios[mask_cross],
-        colorscale="Plasma",
+        colorscale="Viridis",
         cmin=0,
         cmax=1,
         coloraxis="coloraxis",
@@ -615,7 +615,7 @@ fig.add_trace(go.Scatter(
 
 fig.update_layout(
     coloraxis=dict(
-        colorscale="Plasma",
+        colorscale="Viridis",
         cmin=0,
         cmax=1,
         colorbar=dict(
