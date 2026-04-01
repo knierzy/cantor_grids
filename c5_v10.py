@@ -436,7 +436,7 @@ ratios = np.array(color_values)
 symbols_arr = np.array(symbols)
 
 mask_circle = symbols_arr == "circle"
-mask_cross = symbols_arr == "x"
+mask_cross = symbols_arr == "cross-thin"
 
 
 # =========================
@@ -534,7 +534,7 @@ fig.add_trace(go.Scatter(
     y=y_vals[mask_cross],
     mode="markers",
     marker=dict(
-        symbol="x",
+        symbol="cross-thin",
         size=22,
         color="rgba(0,0,0,0)",
         line=dict(color="black", width=6)
@@ -549,7 +549,7 @@ fig.add_trace(go.Scatter(
     y=y_vals[mask_cross],
     mode="markers",
     marker=dict(
-        symbol="x",
+        symbol="cross-thin",
         size=22,
         color=ratios[mask_cross],
         colorscale="Viridis",
@@ -569,7 +569,7 @@ fig.add_trace(go.Scatter(
     y=y_vals[mask_cross],
     mode="markers",
     marker=dict(
-        symbol="x",
+        symbol="cross-thin",
         size=1,
         color="white",
         line=dict(width=0)
@@ -584,7 +584,7 @@ fig.add_trace(go.Scatter(
     y=y_vals[mask_cross],
     mode="markers",
     marker=dict(
-        symbol="x",
+        symbol="cross-thin",
         size=1,
         color=ratios[mask_cross],
         colorscale="Viridis",
