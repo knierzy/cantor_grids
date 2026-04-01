@@ -452,7 +452,7 @@ fig.add_trace(go.Scatter(
         symbol="circle",
         size=20,
         color="rgba(0,0,0,0)",
-        line=dict(color="black", width=3)
+        line=dict(color="black", width=4)
     ),
     hoverinfo="skip",
     showlegend=False
@@ -537,7 +537,7 @@ fig.add_trace(go.Scatter(
         symbol="star",
         size=22,
         color="rgba(0,0,0,0)",
-        line=dict(color="black", width=4)
+        line=dict(color="black", width=6)
     ),
     hoverinfo="skip",
     showlegend=False
