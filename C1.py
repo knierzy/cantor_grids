@@ -1,6 +1,6 @@
 # Generates valid four-component integer compositions summing to 100% by
 # computing a constrained Cartesian product of sand, silt, clay
-# and humus within predefined bonuds. bounds.
+# and humus within predefined bonuds.
 
 import pandas as pd
 
