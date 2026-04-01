@@ -426,7 +426,7 @@ for _, row in df_linz_params.iterrows():
         x_values.append(c)
         y_values.append(y_position_punkt)
         color_values.append(ratio)
-        symbols.append("x")
+        symbols.append("cross-thin")
 
 #  HIER EINFÜGEN (direkt nach den Schleifen!)
 
