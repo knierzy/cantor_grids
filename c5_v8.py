@@ -348,7 +348,7 @@ def plot_linz_scatter(df):
         marker=dict(
             size=14,
             color="red",
-            symbol="diamond-wide",
+            symbol="star",
             line=dict(color="black", width=1)
         ),
         name="Linz/Melk"
@@ -426,7 +426,7 @@ for _, row in df_linz_params.iterrows():
         x_values.append(c)
         y_values.append(y_position_punkt)
         color_values.append(ratio)
-        symbols.append("diamond-wide")
+        symbols.append("star")
 
 #  HIER EINFÜGEN (direkt nach den Schleifen!)
 
@@ -436,7 +436,7 @@ ratios = np.array(color_values)
 symbols_arr = np.array(symbols)
 
 mask_circle = symbols_arr == "circle"
-mask_cross = symbols_arr == "diamond-wide"
+mask_cross = symbols_arr == "star"
 
 
 # =========================
@@ -525,7 +525,7 @@ fig.add_trace(go.Scatter(
 ))
 
 # =========================
-# Diamond (Linz/Melk)
+# Star (Linz/Melk)
 # =========================
 
 # 1. Black frame
@@ -534,7 +534,7 @@ fig.add_trace(go.Scatter(
     y=y_vals[mask_cross],
     mode="markers",
     marker=dict(
-        symbol="diamond-wide",
+        symbol="star",
         size=22,
         color="rgba(0,0,0,0)",
         line=dict(color="black", width=4)
@@ -549,7 +549,7 @@ fig.add_trace(go.Scatter(
     y=y_vals[mask_cross],
     mode="markers",
     marker=dict(
-        symbol="diamond-wide",
+        symbol="star",
         size=22,
         color=ratios[mask_cross],
         colorscale="Viridis",
@@ -569,7 +569,7 @@ fig.add_trace(go.Scatter(
     y=y_vals[mask_cross],
     mode="markers",
     marker=dict(
-        symbol="triangle-down",
+        symbol="star",
         size=1,
         color="white",
         line=dict(width=0)
@@ -584,7 +584,7 @@ fig.add_trace(go.Scatter(
     y=y_vals[mask_cross],
     mode="markers",
     marker=dict(
-        symbol="diamond-wide",
+        symbol="star",
         size=1,
         color=ratios[mask_cross],
         colorscale="Viridis",
@@ -831,7 +831,7 @@ print("Points cols: ['Alm','Spe','Pyr','Gro']")
 legend_text = (
     "<span style='font-size:45px; font-weight:bold;'>Garnet Provenance Groups</span><br>"
     "<span style='font-size:34px; font-style:italic;'>Classification based on Mahalanobis distance</span><br><br>"
-    "<span style='font-size:30px;'>Symbols: circles = mica schist (MS) Pernegg; diamonds = Linz–Melk Formation (LMF)</span><br><br>"
+    "<span style='font-size:30px;'>Symbols: circles = mica schist (MS) Pernegg; stars = Linz–Melk Formation (LMF)</span><br><br>"
 )
 
 for file_path in ordered_hulls:
