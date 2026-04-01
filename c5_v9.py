@@ -535,11 +535,14 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="x",
-        size=15,
-        color="rgba(0,0,0,0)",
-        line=dict(color="black", width=6)
+        size=16,
+        color=ratios[mask_cross],
+        colorscale="Viridis",
+        cmin=0,
+        cmax=1,
+        coloraxis="coloraxis",
+        line=dict(width=0)   # 🔥 WICHTIG
     ),
-    hoverinfo="skip",
     showlegend=False
 ))
 
