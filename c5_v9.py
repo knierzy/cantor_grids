@@ -541,7 +541,7 @@ fig.add_trace(go.Scatter(
         cmin=0,
         cmax=1,
         coloraxis="coloraxis",
-        line=dict(width=0)   # 🔥 WICHTIG
+        line=dict(width=3)   # 🔥 WICHTIG
     ),
     showlegend=False
 ))
