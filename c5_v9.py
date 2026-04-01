@@ -525,7 +525,7 @@ fig.add_trace(go.Scatter(
 ))
 
 # =========================
-# Plus (Linz/Melk)
+# X (Linz/Melk)
 # =========================
 
 # 1. Black frame
@@ -535,7 +535,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="x",
-        size=22,
+        size=15,
         color="rgba(0,0,0,0)",
         line=dict(color="black", width=6)
     ),
@@ -550,7 +550,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="x",
-        size=22,
+        size=15,
         color=ratios[mask_cross],
         colorscale="Viridis",
         cmin=0,
