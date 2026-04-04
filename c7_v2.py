@@ -365,8 +365,7 @@ ordered_legende = [
     "Loamy Silt",
     "Silty Loam",
     "Loam",
-    "Sandy Clay",
-    "Clay Loam",
+    
     
 
 ]
