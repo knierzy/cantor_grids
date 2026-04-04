@@ -736,7 +736,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="square",
-        size=27,
+        size=30,
         colorscale=cubehelix_colorscale,
         coloraxis="coloraxis",
         opacity=0.90,
@@ -758,7 +758,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="square",
-        size=27,
+        size=29,
         color=np.array(awc_values)[mask_square],   # <- DAS FEHLT
         colorscale=cubehelix_colorscale,
         coloraxis="coloraxis",
