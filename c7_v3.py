@@ -744,8 +744,9 @@ for name in sorted_classes:
 
     legende_text += (
         f"<span style='display:inline-block;"
-        f"width:60px;height:25px;"
-        f"background:{farbe_legende};"
+        f"width:50px;height:20px;"
+        f"background-color:{farbe_legende};"
+        f"border:2px solid black;"
         f"margin-right:12px;'></span>"
         f"<span style='font-size:42px;'>{name}</span><br>"
     )
