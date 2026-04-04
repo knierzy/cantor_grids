@@ -123,7 +123,7 @@ def saxton_awc(sand_pct, clay_pct, humus_pct):
 from matplotlib.colors import PowerNorm
 
 def add_saxton_polygons(fig, rechtecke, saxton_awc,
-                        n_x=20, zmin=3, zmax=35,
+                        n_x=120, zmin=3, zmax=35,
                         colorscale="viridis"):
 
     from plotly.colors import sample_colorscale
@@ -232,7 +232,7 @@ fig.update_layout(
     yaxis=dict(
         title=dict(
             text="SOM (%) ///  Clay (%) = height<sub>ABCD</sub> − SOM (%)",
-            font=dict(size=26, color="black", family="Arial Black")
+            font=dict(size=25, color="black", family="Arial Black")
         ),
         range=[-0.35, 8.5],     # or 15
         dtick=1,
