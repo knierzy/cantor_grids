@@ -872,7 +872,7 @@ fig.add_shape(
     type="rect",
     x0=10,
     x1=260,
-    y0=7.9 - len(sorted_classes)*0.45 - 0.2,
+    y0=7.95 - len(sorted_classes)*0.45 - 0.2,
     y1=8.2,
     fillcolor="rgba(255,255,255,1.0)",  # jetzt komplett deckend!
     line=dict(color="black", width=1),
