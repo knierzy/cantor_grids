@@ -735,46 +735,6 @@ sorted_classes = [name for name in ordered_legende if name not in exclude_classe
 y_start = 7.9
 dy = 0.45
 
-#legend
-fig.add_shape(
-    type="rect",
-    x0=10,
-    x1=260,
-    y0=7.9 - len(sorted_classes)*0.45 - 0.2,
-    y1=8.2,
-    fillcolor="rgba(255,255,255,1.0)",  # jetzt komplett deckend!
-    line=dict(color="black", width=1),
-    layer="above"
-)
-
-
-for i, name in enumerate(sorted_classes):
-    farbe_raw = klasse_zu_farbe.get(name, "rgba(0,0,0,1)")
-    farbe = apply_alpha(farbe_raw, 0.5)
-
-    y = y_start - i * dy
-
-    # Rechteck (Legendensymbol)
-    fig.add_shape(
-        type="rect",
-        x0=20,
-        x1=60,
-        y0=y - 0.15,
-        y1=y + 0.15,
-        fillcolor=farbe,
-        line=dict(color="black", width=1)
-    )
-
-    # Text
-    fig.add_annotation(
-        x=70,
-        y=y,
-        text=name,
-        showarrow=False,
-        xanchor="left",
-        yanchor="middle",
-        font=dict(size=32, color="black")
-    )
 
 
 # Adjust layout to center
@@ -906,6 +866,51 @@ awc_means = (
 
 print("\n=== Average AWC per Soil Texture Class ===")
 print(awc_means.to_string())
+
+#legend
+fig.add_shape(
+    type="rect",
+    x0=10,
+    x1=260,
+    y0=7.9 - len(sorted_classes)*0.45 - 0.2,
+    y1=8.2,
+    fillcolor="rgba(255,255,255,1.0)",  # jetzt komplett deckend!
+    line=dict(color="black", width=1),
+    layer="above"
+)
+
+
+for i, name in enumerate(sorted_classes):
+    farbe_raw = klasse_zu_farbe.get(name, "rgba(0,0,0,1)")
+    farbe = apply_alpha(farbe_raw, 0.5)
+
+    y = y_start - i * dy
+
+    # Rechteck (Legendensymbol)
+    fig.add_shape(
+        type="rect",
+        x0=20,
+        x1=60,
+        y0=y - 0.15,
+        y1=y + 0.15,
+        fillcolor=farbe,
+        line=dict(color="black", width=1)
+    )
+
+    # Text
+    fig.add_annotation(
+        x=70,
+        y=y,
+        text=name,
+        showarrow=False,
+        xanchor="left",
+        yanchor="middle",
+        font=dict(size=32, color="black")
+    )
+
+
+
+
 
 # Show plot
 fig.show()
