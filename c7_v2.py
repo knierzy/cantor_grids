@@ -590,7 +590,7 @@ fig.add_trace(go.Scatter(
     marker=dict(
         size=22,                      
         color=awc_values,             
-        colorscale="Inferno",
+        colorscale="Viridis",
         cmin=awc_min,
         cmax=awc_max,
         opacity=0.95,                   
@@ -620,7 +620,7 @@ fig.add_trace(go.Scatter(
 # All AWC colors are controlled by one shared coloraxis configured below
 fig.update_layout(
     coloraxis=dict(
-        colorscale="Inferno",
+        colorscale="Viridis",
         cmin=awc_min,
         cmax=awc_max,
         colorbar=dict(
