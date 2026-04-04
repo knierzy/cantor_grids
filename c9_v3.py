@@ -740,7 +740,7 @@ fig.add_trace(go.Scatter(
         colorscale=cubehelix_colorscale,
         coloraxis="coloraxis",
         opacity=0.90,
-        line=dict(width=0)
+        line=dict(width=2)
     ),
     hoverinfo="skip",
     showlegend=False
