@@ -643,7 +643,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="circle",
-        size=32,
+        size=34,
         color="rgba(0,0,0,0)",   
         line=dict(color="black", width=2)
     ),
@@ -662,7 +662,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="circle",
-        size=31,
+        size=33,
         color=np.array(awc_values)[mask_circle],   # AWC values → Viridis colorscale
         colorscale=cubehelix_colorscale,
         coloraxis="coloraxis",
@@ -834,7 +834,7 @@ if "highom_x" in globals() and len(highom_x) > 0:
         mode="markers",
         marker=dict(
             symbol="circle",
-            size=32,
+            size=34,
             color="rgba(0,0,0,0)",
             line=dict(color="black", width=2)
         ),
@@ -852,7 +852,7 @@ if "highom_x" in globals() and len(highom_x) > 0:
         mode="markers",
         marker=dict(
             symbol="circle",
-            size=32,
+            size=35,
             color="white",
             line=dict(color="white", width=0),
             opacity=1
