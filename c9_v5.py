@@ -749,7 +749,7 @@ fig.add_trace(go.Scatter(
         symbol="square",
         size=31,
         color="rgba(0,0,0,0)", 
-        line=dict(color="black", width=5)
+        line=dict(color="black", width=4)
     ),
     hoverinfo="skip",
     showlegend=False
