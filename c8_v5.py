@@ -33,10 +33,14 @@ fig = go.Figure()
 
 # Add rectangles with color gradients along the new x-axis (after rotation)
 def add_rechtecke_horizontal(rechtecke):
+
+    ab_tick_vals = []
+    ab_tick_text = []
+
     for i, (x_start, breite, label) in enumerate(rechtecke):
         hoehe = i + 1  
 
-        # --- EIN einfaches Rechteck (kein Gradient) ---
+        # Rechteck
         fig.add_trace(go.Scatter(
             x=[x_start, x_start + breite, x_start + breite, x_start, x_start],
             y=[0, 0, hoehe, hoehe, 0],
@@ -47,7 +51,7 @@ def add_rechtecke_horizontal(rechtecke):
             showlegend=False
         ))
 
-        # --- horizontale Linien im Rechteck (Grid) ---
+        # horizontale Linien
         for y in range(1, hoehe):
             fig.add_trace(go.Scatter(
                 x=[x_start, x_start + breite],
@@ -57,28 +61,25 @@ def add_rechtecke_horizontal(rechtecke):
                 showlegend=False
             ))
 
-    # --- AB labels ---
-    ab_tick_vals = []
-    ab_tick_text = []
-
-    for x_start, breite, label in rechtecke:
-        ab_value = int(label.replace("AB", ""))  
+        # Tick-Logik direkt hier sammeln
+        ab_value = int(label.replace("AB", ""))
 
         if ab_value % 5 == 0 or ab_value == 99:
-            ab_tick_vals.append(x_start + breite)  
+            ab_tick_vals.append(x_start + breite / 2)  # 🔥 Mitte!
             ab_tick_text.append(label)
 
-fig.update_layout(
-    xaxis=dict(
-        tickvals=ab_tick_vals,
-        ticktext=[
-            f"{label}<br>CD{str(100 - int(label[2:])).zfill(2)}"
-            for label in ab_tick_text
-        ],
-        tickangle=0,
-        tickfont=dict(size=18)
+    # 🔥 EINMAL sauber setzen
+    fig.update_layout(
+        xaxis=dict(
+            tickvals=ab_tick_vals,
+            ticktext=[
+                f"{label}<br>CD{str(100 - int(label[2:])).zfill(2)}"
+                for label in ab_tick_text
+            ],
+            tickangle=0,
+            tickfont=dict(size=18)
+        )
     )
-)
 
     # --- AB labels at the END of each AB rectangle ---
 
