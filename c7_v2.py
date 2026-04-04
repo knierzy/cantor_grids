@@ -595,13 +595,13 @@ fig.add_trace(go.Scatter(
 fig.add_trace(go.Scatter(
     x=ring_x, y=ring_y, mode='markers',
     marker=dict(
-        size=12.8,                      
+        size=17,                      
         color=awc_values,             
         colorscale="Inferno",
         cmin=awc_min,
         cmax=awc_max,
         opacity=0.95,                   
-        line=dict(width=0),
+        line=dict(width=0.5),
         coloraxis="coloraxis"
     ),
     hoverinfo='skip',
