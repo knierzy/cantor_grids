@@ -581,7 +581,7 @@ for idx, row in df_parameters.iterrows():
     # Store coordinates for AWC-colored point
     points_x.append(x_val)
     points_y.append(y_val)
-    awc_values.append(norm(row["AWC"]))
+    awc_values.append(row["AWC"])
     symbols.append(marker_symbol)
 
     # Store hover text for the normal AWC point
@@ -665,7 +665,7 @@ fig.add_trace(go.Scatter(
         symbol="circle",
         size=34,
         color=np.array(awc_values)[mask_circle],   # AWC values → Viridis colorscale
-        colorscale=cubehelix_colorscale,
+        colorscale="viridis",
         coloraxis="coloraxis",
         opacity=0.90,
         line=dict(width=0)
@@ -738,7 +738,7 @@ fig.add_trace(go.Scatter(
     marker=dict(
         symbol="square",
         size=31,
-        colorscale=cubehelix_colorscale,
+        colorscale="viridis",
         coloraxis="coloraxis",
         opacity=0.90,
         line=dict(width=2)
@@ -761,7 +761,7 @@ fig.add_trace(go.Scatter(
         symbol="square",
         size=30,
         color=np.array(awc_values)[mask_square],   # <- DAS FEHLT
-        colorscale=cubehelix_colorscale,
+        colorscale="viridis",
         coloraxis="coloraxis",
         opacity=0.90,
         line=dict(width=0)
@@ -905,9 +905,9 @@ if "highom_x" in globals() and len(highom_x) > 0:
 # Keep only the single global coloraxis for the AWC colorbar.
 fig.update_layout(
     coloraxis=dict(
-        colorscale=cubehelix_colorscale,
-        cmin=0,
-        cmax=1,
+        colorscale="viridis",
+        cmin=awc_min,
+        cmax=awc_max,
         colorbar=dict(
             title="",
             tickfont=dict(size=28),
@@ -918,6 +918,7 @@ fig.update_layout(
         )
     )
 )
+
 # Add a vertical annotation for the colorbar title
 fig.add_annotation(
     text="Available Water Capacity (Vol.%)",
