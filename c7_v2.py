@@ -709,11 +709,7 @@ ordered_legende = [
     "Loamy Silt",
     "Silty Loam",
     "Loam",
-    "Sandy Clay",
-    "Clay Loam",
-    "Clay",
-    "Organo-Mineral Soils",
-    "Organic Soils"
+  
 ]
 
 
