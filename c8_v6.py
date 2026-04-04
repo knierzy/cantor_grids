@@ -232,7 +232,7 @@ fig.update_layout(
     yaxis=dict(
         title=dict(
             text="SOM (%) ///  Clay (%) = height<sub>ABCD</sub> − SOM (%)",
-            font=dict(size=25, color="black", family="Arial Black")
+            font=dict(size=24, color="black", family="Arial Black")
         ),
         range=[-0.35, 8.5],     # or 15
         dtick=1,
