@@ -735,6 +735,20 @@ sorted_classes = [name for name in ordered_legende if name not in exclude_classe
 y_start = 7.9
 dy = 0.45
 
+# Hintergrund für Legende (weißes Feld)
+fig.add_shape(
+    type="rect",
+    x0=10,
+    x1=260,
+    y0=7.9 - len(sorted_classes)*0.45 - 0.2,
+    y1=8.2,
+    fillcolor="rgba(255,255,255,0.95)",
+    line=dict(color="black", width=1),
+    layer="below"
+)
+
+
+
 for i, name in enumerate(sorted_classes):
     farbe_raw = klasse_zu_farbe.get(name, "rgba(0,0,0,1)")
     farbe = apply_alpha(farbe_raw, 0.5)
