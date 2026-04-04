@@ -866,22 +866,7 @@ for i, (start, hoehe, label) in enumerate(rechtecke):
     ))
 
 
-# legend after rotation
 
-fig.add_annotation(
-    x=0.02, y=0.995,
-    xref="paper", yref="paper",
-    text=legende_text,
-    showarrow=False,
-    font=dict(size=25, color="black"),
-    bgcolor="rgba(255,255,255,0.95)",
-    bordercolor="black",
-    borderwidth=2,
-    xanchor="left",
-    yanchor="top",
-    align="left",
-    width=470
-)
 
 # Hover labels
 
