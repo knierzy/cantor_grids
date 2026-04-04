@@ -470,7 +470,8 @@ awc_max = awc_filtered.max()
 
 print(f"📊 AWC (realistic range): min={awc_min:.1f} %, max={awc_max:.1f} %")
 
-
+from matplotlib.colors import PowerNorm
+norm = PowerNorm(gamma=0.75, vmin=awc_min, vmax=awc_max)
 
 # Debug table
 dbg = df_parameters.copy()
@@ -580,7 +581,7 @@ for idx, row in df_parameters.iterrows():
     # Store coordinates for AWC-colored point
     points_x.append(x_val)
     points_y.append(y_val)
-    awc_values.append(row["AWC"])
+    awc_values.append(norm(row["AWC"]))
     symbols.append(marker_symbol)
 
     # Store hover text for the normal AWC point
@@ -905,8 +906,8 @@ if "highom_x" in globals() and len(highom_x) > 0:
 fig.update_layout(
     coloraxis=dict(
         colorscale=cubehelix_colorscale,
-        cmin=awc_min,
-        cmax=awc_max,
+        cmin=0,
+        cmax=1,
         colorbar=dict(
             title="",
             tickfont=dict(size=28),
@@ -917,7 +918,6 @@ fig.update_layout(
         )
     )
 )
-
 # Add a vertical annotation for the colorbar title
 fig.add_annotation(
     text="Available Water Capacity (Vol.%)",
