@@ -81,27 +81,6 @@ def add_rechtecke_horizontal(rechtecke):
         )
     )
 
-    # --- AB labels at the END of each AB rectangle ---
-
-    ab_tick_vals = []
-    ab_tick_text = []
-
-    for x_start, breite, label in rechtecke:
-        ab_value = int(label.replace("AB", ""))  
-
-        if ab_value % 5 == 0 or ab_value == 99:
-            ab_tick_vals.append(x_start + breite)  
-            ab_tick_text.append(label)
-
-    fig.update_layout(
-        xaxis=dict(
-            tickvals=ab_tick_vals,
-            ticktext=ab_tick_text,
-            tickangle=0,
-            tickfont=dict(size=18)
-        )
-    )
-
 
 add_rechtecke_horizontal(rechtecke)
 
