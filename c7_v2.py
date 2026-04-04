@@ -725,11 +725,15 @@ class_distribution = {
 }
 
 # mapping soil class
+# mapping soil class
 klasse_zu_farbe = {v: k for k, v in farbe_to_subklasse.items()}
 
-# build legend text
+# 👉 DIESE ZEILE FEHLT
+sorted_classes = [name for name in ordered_legende if name not in exclude_classes]
+
+# build legend (Shapes-Version)
 y_start = 7.9
-dy = 0.45  # Abstand zwischen Einträgen
+dy = 0.45
 
 for i, name in enumerate(sorted_classes):
     farbe_raw = klasse_zu_farbe.get(name, "rgba(0,0,0,1)")
