@@ -738,9 +738,7 @@ fig.add_trace(go.Scatter(
     marker=dict(
         symbol="square",
         size=31,
-        colorscale="viridis",
-        coloraxis="coloraxis",
-        opacity=0.90,
+        color="rgba(0,0,0,0)", 
         line=dict(width=5)
     ),
     hoverinfo="skip",
