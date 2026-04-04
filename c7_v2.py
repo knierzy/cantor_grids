@@ -740,7 +740,7 @@ for name in sorted_classes:
 
     legende_text += (
         f"<span style='color:{farbe_legende}; font-size:70px;'>■</span> "
-        f"<span style='font-size:50px;'>{name}</span><br>"
+        f"<span style='font-size:50px; line-height:1.4;'>{name}</span><br>"
     )
 
 
