@@ -703,18 +703,9 @@ ordered_legende = [
     "Sand",
     "Silty Sand",
     "Sandy Silt",
-          "Silt",
+    "Silt",
     "Loamy Sand",
-    "Clayey Sand",
-    "Sandy Loam",
-    "Loamy Silt",
-    "Silty Loam",
-    "Loam",
-    "Sandy Clay",
-    "Clay Loam",
-    "Clay",
-    "Organo-Mineral Soils",
-    "Organic Soils"
+    "Clayey Sand"
 ]
 
 
@@ -752,11 +743,13 @@ for name in sorted_classes:
     farbe_raw = klasse_zu_farbe.get(name, "rgba(0,0,0,1)")
     farbe_legende = apply_alpha(farbe_raw, 0.50)
 
-    legende_text += (
-        f"<span style='color:{farbe_legende}; font-size:54px;'>■</span> "
-        f"<span style='font-size:38px;'>{name}</span><br>"
-    )
-
+ legende_text += (
+    f"<span style='display:inline-block;"
+    f"width:60px;height:25px;"
+    f"background:{farbe_legende};"
+    f"margin-right:12px;'></span>"
+    f"<span style='font-size:42px;'>{name}</span><br>"
+)
 
 
 # Adjust layout to center
