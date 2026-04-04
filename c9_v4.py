@@ -646,7 +646,7 @@ fig.add_trace(go.Scatter(
         symbol="circle",
         size=35,
         color="rgba(0,0,0,0)",   
-        line=dict(color="black", width=2)
+        line=dict(color="black", width=4)
     ),
     hoverinfo="skip",
     showlegend=False
