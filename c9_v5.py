@@ -219,24 +219,7 @@ def add_rechtecke_mit_farbverlauf(rechtecke, x_offset, spiegeln=False):
             else:
                 x_start, x_end = x_offset, x_offset + breite
 
-        # add rectangle polygon for this gradient step
-       # linker Rand
-fig.add_trace(go.Scatter(
-    x=[x_offset, x_offset],
-    y=[y_position, y_position + hoehe],
-    mode="lines",
-    line=dict(color="black", width=2),
-    showlegend=False
-))
 
-# rechter Rand
-fig.add_trace(go.Scatter(
-    x=[x_offset + breite, x_offset + breite],
-    y=[y_position, y_position + hoehe],
-    mode="lines",
-    line=dict(color="black", width=2),
-    showlegend=False
-))
 
 # Create axis labels
 x_labels = {
