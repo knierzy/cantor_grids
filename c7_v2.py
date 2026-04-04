@@ -728,22 +728,36 @@ class_distribution = {
 klasse_zu_farbe = {v: k for k, v in farbe_to_subklasse.items()}
 
 # build legend text
-legende_text = "<span style='font-size:42px; font-weight:bold;'>Soil texture classes</span><br>"
+y_start = 7.9
+dy = 0.45  # Abstand zwischen Einträgen
 
-# Display classes in fixed order
-sorted_classes = [name for name in ordered_legende if name not in exclude_classes]
-
-
-for name in sorted_classes:
+for i, name in enumerate(sorted_classes):
     farbe_raw = klasse_zu_farbe.get(name, "rgba(0,0,0,1)")
-    farbe_legende = apply_alpha(farbe_raw, 0.50)
+    farbe = apply_alpha(farbe_raw, 0.5)
 
-    legende_text += (
-        f"<span style='color:{farbe_legende}; font-size:70px;'>■</span> "
-        f"<span style='font-size:50px;'>{name}</span><br>"
-        f"<span style='font-size:20px;'>&nbsp;</span>"
+    y = y_start - i * dy
+
+    # Rechteck (Legendensymbol)
+    fig.add_shape(
+        type="rect",
+        x0=20,
+        x1=60,
+        y0=y - 0.15,
+        y1=y + 0.15,
+        fillcolor=farbe,
+        line=dict(color="black", width=1)
     )
 
+    # Text
+    fig.add_annotation(
+        x=70,
+        y=y,
+        text=name,
+        showarrow=False,
+        xanchor="left",
+        yanchor="middle",
+        font=dict(size=32, color="black")
+    )
 
 
 # Adjust layout to center
