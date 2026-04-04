@@ -739,8 +739,8 @@ for name in sorted_classes:
     farbe_legende = apply_alpha(farbe_raw, 0.50)
 
     legende_text += (
-        f"<span style='color:{farbe_legende}; font-size:54px;'>■</span> "
-        f"<span style='font-size:38px;'>{name}</span><br>"
+        f"<span style='color:{farbe_legende}; font-size:70px;'>■</span> "
+        f"<span style='font-size:50px;'>{name}</span><br>"
     )
 
 
