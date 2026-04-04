@@ -741,7 +741,7 @@ fig.add_trace(go.Scatter(
         colorscale="viridis",
         coloraxis="coloraxis",
         opacity=0.90,
-        line=dict(width=4)
+        line=dict(width=5)
     ),
     hoverinfo="skip",
     showlegend=False
