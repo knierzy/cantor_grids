@@ -643,7 +643,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="circle",
-        size=34,
+        size=35,
         color="rgba(0,0,0,0)",   
         line=dict(color="black", width=2)
     ),
@@ -662,7 +662,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="circle",
-        size=33,
+        size=34,
         color=np.array(awc_values)[mask_circle],   # AWC values → Viridis colorscale
         colorscale=cubehelix_colorscale,
         coloraxis="coloraxis",
@@ -736,7 +736,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="square",
-        size=30,
+        size=31,
         colorscale=cubehelix_colorscale,
         coloraxis="coloraxis",
         opacity=0.90,
@@ -758,7 +758,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="square",
-        size=29,
+        size=20,
         color=np.array(awc_values)[mask_square],   # <- DAS FEHLT
         colorscale=cubehelix_colorscale,
         coloraxis="coloraxis",
