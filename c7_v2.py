@@ -361,12 +361,6 @@ ordered_legende = [
           "Silt",
     "Loamy Sand",
     "Clayey Sand",
-    "Sandy Loam",
-    "Loamy Silt",
-    "Silty Loam",
-    "Loam",
-    
-    
 
 ]
 
@@ -705,10 +699,7 @@ ordered_legende = [
           "Silt",
     "Loamy Sand",
     "Clayey Sand",
-    "Sandy Loam",
-    "Loamy Silt",
-    "Silty Loam",
-    "Loam",
+ 
   
 ]
 
