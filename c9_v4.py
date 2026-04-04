@@ -207,7 +207,7 @@ def add_rechtecke_mit_farbverlauf(rechtecke, x_offset, spiegeln=False):
                 x=[x_val, x_val],
                 y=[y_position, y_position + hoehe],
                 mode="lines",
-                line=dict(color="gray", width=2),
+                line=dict(color="black", width=2),
                 showlegend=False
             ))
 
