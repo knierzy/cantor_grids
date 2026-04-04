@@ -176,7 +176,26 @@ def apply_alpha(color, alpha):
 # Add rectangles with color gradients along the X-axis
 def add_rechtecke_mit_farbverlauf(rechtecke, x_offset, spiegeln=False):
     for i, (y_position, hoehe, label) in enumerate(rechtecke):
+
         breite = i + 1
+
+        # 👉 linker Rand
+        fig.add_trace(go.Scatter(
+            x=[x_offset, x_offset],
+            y=[y_position, y_position + hoehe],
+            mode="lines",
+            line=dict(color="black", width=2),
+            showlegend=False
+        ))
+
+        # 👉 rechter Rand
+        fig.add_trace(go.Scatter(
+            x=[x_offset + breite, x_offset + breite],
+            y=[y_position, y_position + hoehe],
+            mode="lines",
+            line=dict(color="black", width=2),
+            showlegend=False
+        ))
         gradient_steps = 14  # Number of steps in the color gradient
 
 
