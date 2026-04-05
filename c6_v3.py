@@ -251,40 +251,37 @@ grouped_hulls_combined = df_hulls_combined.groupby(["Soil texture class", "AB_Va
 # Function to plot convex hulls with different colors based on source file
 def plot_imported_hulls_with_file_colors(grouped_hulls, file_color_mapping):
     for (soil_class, ab_value), group in grouped_hulls:
-        # Extract X and Y coordinates of hull points
+
+        # Extract coordinates
         hull_x = group["X"].values
         hull_y = group["Y"].values
-
 
         hull_x = np.append(hull_x, hull_x[0])
         hull_y = np.append(hull_y, hull_y[0])
 
-
         file_source = group["file_source"].iloc[0]
         color = file_color_mapping.get(file_source, "rgba(0, 0, 0, 0.5)")
 
-        # Plot  convex hull
-# Bestimme Fill-Farbe abhängig von Klasse
-if file_source == convex_hulls_file_11:  # Clay
-    fill = ensure_transparency(color, alpha=0.75)
+        # ✅ Fill-Logik (jetzt korrekt im Scope)
+        if file_source == convex_hulls_file_11:  # Clay
+            fill = ensure_transparency(color, alpha=0.75)
 
-elif file_source in [convex_hulls_file_14, convex_hulls_file_16]:  # Organic soils
-    fill = color
+        elif file_source in [convex_hulls_file_14, convex_hulls_file_16]:  # Organic soils
+            fill = color
 
-else:
-    fill = ensure_transparency(color, alpha=0.45)
+        else:
+            fill = ensure_transparency(color, alpha=0.45)
 
-
-# Plot convex hull
-fig.add_trace(go.Scatter(
-    x=hull_x,
-    y=hull_y,
-    mode="lines",
-    line=dict(color=color, width=1.5),
-    fill="toself",
-    fillcolor=fill,
-    name=f"Class: {soil_class}, AB: {ab_value}"
-))
+        # ✅ Plot convex hull
+        fig.add_trace(go.Scatter(
+            x=hull_x,
+            y=hull_y,
+            mode="lines",
+            line=dict(color=color, width=1.5),
+            fill="toself",
+            fillcolor=fill,
+            name=f"Class: {soil_class}, AB: {ab_value}"
+        ))
 
 # Plot the imported convex hulls using file-specific colors
 plot_imported_hulls_with_file_colors(grouped_hulls_combined, color_mapping_files)
