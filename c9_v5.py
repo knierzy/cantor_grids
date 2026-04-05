@@ -614,7 +614,7 @@ for idx, row in df_parameters.iterrows():
 
     # Soil-texture color for the inner core (fallback = black)
     base_color = soilclass_to_color.get(bodenklasse, "rgba(0,0,0,1)")
-    subfeldfarbe = apply_alpha(base_color, 0.80)   # 🔥 exakt wie Hull
+    subfeldfarbe = apply_alpha(base_color, 0.70)  
     ring_colors.append(subfeldfarbe)
 
 
