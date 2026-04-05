@@ -576,7 +576,7 @@ for idx, row in df_parameters.iterrows():
 fig.add_trace(go.Scatter(
     x=ring_x, y=ring_y, mode='markers',
     marker=dict(
-        size=18,
+        size=16,
         color='rgba(0,0,0,0)',
         line=dict(color='black', width=2.0),
     ),
@@ -588,7 +588,7 @@ fig.add_trace(go.Scatter(
 fig.add_trace(go.Scatter(
     x=ring_x, y=ring_y, mode='markers',
     marker=dict(
-        size=18,                      
+        size=16,                      
         color=awc_values,             
         colorscale="Viridis",
         cmin=awc_min,
@@ -620,7 +620,7 @@ fig.add_trace(go.Scatter(
 # All AWC colors are controlled by one shared coloraxis configured below
 fig.update_layout(
     coloraxis=dict(
-        colorscale="dense",
+        colorscale="thermal",
         cmin=awc_min,
         cmax=awc_max,
         colorbar=dict(
@@ -831,7 +831,7 @@ for i, (start, hoehe, label) in enumerate(rechtecke):
         mode="markers",
         marker=dict(
             symbol="triangle-up",
-            size=16,
+            size=22,
             color="black",
             line=dict(color="black", width=0.4)
         ),
