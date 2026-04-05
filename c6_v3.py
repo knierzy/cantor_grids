@@ -76,7 +76,7 @@ rechtecke = [
 fig = go.Figure()
 
 
-def ensure_transparency(color, alpha=0.6):
+def ensure_transparency(color, alpha=0.8):
     if "rgba" in color:
         return color[:color.rfind(",")] + f", {alpha})"
     elif color.startswith("#"):
@@ -94,7 +94,7 @@ def legend_color(color, alpha=0.6):
     return color
 
 
-def legend_rgba(color, alpha_factor=0.65):
+def legend_rgba(color, alpha_factor=0.8):
     """
     Adjust alpha for HTML legend so it visually matches Plotly filled polygons.
     """
@@ -270,7 +270,7 @@ def plot_imported_hulls_with_file_colors(grouped_hulls, file_color_mapping):
             fill = color
 
         else:
-            fill = ensure_transparency(color, alpha=0.45)
+            fill = ensure_transparency(color, alpha=0.6)
 
         # ✅ Plot convex hull
         fig.add_trace(go.Scatter(
