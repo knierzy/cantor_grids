@@ -88,7 +88,7 @@ def ensure_transparency(color, alpha=0.6):
         return f"rgba(0, 0, 0, {alpha})"
 
 # color legend
-def legend_color(color, alpha=0.45):
+def legend_color(color, alpha=0.6):
     if "rgba" in color:
         return color[:color.rfind(",")] + f", {alpha})"
     return color
