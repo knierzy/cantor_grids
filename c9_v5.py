@@ -60,7 +60,7 @@ convex_hulls_file_16 = "data/convex_hull_organicsoils.xlsx"
 # Transparency
 ALPHA_HULL = 0.50
 ALPHA_POINT = 0.5
-ALPHA_LEGEND = 0.5
+ALPHA_LEGEND = 0.75
 
 
 
