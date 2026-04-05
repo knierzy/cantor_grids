@@ -263,8 +263,8 @@ def plot_imported_hulls_with_file_colors(grouped_hulls, file_color_mapping):
         color = file_color_mapping.get(file_source, "rgba(0, 0, 0, 0.5)")
 
         # ✅ Fill-Logik (jetzt korrekt im Scope)
-        if file_source == convex_hulls_file_11:  # Clay
-            fill = ensure_transparency(color, alpha=0.75)
+        if file_source in [convex_hulls_file_11, convex_hulls_file_5]:  # Clay + Silt
+            fill = ensure_transparency(color, alpha=0.65)
 
         elif file_source in [convex_hulls_file_14, convex_hulls_file_16]:  # Organic soils
             fill = color
