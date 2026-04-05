@@ -32,7 +32,7 @@ color_mapping_files = {
     convex_hulls_file_2: "rgba(57, 255, 20, 0.85)",    
     convex_hulls_file_3: "rgba(178, 34, 34, 0.75)",       
     convex_hulls_file_4: "rgba(253, 192, 134, 0.75)",     
-    convex_hulls_file_5: "rgba(180, 190, 180, 0.75)",      
+    convex_hulls_file_5: "rgba(170, 160, 140, 0.75)",      
     convex_hulls_file_6: "rgba(204, 121, 167, 0.75)",       
     convex_hulls_file_7: "rgba(110, 165, 160, 0.75)",     
     convex_hulls_file_8: "rgba(225, 195, 65, 0.75)",      
@@ -184,7 +184,7 @@ farbe_to_subklasse = {
     "rgba(0, 158, 115, 0.75)": "Silty Sand",
     "rgba(225, 195, 65, 0.75)": "Loamy Sand",
     "rgba(204, 121, 167, 0.75)": "Sandy Silt",
-    "rgba(180, 190, 180, 0.75)": "Silt",
+    "rgba(170, 160, 140, 0.75)": "Silt",
     "rgba(57, 255, 20, 0.85)": "Clayey Sand",
     "rgba(178, 34, 34, 0.75)": "Sandy Loam",
     "rgba(253, 192, 134, 0.75)": "Loamy Silt",
@@ -264,7 +264,7 @@ def plot_imported_hulls_with_file_colors(grouped_hulls, file_color_mapping):
 
         # ✅ Fill-Logik (jetzt korrekt im Scope)
         if file_source in [convex_hulls_file_11, convex_hulls_file_5]:  # Clay + Silt
-            fill = ensure_transparency(color, alpha=0.65)
+            fill = ensure_transparency(color, alpha=0.72)
 
         elif file_source in [convex_hulls_file_14, convex_hulls_file_16]:  # Organic soils
             fill = color
