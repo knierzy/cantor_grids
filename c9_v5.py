@@ -123,10 +123,11 @@ cubehelix_colorscale = [to_hex(c) for c in cubehelix]
 
 
 # Soil class → color
-soilclass_to_color = {}
-
-for file_path, soil_class in legend_mapping.items():
-    soilclass_to_color[soil_class] = color_mapping_files[file_path]
+soilclass_to_color = {
+    legend_mapping[file]: color
+    for file, color in color_mapping_files.items()
+    if file in legend_mapping
+}
 
 
 # Rectangle data with the classification system up to AB1
