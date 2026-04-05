@@ -233,7 +233,7 @@ for name in ordered_legende:
     else:
         farbe = next((k for k, v in farbe_to_subklasse.items() if v == name), None)
         if farbe:
-            farbe_legende = legend_rgba(farbe, alpha_factor=1)
+            farbe_legende = legend_rgba(farbe, alpha_factor=0.7)
            
             legende_text += (
                 f'<span style="color:{farbe_legende}; font-size:56px;">■</span> '
