@@ -411,7 +411,7 @@ def plot_imported_hulls_with_file_colors(grouped_hulls, file_color_mapping):
             fillcolor=(
                 apply_alpha(color, 0.20)
                 if file_source in [convex_hulls_file_14, convex_hulls_file_16]
-                else apply_alpha(color, 0.70)
+                else apply_alpha(color, 0.80)
             ),
             name=f"Class: {soil_class}, AB: {ab_value}"
         ))
@@ -695,7 +695,7 @@ fig.add_trace(go.Scatter(
         size=18,
         color="white",
         line=dict(width=0),
-        opacity=1
+        opacity=0.8
     ),
     hoverinfo="skip",
     showlegend=False
@@ -714,7 +714,7 @@ fig.add_trace(go.Scatter(
         size=22,
         color=np.array(ring_colors)[mask_circle],   # soil texture class color
         line=dict(color="black", width=1),
-        opacity=1
+        opacity=0.8
     ),
     text=np.array(hover_texts)[mask_circle],
     hovertemplate="%{text}<extra></extra>",
@@ -789,7 +789,7 @@ fig.add_trace(go.Scatter(
         size=19,
         color="white",   # background color
         line=dict(width=0),
-        opacity=1
+        opacity=0.8
     ),
     hoverinfo="skip",
     showlegend=False
@@ -808,7 +808,7 @@ fig.add_trace(go.Scatter(
         size=19,
         color=np.array(ring_colors)[mask_square],   # soil texture class color
         line=dict(color="black", width=1),
-        opacity=1
+        opacity=0.8
     ),
     text=np.array(hover_texts)[mask_square],
     hovertemplate="%{text}<extra></extra>",
