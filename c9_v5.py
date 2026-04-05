@@ -411,7 +411,7 @@ def plot_imported_hulls_with_file_colors(grouped_hulls, file_color_mapping):
             fillcolor=(
                 apply_alpha(color, 0.20)
                 if file_source in [convex_hulls_file_14, convex_hulls_file_16]
-                else apply_alpha(color, 0.80)
+                else apply_alpha(color, 0.70)
             ),
             name=f"Class: {soil_class}, AB: {ab_value}"
         ))
