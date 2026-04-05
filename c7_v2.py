@@ -576,7 +576,7 @@ for idx, row in df_parameters.iterrows():
 fig.add_trace(go.Scatter(
     x=ring_x, y=ring_y, mode='markers',
     marker=dict(
-        size=22,
+        size=18,
         color='rgba(0,0,0,0)',
         line=dict(color='black', width=2.0),
     ),
@@ -588,7 +588,7 @@ fig.add_trace(go.Scatter(
 fig.add_trace(go.Scatter(
     x=ring_x, y=ring_y, mode='markers',
     marker=dict(
-        size=22,                      
+        size=18,                      
         color=awc_values,             
         colorscale="Viridis",
         cmin=awc_min,
