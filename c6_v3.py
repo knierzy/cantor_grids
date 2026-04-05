@@ -38,7 +38,7 @@ color_mapping_files = {
     convex_hulls_file_8: "rgba(225, 195, 65, 0.75)",      
     convex_hulls_file_9: "rgba(0, 158, 115, 0.75)",       
     convex_hulls_file_10: "rgba(0, 60, 140, 0.75)",      
-    convex_hulls_file_11: "rgba(40, 40, 40, 0.9)",       
+    convex_hulls_file_11: "rgba(40, 40, 40, 1)",       
     convex_hulls_file_12: "rgba(86, 180, 233, 0.75)",     
     convex_hulls_file_14: "rgba(100, 95, 90, 0.2)",  
     convex_hulls_file_15: "rgba(94, 60, 153, 0.75)",  
@@ -191,7 +191,7 @@ farbe_to_subklasse = {
     "rgba(160, 82, 45, 0.75)": "Sandy Clay",
     "rgba(123, 204, 196, 0.75)": "Loam",
     "rgba(0, 90, 160, 0.75)": "Clay Loam",
-    "rgba(40, 40, 40, 0.9)": "Clay",
+    "rgba(40, 40, 40, 1)": "Clay",
     "rgba(94, 60, 153, 0.75)": "Silty Loam",
 
 }
