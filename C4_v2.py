@@ -126,7 +126,7 @@ def add_rechtecke_mit_farbverlauf(rechtecke, x_offset, spiegeln=False):
                 y=[y_position, y_position + hoehe],
                 mode="lines",
                 line=dict(color="gray", width=2),
-                showlegend=False
+                showlegend=True
             ))
 
     # Create  axis labels
