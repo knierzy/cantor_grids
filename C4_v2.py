@@ -277,7 +277,7 @@ plot_bgcolor="white",  # Set plot background to white
     width=2260,
     height=1210,
     margin=dict(l=0, r=5, t=20, b=5),  # centering the plot
-    showlegend=False  # Deactivate legend
+    showlegend=True  # Deactivate legend
 )
 
 # Values at which dashed lines are shown
