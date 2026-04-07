@@ -153,7 +153,7 @@ add_rechtecke_mit_farbverlauf(rechtecke, 0)
 
 
 # Legend for Diagram
-legende_text = "<b><span style='font-size:37px;'>Garnet Provenance Groups</span></b><br>"
+legende_text = "<b><span style='font-size:37px;'>Garnet Provenance Groups</span></b><br><br>"
 
 #  Manually ordered list of convex hulls in the legend
 ordered_hulls = [
