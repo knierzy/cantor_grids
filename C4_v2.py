@@ -368,14 +368,14 @@ fig.add_shape(
 fig.update_layout(
     annotations=[
         dict(
-            x=590,              # 👈 Position (nach Rotation anpassen!)
+            x=590,              
             y=75,
             text=legende_text,
             showarrow=False,
             font=dict(size=28, color="black"),
             bgcolor="rgba(255,255,255,0.95)",
             bordercolor="black",
-            borderwidth=4,
+            borderwidth=3,
             xanchor="left",
             yanchor="top",
             align="left"
