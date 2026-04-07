@@ -126,7 +126,7 @@ def add_rechtecke_mit_farbverlauf(rechtecke, x_offset, spiegeln=False):
                 y=[y_position, y_position + hoehe],
                 mode="lines",
                 line=dict(color="gray", width=2),
-                showlegend=True
+                showlegend=False
             ))
 
     # Create  axis labels
@@ -196,29 +196,27 @@ df_hulls_12 = pd.read_excel(convex_hulls_file_12)
 
 # Function to display the convex hulls with different colors
 def plot_imported_hulls_with_file_colors(grouped_hulls, file_color_mapping):
-    added_legend = set()
-
     for (herkunft, ab_value), group in grouped_hulls:
+        # Extract X and Y coordinates of the hull points
         hull_x = group["X"].values
         hull_y = group["Y"].values
 
+        # close the hull by appending the first point to the end
         hull_x = np.append(hull_x, hull_x[0])
         hull_y = np.append(hull_y, hull_y[0])
 
-        file_source = group["file_source"].iloc[0]
-        color = file_color_mapping.get(file_source, "rgba(0,0,0,0.5)")
+        # Determine the color based on the file
+        file_source = group["file_source"].iloc[0]  
+        color = file_color_mapping.get(file_source, "rgba(0, 0, 0, 0.5)")
 
-        show_legend = file_source not in added_legend
-        added_legend.add(file_source)
-
+        # plot convex hull
         fig.add_trace(go.Scatter(
             x=hull_x,
             y=hull_y,
             mode="lines",
             line=dict(color=color, width=1.5),
             fill="toself",
-            name=legend_mapping[file_source],
-            showlegend=show_legend
+            name=f"Herkunft: {herkunft}, AB: {ab_value}"
         ))
 
 
@@ -277,7 +275,7 @@ plot_bgcolor="white",  # Set plot background to white
     width=2260,
     height=1210,
     margin=dict(l=0, r=5, t=20, b=5),  # centering the plot
-    showlegend=True  # Deactivate legend
+    showlegend=False  # Deactivate legend
 )
 
 # Values at which dashed lines are shown
@@ -366,6 +364,25 @@ fig.add_shape(
         width=1
     )
 )
+
+fig.update_layout(
+    annotations=[
+        dict(
+            x=50,              # 👈 Position (nach Rotation anpassen!)
+            y=95,
+            text=legende_text,
+            showarrow=False,
+            font=dict(size=28, color="black"),
+            bgcolor="rgba(255,255,255,0.95)",
+            bordercolor="black",
+            borderwidth=2,
+            xanchor="left",
+            yanchor="top",
+            align="left"
+        )
+    ]
+)
+
 
 # show plot
 fig.show()
