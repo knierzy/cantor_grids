@@ -367,8 +367,8 @@ fig.add_shape(
 fig.update_layout(
     annotations=[
         dict(
-            x=540,              
-            y=85,
+            x=480,              
+            y=92,
             text=legende_text,
             showarrow=False,
             font=dict(size=28, color="black"),
