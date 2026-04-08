@@ -517,7 +517,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="circle",
-        size=2,
+        size=3.5,
         color="black"
     ),
     hoverinfo="skip",
@@ -605,7 +605,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="circle",
-        size=2,
+        size=3.5,
         color="black"
     ),
     hoverinfo="skip",
