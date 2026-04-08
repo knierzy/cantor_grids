@@ -618,7 +618,7 @@ fig.add_trace(go.Scatter(
 
 fig.update_layout(
     coloraxis=dict(
-        colorscale="Viridis",
+        colorscale="Inferno",
         cmin=0,
         cmax=1,
         colorbar=dict(
