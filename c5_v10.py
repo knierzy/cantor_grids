@@ -534,7 +534,7 @@ fig.add_trace(go.Scatter(
     y=y_vals[mask_cross],
     mode="markers",
     marker=dict(
-        symbol="x",
+        symbol="diamond",
         size=21,
         color=ratios[mask_cross],
         colorscale="Plasma",
@@ -552,7 +552,7 @@ fig.add_trace(go.Scatter(
     y=y_vals[mask_cross],
     mode="markers",
     marker=dict(
-        symbol="x",
+        symbol="diamond",
         size=18,
         color=ratios[mask_cross],
         colorscale="Plasma",
@@ -572,7 +572,7 @@ fig.add_trace(go.Scatter(
     y=y_vals[mask_cross],
     mode="markers",
     marker=dict(
-        symbol="x",
+        symbol="diamond",
         size=1,
         color="white",
         line=dict(width=0)
@@ -587,7 +587,7 @@ fig.add_trace(go.Scatter(
     y=y_vals[mask_cross],
     mode="markers",
     marker=dict(
-        symbol="x",
+        symbol="diamond",
         size=1,
         color=ratios[mask_cross],
         colorscale="Plasma",
