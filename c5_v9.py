@@ -590,7 +590,7 @@ fig.add_trace(go.Scatter(
         symbol="x",
         size=1,
         color=ratios[mask_cross],
-        colorscale="Viridis",
+        colorscale="Inferno",
         cmin=0,
         cmax=1,
         line=dict(color="black", width=1)
