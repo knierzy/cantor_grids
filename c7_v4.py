@@ -622,7 +622,7 @@ fig.add_trace(go.Scatter(
 # All AWC colors are controlled by one shared coloraxis configured below
 fig.update_layout(
     coloraxis=dict(
-        colorscale="thermal",
+        colorscale="plasma",
         cmin=awc_min,
         cmax=awc_max,
         colorbar=dict(
