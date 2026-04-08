@@ -426,7 +426,7 @@ for _, row in df_linz_params.iterrows():
         x_values.append(c)
         y_values.append(y_position_punkt)
         color_values.append(ratio)
-        symbols.append("cross-thin")
+        symbols.append("x")
 
 #  HIER EINFÜGEN (direkt nach den Schleifen!)
 
@@ -436,7 +436,7 @@ ratios = np.array(color_values)
 symbols_arr = np.array(symbols)
 
 mask_circle = symbols_arr == "circle"
-mask_cross = symbols_arr == "cross-thin"
+mask_cross = symbols_arr == "x"
 
 
 # =========================
@@ -467,7 +467,7 @@ fig.add_trace(go.Scatter(
         symbol="circle",
         size=18,
         color=ratios[mask_circle],
-        colorscale="Viridis",
+        colorscale="Plasma",
         cmin=0,
         cmax=1,
         coloraxis="coloraxis",
@@ -502,7 +502,7 @@ fig.add_trace(go.Scatter(
         symbol="circle",
         size=1,
         color=ratios[mask_circle],
-        colorscale="Viridis",
+        colorscale="Plasma",
         cmin=0,
         cmax=1,
         line=dict(color="black", width=1)
@@ -517,7 +517,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="circle",
-        size=5,
+        size=3.5,
         color="black"
     ),
     hoverinfo="skip",
@@ -525,7 +525,7 @@ fig.add_trace(go.Scatter(
 ))
 
 # =========================
-# Plus (Linz/Melk)
+# X (Linz/Melk)
 # =========================
 
 # 1. Black frame
@@ -534,14 +534,14 @@ fig.add_trace(go.Scatter(
     y=y_vals[mask_cross],
     mode="markers",
     marker=dict(
-        symbol="cross-thin",
-        size=22,
+        symbol="x",
+        size=18,
         color=ratios[mask_cross],
-        colorscale="Viridis",
+        colorscale="Plasma",
         cmin=0,
         cmax=1,
         coloraxis="coloraxis",
-        line=dict(width=0)   # 🔥 KEY FIX
+        line=dict(width=3)   # 🔥 WICHTIG
     ),
     showlegend=False
 ))
@@ -552,10 +552,10 @@ fig.add_trace(go.Scatter(
     y=y_vals[mask_cross],
     mode="markers",
     marker=dict(
-        symbol="cross-thin",
-        size=22,
+        symbol="x",
+        size=15,
         color=ratios[mask_cross],
-        colorscale="Viridis",
+        colorscale="Plasma",
         cmin=0,
         cmax=1,
         coloraxis="coloraxis",
@@ -572,7 +572,7 @@ fig.add_trace(go.Scatter(
     y=y_vals[mask_cross],
     mode="markers",
     marker=dict(
-        symbol="cross-thin",
+        symbol="x",
         size=1,
         color="white",
         line=dict(width=0)
@@ -587,10 +587,10 @@ fig.add_trace(go.Scatter(
     y=y_vals[mask_cross],
     mode="markers",
     marker=dict(
-        symbol="cross-thin",
+        symbol="x",
         size=1,
         color=ratios[mask_cross],
-        colorscale="Viridis",
+        colorscale="Plasma",
         cmin=0,
         cmax=1,
         line=dict(color="black", width=1)
@@ -605,7 +605,7 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="circle",
-        size=5,
+        size=3.5,
         color="black"
     ),
     hoverinfo="skip",
@@ -618,7 +618,7 @@ fig.add_trace(go.Scatter(
 
 fig.update_layout(
     coloraxis=dict(
-        colorscale="Viridis",
+        colorscale="Plasma",
         cmin=0,
         cmax=1,
         colorbar=dict(
