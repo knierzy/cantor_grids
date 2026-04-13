@@ -70,6 +70,37 @@ rechtecke = [
 # Set up diagram
 fig = go.Figure()
 
+# normalization LRM
+def normalize_to_100_LRM(row):
+    cols = ['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+    values = row[cols].astype(float).to_numpy()
+
+   
+    ints = np.floor(values).astype(int)
+
+ 
+    remainders = values - ints
+
+  
+    missing = 100 - ints.sum()
+
+    if missing > 0:
+    
+        order = np.argsort(-remainders)
+        for i in range(missing):
+            ints[order[i]] += 1
+
+    elif missing < 0:
+      
+        order = np.argsort(remainders)
+        for i in range(-missing):
+            ints[order[i]] -= 1
+
+    row[cols] = ints
+    return row
+
+
+
 
 def ensure_transparency(color, alpha=0.7):
     if "rgba" in color:
@@ -160,44 +191,31 @@ add_rechtecke_mit_farbverlauf(rechtecke, 0)
 # Load data from  Excel file
 file_path_gilgen = "data/compendium.xlsx"
 df = pd.read_excel(file_path_gilgen, sheet_name='Garnet_Pernegg')
+df_linz = pd.read_excel(file_path_gilgen, sheet_name="Garnet_Linz_Melk_Formation")
 
 # Remove rows with NaN in columns "Unnamed: 1" to "Unnamed: 4"; filter only rows where the sum is >= 98
 df_parameters = df[['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']].dropna()
 df_parameters = df_parameters[df_parameters.apply(lambda row: row[['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']].sum() >= 98, axis=1)]
+df_linz_params = df_linz[['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']].dropna()
 
-#Round to integers
+df_linz_params = df_linz_params[
+    df_linz_params.apply(lambda row: row.sum() >= 98, axis=1)
+]
 
+print("len(df_linz) =", len(df_linz))
+print("len(df_linz_params) nach dropna/filter =", len(df_linz_params))
+print(df_linz_params.head(10))
+
+# 👉 HIER EINFÜGE
 df_parameters['Herkunft'] = df.loc[df_parameters.index, 'Unnamed: 5'].values
 df_parameters['Index'] = df.loc[df_parameters.index, 'Unnamed: 6'].values
 
-# normalization LRM
-def normalize_to_100_LRM(row):
-    cols = ['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
-    values = row[cols].astype(float).to_numpy()
 
-   
-    ints = np.floor(values).astype(int)
+df_linz_params = df_linz_params.astype(float).round().astype(int)
 
- 
-    remainders = values - ints
+df_linz_params = df_linz_params.apply(normalize_to_100_LRM, axis=1)
 
-  
-    missing = 100 - ints.sum()
 
-    if missing > 0:
-    
-        order = np.argsort(-remainders)
-        for i in range(missing):
-            ints[order[i]] += 1
-
-    elif missing < 0:
-      
-        order = np.argsort(remainders)
-        for i in range(-missing):
-            ints[order[i]] -= 1
-
-    row[cols] = ints
-    return row
 
 
 df_parameters = df_parameters.apply(normalize_to_100_LRM, axis=1)
@@ -304,6 +322,38 @@ def plot_imported_hulls_with_file_colors(grouped_hulls, file_color_mapping):
             name=f"Herkunft: {herkunft}, AB: {ab_value}"
         ))
 
+
+def plot_linz_scatter(df):
+    x_vals = []
+    y_vals = []
+
+    for _, row in df.iterrows():
+        a = int(row['Unnamed: 1'])
+        b = int(row['Unnamed: 2'])
+        c = int(row['Unnamed: 3'])
+
+        ab = a + b
+
+        y_pos = calculate_y_position(ab, b)
+        if y_pos is None:
+            continue
+
+        x_vals.append(c)
+        y_vals.append(y_pos)
+
+    fig.add_trace(go.Scatter(
+        x=x_vals,
+        y=y_vals,
+        mode="markers",
+        marker=dict(
+            size=14,
+            color="red",
+            symbol="x",
+            line=dict(color="black", width=1)
+        ),
+        name="Linz/Melk"
+    ))
+
 # Add a column to the DataFrames to mark the source file
 
 df_hulls_4["file_source"] = convex_hulls_file_4
@@ -322,32 +372,17 @@ df_hulls_combined = pd.concat([df_hulls_4, df_hulls_5,df_hulls_6,df_hulls_7,df_h
 grouped_hulls_combined = df_hulls_combined.groupby(["Herkunft", "AB_Value"])
 
 # Plot the imported convex hulls with file-specific colors
+
 plot_imported_hulls_with_file_colors(grouped_hulls_combined, color_mapping_files)
+
+#  DAS HIER FEHLT
+
+df_linz_params['Ratio'] = df_linz_params['Unnamed: 1'] / (
+    df_linz_params['Unnamed: 1'] + df_linz_params['Unnamed: 2']
+)
 
 # Calculate the ratio for color coding
 df_parameters['Ratio'] = df_parameters['Unnamed: 1'] / (df_parameters['Unnamed: 1'] + df_parameters['Unnamed: 2'])
-
-
-# List to store values for the color legend
-x_values, y_values, color_values = [], [], []
-
-# Collect points for the color legend
-for idx, row in df_parameters.iterrows():
-    a = row['Unnamed: 1']
-    b = row['Unnamed: 2']
-    c = row['Unnamed: 3']
-    d = row['Unnamed: 4']
-    herkunft = row['Herkunft']
-    index = row['Index']
-    ab_value = row['AB']
-    ratio = row['Ratio']
-
-    y_position_punkt = calculate_y_position(ab_value, b)
-    if y_position_punkt is not None:
-        x_values.append(c)
-        y_values.append(y_position_punkt)
-        color_values.append(ratio)
-
 
 custom_colorscale = [
     [0.0,  "#00007F"],   
@@ -359,33 +394,244 @@ custom_colorscale = [
 ]
 
 
+# List to store values for the color legend
+x_values, y_values, color_values = [], [], []
+symbols = []   
 
-# === Plot colored points with new scale
+# === Pernegg ===
+for idx, row in df_parameters.iterrows():
+    a = row['Unnamed: 1']
+    b = row['Unnamed: 2']
+    c = row['Unnamed: 3']
+    ab_value = row['AB']
+    ratio = row['Ratio']
 
+    y_position_punkt = calculate_y_position(ab_value, b)
+    if y_position_punkt is not None:
+        x_values.append(c)
+        y_values.append(y_position_punkt)
+        color_values.append(ratio)
+        symbols.append("circle")   # 👈 Pernegg = Kreis
+
+
+# === Linz/Melk ===
+for _, row in df_linz_params.iterrows():
+    a = row['Unnamed: 1']
+    b = row['Unnamed: 2']
+    c = row['Unnamed: 3']
+    ratio = row['Ratio']
+
+    y_position_punkt = calculate_y_position(a + b, b)
+    if y_position_punkt is not None:
+        x_values.append(c)
+        y_values.append(y_position_punkt)
+        color_values.append(ratio)
+        symbols.append("x")
+
+#  HIER EINFÜGEN (direkt nach den Schleifen!)
+
+x_vals = np.array(x_values)
+y_vals = np.array(y_values)
+ratios = np.array(color_values)
+symbols_arr = np.array(symbols)
+
+mask_circle = symbols_arr == "circle"
+mask_cross = symbols_arr == "x"
+
+
+# =========================
+# 🔵 CIRCLES (Pernegg)
+# =========================
+
+# 1. Schwarzer Außenring
 fig.add_trace(go.Scatter(
-    x=x_values,
-    y=y_values,
-    mode='markers',
+    x=x_vals[mask_circle],
+    y=y_vals[mask_circle],
+    mode="markers",
     marker=dict(
-        symbol='circle',
-        size=12,
-        color=color_values,
-        colorscale=custom_colorscale,
+        symbol="circle",
+        size=20,
+        color="rgba(0,0,0,0)",
+        line=dict(color="black", width=4)
+    ),
+    hoverinfo="skip",
+    showlegend=False
+))
+
+# 2. Farbiger Halo
+fig.add_trace(go.Scatter(
+    x=x_vals[mask_circle],
+    y=y_vals[mask_circle],
+    mode="markers",
+    marker=dict(
+        symbol="circle",
+        size=18,
+        color=ratios[mask_circle],
+        colorscale="Plasma",
+        cmin=0,
+        cmax=1,
+        coloraxis="coloraxis",
+        opacity=0.9,
+        line=dict(width=0)
+    ),
+    hoverinfo="skip",
+    showlegend=False
+))
+
+# 3. Weißer Cutout
+fig.add_trace(go.Scatter(
+    x=x_vals[mask_circle],
+    y=y_vals[mask_circle],
+    mode="markers",
+    marker=dict(
+        symbol="circle",
+        size=1,
+        color="white",
+        line=dict(width=0)
+    ),
+    hoverinfo="skip",
+    showlegend=False
+))
+
+# 4. Innerer Farbpunkt
+fig.add_trace(go.Scatter(
+    x=x_vals[mask_circle],
+    y=y_vals[mask_circle],
+    mode="markers",
+    marker=dict(
+        symbol="circle",
+        size=1,
+        color=ratios[mask_circle],
+        colorscale="Plasma",
+        cmin=0,
+        cmax=1,
+        line=dict(color="black", width=1)
+    ),
+    showlegend=False
+))
+
+# 5.  central point
+fig.add_trace(go.Scatter(
+    x=x_vals[mask_circle],
+    y=y_vals[mask_circle],
+    mode="markers",
+    marker=dict(
+        symbol="circle",
+        size=3.5,
+        color="black"
+    ),
+    hoverinfo="skip",
+    showlegend=False
+))
+
+# =========================
+# X (Linz/Melk)
+# =========================
+
+# 1. Black frame
+fig.add_trace(go.Scatter(
+    x=x_vals[mask_cross],
+    y=y_vals[mask_cross],
+    mode="markers",
+    marker=dict(
+        symbol="diamond",
+        size=21,
+        color=ratios[mask_cross],
+        colorscale="Plasma",
+        cmin=0,
+        cmax=1,
+        coloraxis="coloraxis",
+        line=dict(width=3)   # 🔥 WICHTIG
+    ),
+    showlegend=False
+))
+
+# 2. halo 
+fig.add_trace(go.Scatter(
+    x=x_vals[mask_cross],
+    y=y_vals[mask_cross],
+    mode="markers",
+    marker=dict(
+        symbol="diamond",
+        size=18,
+        color=ratios[mask_cross],
+        colorscale="Plasma_r",
+        cmin=0,
+        cmax=1,
+        coloraxis="coloraxis",
+        opacity=0.9,
+        line=dict(width=0)
+    ),
+    hoverinfo="skip",
+    showlegend=False
+))
+
+# 3.white Cutout
+fig.add_trace(go.Scatter(
+    x=x_vals[mask_cross],
+    y=y_vals[mask_cross],
+    mode="markers",
+    marker=dict(
+        symbol="diamond",
+        size=1,
+        color="white",
+        line=dict(width=0)
+    ),
+    hoverinfo="skip",
+    showlegend=False
+))
+
+# 4. Central point
+fig.add_trace(go.Scatter(
+    x=x_vals[mask_cross],
+    y=y_vals[mask_cross],
+    mode="markers",
+    marker=dict(
+        symbol="diamond",
+        size=1,
+        color=ratios[mask_cross],
+        colorscale="Plasma",
+        cmin=0,
+        cmax=1,
+        line=dict(color="black", width=1)
+    ),
+    showlegend=False
+))
+
+# 5. Schwarzer Mittelpunkt
+fig.add_trace(go.Scatter(
+    x=x_vals[mask_cross],
+    y=y_vals[mask_cross],
+    mode="markers",
+    marker=dict(
+        symbol="circle",
+        size=3.5,
+        color="black"
+    ),
+    hoverinfo="skip",
+    showlegend=False
+))
+
+# =========================
+# 🎨 COLORBAR (global!)
+# =========================
+
+fig.update_layout(
+    coloraxis=dict(
+        colorscale="Plasma",
         cmin=0,
         cmax=1,
         colorbar=dict(
-            title='',
+            title="",
             thickness=20,
             len=0.9,
             y=0.5,
             yanchor="middle",
-            tickfont=dict(size=24, color="black")
-        ),
-        showscale=True,
-        line=dict(color="black", width=2)
-    ),
-    name="Datenpunkte"
-))
+            tickfont=dict(size=24)
+        )
+    )
+)
+
 
 # Adjust layout
 fig.update_layout(
@@ -405,7 +651,7 @@ plot_bgcolor="white",
             text="Pyrope (%) /// Grossular (%) = height rectangle <sub>ABCD</sub> − Pyrope (%)",
             font=dict(size=28, color="black", family="Arial Black")
         ),
-        range=[0, 100],
+        range=[-1.3, 100],
         constrain="domain",
         tickformat=".0f",
         dtick=10,
@@ -438,7 +684,7 @@ for y in y_values:
     )
 
 # Positions for the vertical dashed lines
-x_values = [909.5, 3749.5, 4569.5, 1769.5, 2529.5, 3189.5, 4209.5, 4850.5, 4995.5, 442, 1352, 2162, 2872, 3482, 3992, 4402, 4712, 4922, 5037.5]  # Mittlere Positionen von AB90, AB50, AB30
+x_values = [909.5, 3749.5, 4569.5, 1769.5, 2529.5, 3189.5, 4209.5, 4850.5, 4995.5, 442, 1352, 2162, 2872, 3482, 3992, 4402, 4712, 4922, 5037.5]  # central positions of AB90, AB50, AB30
 
 # Insert vertical dashed lines
 for x in x_values:
@@ -474,7 +720,32 @@ fig.add_shape(
     line=dict(color="black", width=3)
 )
 
+def classify_dataset(df_input, means, sigmas):
+    X_pts = df_input[["Unnamed: 1","Unnamed: 2","Unnamed: 3","Unnamed: 4"]].to_numpy()
 
+    labels = []
+    d_min  = []
+
+    sigmas_safe = sigmas.clip(lower=0.5)
+    invcovs = {k: np.diag(1.0/(sigmas_safe.loc[k].to_numpy()**2)) for k in means.index}
+    mus     = {k: means.loc[k].to_numpy() for k in means.index}
+
+    for x in X_pts:
+        best_label, best_d = None, np.inf
+        for k in means.index:
+            mu = mus[k]
+            VI = invcovs[k]
+            d2 = (x-mu) @ VI @ (x-mu).T
+            if d2 < best_d:
+                best_d = d2
+                best_label = k
+        labels.append(best_label)
+        d_min.append(np.sqrt(best_d))
+
+    df_input["Nearest_Subfield_Mahalanobis"] = labels
+    df_input["Mahalanobis_Distance"] = d_min
+
+    return df_input
 
 from scipy.spatial.distance import cdist
 
@@ -528,51 +799,31 @@ sigmas = (subfield_sigmas_raw
           .rename(columns={"alm":"Alm","sp":"Spe","pyr":"Pyr","gro":"Gro"})
           [["Alm","Spe","Pyr","Gro"]])
 
+# 
+df_parameters = classify_dataset(df_parameters, means, sigmas)   # PF
+df_linz_params = classify_dataset(df_linz_params, means, sigmas) # LMF
+
+
 # Classification using Mahalanobis (diagonal covariance)
-X_pts = df_parameters[["Unnamed: 1","Unnamed: 2","Unnamed: 3","Unnamed: 4"]].to_numpy()  # Alm,Spe,Pyr,Gro
 
-labels = []
-d_min  = []
-
-# numerically stable variance (if σ is very small ~0
-sigmas_safe = sigmas.clip(lower=0.5)
-invcovs = {k: np.diag(1.0/(sigmas_safe.loc[k].to_numpy()**2)) for k in means.index}
-mus     = {k: means.loc[k].to_numpy() for k in means.index}
-
-for x in X_pts:
-    best_label, best_d = None, np.inf
-    for k in means.index:
-        mu = mus[k]
-        VI = invcovs[k]
-        d2 = (x-mu) @ VI @ (x-mu).T   # Mahalanobis^2
-        if d2 < best_d:
-            best_d = d2
-            best_label = k
-    labels.append(best_label)
-    d_min.append(np.sqrt(best_d))
-
-df_parameters["Nearest_Subfield_Mahalanobis"] = labels
-df_parameters["Mahalanobis_Distance"] = d_min
-
-# Ambiguous-flag using Chi² threshold for 1σ (68% in d=4)
-chi2_1sigma = chi2.ppf(0.68, df=4)  # ≈ 4.72
-ambig = []
-for x in X_pts:
-    inside = []
-    for k in means.index:
-        mu = mus[k]
-        VI = invcovs[k]
-        d2 = (x-mu) @ VI @ (x-mu).T
-        if d2 <= chi2_1sigma:
-            inside.append(k)
-    ambig.append("/".join(inside) if len(inside) >= 2 else np.nan)
-df_parameters["Ambiguous_1sigma"] = ambig
+ 
 
 # Summary
-summary = df_parameters["Nearest_Subfield_Mahalanobis"].value_counts().sort_index()
-summary_pct = (summary/len(df_parameters)*100).round(1)
+summary_pf = df_parameters["Nearest_Subfield_Mahalanobis"].value_counts()
+summary_lmf = df_linz_params["Nearest_Subfield_Mahalanobis"].value_counts()
+
+summary_pf_pct = (summary_pf / len(df_parameters) * 100).round(1)
+summary_lmf_pct = (summary_lmf / len(df_linz_params) * 100).round(1)
 print("\n=== Zusammenfassung (Mahalanobis, korrekt gemappt) ===")
-print(pd.DataFrame({"Anzahl Punkte": summary, "Prozent": summary_pct}))
+print(pd.DataFrame({
+    "PF Anzahl": summary_pf,
+    "PF %": summary_pf_pct
+}))
+
+print(pd.DataFrame({
+    "LMF Anzahl": summary_lmf,
+    "LMF %": summary_lmf_pct
+}))
 
 #  (Optional) small diagnostic output
 print("\nCheck Spalten-Reihenfolge:")
@@ -580,32 +831,29 @@ print("Means cols:", list(means.columns))
 print("Sigmas cols:", list(sigmas.columns))
 print("Points cols: ['Alm','Spe','Pyr','Gro']")
 
-# New legend with point counts & percentages from Mahalanobis classification
-summary = df_parameters["Nearest_Subfield_Mahalanobis"].value_counts().sort_index()
-summary_pct = (summary / len(df_parameters) * 100).round(1)
-
-
-# Mapping file paths
 legend_text = (
-    "<span style='font-size:40px; font-weight:bold;'>Garnet Provenance Groups</span><br>"
-    "<span style='font-size:28px; font-style:italic;'>Classification based on Mahalanobis distance</span><br><br>"
+    "<span style='font-size:45px; font-weight:bold;'>Garnet Provenance Groups</span><br>"
+    "<span style='font-size:34px; font-style:italic;'>Classification based on Mahalanobis distance</span><br><br>"
+    "<span style='font-size:30px;'>Symbols: circles = mica schist (MS) Pernegg; diamonds = Linz–Melk Formation (LMF)</span><br><br>"
 )
-
 
 for file_path in ordered_hulls:
     color = color_mapping_files[file_path]
-    hull_name = legend_mapping.get(file_path, file_path.split("\\")[-1].split(".")[0])
+    hull_name = legend_mapping[file_path]
 
-    # Numbers for this subfield (if available)
-    count = summary.get(hull_name, 0)
-    pct = summary_pct.get(hull_name, 0)
+    count_pf = summary_pf.get(hull_name, 0)
+    pct_pf = summary_pf_pct.get(hull_name, 0)
 
-    # Format entry in English
-    legend_text += (
+    count_lmf = summary_lmf.get(hull_name, 0)
+    pct_lmf = summary_lmf_pct.get(hull_name, 0)
+
+    legend_text += (   #jetzt korrekt innerhalb der Schleife
         f'<span style="color:{color}; font-size:62px;">■</span> '
-        f'<span style="font-size:32px; font-weight:bold;">{hull_name}</span> '
-        f'– {int(count)} points ({pct:.1f}%)<br>'
-        f'<span style="font-size:8px;">&nbsp;</span><br>'
+        f'<span style="font-size:35px; font-weight:bold;">{hull_name}</span> '
+        f'<span style="font-size:30px;">'
+        f'MS Pernegg: {int(count_pf)} points ({pct_pf:.1f}%) / '
+        f'LMF: {int(count_lmf)} points ({pct_lmf:.1f}%)'
+        f'</span><br>'
     )
 
 print("\nLegend content with counts and percentages:")
@@ -692,7 +940,7 @@ html_path = "file:///" + html_output.replace("\\", "/")
 
 # Create high-resolution PNG using Playwright 
 def export_highres_png():
-    print("📸 Erstelle hochauflösendes PNG ...")
+    print("")
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         page = browser.new_page(
@@ -706,7 +954,7 @@ def export_highres_png():
 
 #  Convert PNG to TIFF with 400 dpi 
 def convert_png_to_tiff_with_dpi(png_path, tiff_path, dpi=(400, 400)):
-    print("🖼️ Konvertiere PNG → TIFF (400 dpi) ...")
+    print(" Konvertiere PNG → TIFF (400 dpi) ...")
     if os.path.exists(png_path):
         img = Image.open(png_path)
         img.save(tiff_path, dpi=dpi)
