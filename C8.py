@@ -8,7 +8,7 @@
 import plotly.graph_objects as go
 import numpy as np
 import plotly.io as pio
-
+from matplotlib.colors import PowerNorm
 
 # Rectangle data with the classification system up to AB1”
 rechtecke = [
@@ -33,31 +33,25 @@ fig = go.Figure()
 
 # Add rectangles with color gradients along the new x-axis (after rotation)
 def add_rechtecke_horizontal(rechtecke):
+
+    ab_tick_vals = []
+    ab_tick_text = []
+
     for i, (x_start, breite, label) in enumerate(rechtecke):
         hoehe = i + 1  
 
-        gradient_steps = 14
-        grau_start, grau_ende = 150, 200
+        # Rechteck
+        fig.add_trace(go.Scatter(
+            x=[x_start, x_start + breite, x_start + breite, x_start, x_start],
+            y=[0, 0, hoehe, hoehe, 0],
+            fill="toself",
+            mode="lines",
+            fillcolor="white",
+            line=dict(width=0),
+            showlegend=False
+        ))
 
-        for step in range(gradient_steps):
-            grau = int(grau_start + (grau_ende - grau_start) * step / (gradient_steps - 1))
-            alpha = 0.8 - 0.6 * step / (gradient_steps - 1)
-            color = f"rgba({grau},{grau},{grau},{alpha})"
-
-            x0 = x_start + step / gradient_steps * breite
-            x1 = x_start + (step + 1) / gradient_steps * breite
-
-            fig.add_trace(go.Scatter(
-                x=[x0, x1, x1, x0, x0],
-                y=[0, 0, hoehe, hoehe, 0],
-                fill="toself",
-                mode="lines",
-                fillcolor=color,
-                line=dict(width=0),
-                showlegend=False
-            ))
-
-        # vertical lines
+        # horizontale Linien
         for y in range(1, hoehe):
             fig.add_trace(go.Scatter(
                 x=[x_start, x_start + breite],
@@ -67,22 +61,21 @@ def add_rechtecke_horizontal(rechtecke):
                 showlegend=False
             ))
 
-    # --- AB labels at the END of each AB rectangle ---
-
-    ab_tick_vals = []
-    ab_tick_text = []
-
-    for x_start, breite, label in rechtecke:
-        ab_value = int(label.replace("AB", ""))  
+        # Tick-Logik direkt hier sammeln
+        ab_value = int(label.replace("AB", ""))
 
         if ab_value % 5 == 0 or ab_value == 99:
-            ab_tick_vals.append(x_start + breite)  
+            ab_tick_vals.append(x_start + breite / 2)  # 🔥 Mitte!
             ab_tick_text.append(label)
 
+    # 🔥 EINMAL sauber setzen
     fig.update_layout(
         xaxis=dict(
             tickvals=ab_tick_vals,
-            ticktext=ab_tick_text,
+            ticktext=[
+                f"{label}<br>CD{str(100 - int(label[2:])).zfill(2)}"
+                for label in ab_tick_text
+            ],
             tickangle=0,
             tickfont=dict(size=18)
         )
@@ -127,13 +120,18 @@ def saxton_awc(sand_pct, clay_pct, humus_pct):
     return max(0, (theta33 - theta1500) * 100)
 
 
+from matplotlib.colors import PowerNorm
+
 def add_saxton_polygons(fig, rechtecke, saxton_awc,
-                        n_x=40, zmin=3, zmax=35,
-                        colorscale="Turbo"):
+                        n_x=120, zmin=3, zmax=35,
+                        colorscale="viridis"):
 
     from plotly.colors import sample_colorscale
 
-    AB_MIN = 41  # Heatmap until AB41
+    # 🔥 Norm hier definieren
+    norm = PowerNorm(gamma=0.75, vmin=zmin, vmax=zmax)
+
+    AB_MIN = 41  
 
     for ab_index, (x_start, breite, label) in enumerate(rechtecke):
 
@@ -162,7 +160,10 @@ def add_saxton_polygons(fig, rechtecke, saxton_awc,
                 D = max_c - (C0 + C1) / 2
 
                 z = saxton_awc(A, D, (C0 + C1) / 2)
-                t = np.clip((z - zmin) / (zmax - zmin), 0, 1)
+
+                # 🔥 DAS ist die wichtige Änderung
+                t = norm(z)
+
                 color = sample_colorscale(colorscale, t)[0]
 
                 y0 = (C0 / max_c) * hoehe
@@ -180,15 +181,13 @@ def add_saxton_polygons(fig, rechtecke, saxton_awc,
                     line=dict(width=0),
                     hoverinfo="skip",
                     showlegend=False,
-
                 ))
-
 
 add_saxton_polygons(fig, rechtecke, saxton_awc)
 
 fig.add_trace(go.Heatmap(
     z=[[3, 35]],                 
-    colorscale="Turbo",
+    colorscale="viridis",
     showscale=True,
     colorbar=dict(
         title=dict(
@@ -232,8 +231,8 @@ fig.update_layout(
 
     yaxis=dict(
         title=dict(
-            text="Humus (%) ///  Clay (%) = height<sub>AB</sub> − Humus (%)",
-            font=dict(size=28, color="black", family="Arial Black")
+            text="SOM (%) ///  Clay (%) = height<sub>ABCD</sub> − SOM (%)",
+            font=dict(size=24, color="black", family="Arial Black")
         ),
         range=[-0.35, 8.5],     # or 15
         dtick=1,
@@ -392,7 +391,7 @@ def export_highres_png():
         page = browser.new_page(
             viewport={"width": 2260, "height": 1210, "device_scale_factor": 2}
         )
-        page.goto(f"file://{os.path.abspath(html_path)}", timeout=120000)
+        page.goto(f"file://{os.path.abspath(html_path)}", timeout=0)
         page.screenshot(path=png_path, full_page=True)
         browser.close()
         print("✅ PNG saved:", png_path)
