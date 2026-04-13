@@ -58,24 +58,24 @@ convex_hulls_file_14 = "data/convex_hull_organo_mineral_soils.xlsx"
 convex_hulls_file_15 = "data/convex_hull_silty_loam.xlsx"
 convex_hulls_file_16 = "data/convex_hull_organicsoils.xlsx"
 
-# color mappings
 color_mapping_files = {
     convex_hulls_file_1: "rgba(160, 82, 45, 0.75)",       
     convex_hulls_file_2: "rgba(57, 255, 20, 0.85)",    
     convex_hulls_file_3: "rgba(178, 34, 34, 0.75)",       
     convex_hulls_file_4: "rgba(253, 192, 134, 0.75)",     
-    convex_hulls_file_5: "rgba(70, 70, 70, 0.75)",      
+    convex_hulls_file_5: "rgba(150, 135, 110, 0.75)",      
     convex_hulls_file_6: "rgba(204, 121, 167, 0.75)",       
     convex_hulls_file_7: "rgba(110, 165, 160, 0.75)",     
     convex_hulls_file_8: "rgba(225, 195, 65, 0.75)",      
     convex_hulls_file_9: "rgba(0, 158, 115, 0.75)",       
     convex_hulls_file_10: "rgba(0, 60, 140, 0.75)",      
-    convex_hulls_file_11: "rgba(17, 17, 17, 0.85)",       
+    convex_hulls_file_11: "rgba(40, 40, 40, 1)",       
     convex_hulls_file_12: "rgba(86, 180, 233, 0.75)",     
     convex_hulls_file_14: "rgba(100, 95, 90, 0.2)",  
     convex_hulls_file_15: "rgba(94, 60, 153, 0.75)",  
     convex_hulls_file_16: "rgba(100, 95, 90, 0.2)",
 }
+
 
 
 
@@ -331,22 +331,24 @@ def classify_soil(a, b, c, d):
     if (0   <= a <= 50*m) and (0   <= b <= 50*m) and (50*m <= d <= 100*m):return "Clay"
     return "Other"
 
+# Mapping of RGBA colors to sub-classes
 farbe_to_subklasse = {
     "rgba(86, 180, 233, 0.75)": "Sand",
     "rgba(0, 158, 115, 0.75)": "Silty Sand",
     "rgba(225, 195, 65, 0.75)": "Loamy Sand",
     "rgba(204, 121, 167, 0.75)": "Sandy Silt",
-    "rgba(70, 70, 70, 0.75)": "Silt",
+    "rgba(150, 135, 110, 0.75)": "Silt",
     "rgba(57, 255, 20, 0.85)": "Clayey Sand",
     "rgba(178, 34, 34, 0.75)": "Sandy Loam",
     "rgba(253, 192, 134, 0.75)": "Loamy Silt",
     "rgba(160, 82, 45, 0.75)": "Sandy Clay",
     "rgba(123, 204, 196, 0.75)": "Loam",
     "rgba(0, 90, 160, 0.75)": "Clay Loam",
-    "rgba(17, 17, 17, 0.85)": "Clay",
+    "rgba(40, 40, 40, 1)": "Clay",
     "rgba(94, 60, 153, 0.75)": "Silty Loam",
 
 }
+
 
 # Legend text as HTML with fixed display order
 legende_text = (
@@ -361,13 +363,6 @@ ordered_legende = [
           "Silt",
     "Loamy Sand",
     "Clayey Sand",
-    "Sandy Loam",
-    "Loamy Silt",
-    "Silty Loam",
-    "Loam",
-    "Sandy Clay",
-    "Clay Loam",
-    "Clay",
 
 ]
 
@@ -583,7 +578,7 @@ for idx, row in df_parameters.iterrows():
 fig.add_trace(go.Scatter(
     x=ring_x, y=ring_y, mode='markers',
     marker=dict(
-        size=12.8,
+        size=16,
         color='rgba(0,0,0,0)',
         line=dict(color='black', width=2.0),
     ),
@@ -595,13 +590,13 @@ fig.add_trace(go.Scatter(
 fig.add_trace(go.Scatter(
     x=ring_x, y=ring_y, mode='markers',
     marker=dict(
-        size=12.8,                      
+        size=16,                      
         color=awc_values,             
-        colorscale="Plasma",
+        colorscale="Viridis",
         cmin=awc_min,
         cmax=awc_max,
         opacity=0.95,                   
-        line=dict(width=0),
+        line=dict(width=1),
         coloraxis="coloraxis"
     ),
     hoverinfo='skip',
@@ -627,7 +622,7 @@ fig.add_trace(go.Scatter(
 # All AWC colors are controlled by one shared coloraxis configured below
 fig.update_layout(
     coloraxis=dict(
-        colorscale="Plasma",
+        colorscale="plasma",
         cmin=awc_min,
         cmax=awc_max,
         colorbar=dict(
@@ -706,15 +701,8 @@ ordered_legende = [
           "Silt",
     "Loamy Sand",
     "Clayey Sand",
-    "Sandy Loam",
-    "Loamy Silt",
-    "Silty Loam",
-    "Loam",
-    "Sandy Clay",
-    "Clay Loam",
-    "Clay",
-    "Organo-Mineral Soils",
-    "Organic Soils"
+ 
+  
 ]
 
 
@@ -739,23 +727,15 @@ class_distribution = {
 }
 
 # mapping soil class
+# mapping soil class
 klasse_zu_farbe = {v: k for k, v in farbe_to_subklasse.items()}
 
-# build legend text
-legende_text = "<span style='font-size:42px; font-weight:bold;'>Soil texture classes</span><br>"
-
-# Display classes in fixed order
+# 👉 DIESE ZEILE FEHLT
 sorted_classes = [name for name in ordered_legende if name not in exclude_classes]
 
-
-for name in sorted_classes:
-    farbe_raw = klasse_zu_farbe.get(name, "rgba(0,0,0,1)")
-    farbe_legende = apply_alpha(farbe_raw, 0.50)
-
-    legende_text += (
-        f"<span style='color:{farbe_legende}; font-size:54px;'>■</span> "
-        f"<span style='font-size:38px;'>{name}</span><br>"
-    )
+# build legend (Shapes-Version)
+y_start = 7.9
+dy = 0.45
 
 
 
@@ -853,7 +833,7 @@ for i, (start, hoehe, label) in enumerate(rechtecke):
         mode="markers",
         marker=dict(
             symbol="triangle-up",
-            size=16,
+            size=22,
             color="black",
             line=dict(color="black", width=0.4)
         ),
@@ -861,22 +841,7 @@ for i, (start, hoehe, label) in enumerate(rechtecke):
     ))
 
 
-# legend after rotation
 
-fig.add_annotation(
-    x=0.02, y=0.995,
-    xref="paper", yref="paper",
-    text=legende_text,
-    showarrow=False,
-    font=dict(size=25, color="black"),
-    bgcolor="rgba(255,255,255,0.95)",
-    bordercolor="black",
-    borderwidth=2,
-    xanchor="left",
-    yanchor="top",
-    align="left",
-    width=470
-)
 
 # Hover labels
 
@@ -903,6 +868,51 @@ awc_means = (
 
 print("\n=== Average AWC per Soil Texture Class ===")
 print(awc_means.to_string())
+
+#legend
+fig.add_shape(
+    type="rect",
+    x0=10,
+    x1=260,
+    y0=7.95 - len(sorted_classes)*0.40 - 0.2,
+    y1=8.2,
+    fillcolor="rgba(255,255,255,1.0)",  # jetzt komplett deckend!
+    line=dict(color="black", width=1),
+    layer="above"
+)
+
+
+for i, name in enumerate(sorted_classes):
+    farbe_raw = klasse_zu_farbe.get(name, "rgba(0,0,0,1)")
+    farbe = apply_alpha(farbe_raw, 0.5)
+
+    y = y_start - i * dy
+
+    # Rechteck (Legendensymbol)
+    fig.add_shape(
+        type="rect",
+        x0=20,
+        x1=60,
+        y0=y - 0.15,
+        y1=y + 0.15,
+        fillcolor=farbe,
+        line=dict(color="black", width=1)
+    )
+
+    # Text
+    fig.add_annotation(
+        x=70,
+        y=y,
+        text=name,
+        showarrow=False,
+        xanchor="left",
+        yanchor="middle",
+        font=dict(size=32, color="black")
+    )
+
+
+
+
 
 # Show plot
 fig.show()
