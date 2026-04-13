@@ -32,13 +32,13 @@ color_mapping_files = {
     convex_hulls_file_2: "rgba(57, 255, 20, 0.85)",    
     convex_hulls_file_3: "rgba(178, 34, 34, 0.75)",       
     convex_hulls_file_4: "rgba(253, 192, 134, 0.75)",     
-    convex_hulls_file_5: "rgba(70, 70, 70, 0.75)",      
+    convex_hulls_file_5: "rgba(150, 135, 110, 0.75)",      
     convex_hulls_file_6: "rgba(204, 121, 167, 0.75)",       
     convex_hulls_file_7: "rgba(110, 165, 160, 0.75)",     
     convex_hulls_file_8: "rgba(225, 195, 65, 0.75)",      
     convex_hulls_file_9: "rgba(0, 158, 115, 0.75)",       
     convex_hulls_file_10: "rgba(0, 60, 140, 0.75)",      
-    convex_hulls_file_11: "rgba(17, 17, 17, 0.85)",       
+    convex_hulls_file_11: "rgba(40, 40, 40, 1)",       
     convex_hulls_file_12: "rgba(86, 180, 233, 0.75)",     
     convex_hulls_file_14: "rgba(100, 95, 90, 0.2)",  
     convex_hulls_file_15: "rgba(94, 60, 153, 0.75)",  
@@ -76,7 +76,7 @@ rechtecke = [
 fig = go.Figure()
 
 
-def ensure_transparency(color, alpha=0.6):
+def ensure_transparency(color, alpha=0.8):
     if "rgba" in color:
         return color[:color.rfind(",")] + f", {alpha})"
     elif color.startswith("#"):
@@ -88,13 +88,13 @@ def ensure_transparency(color, alpha=0.6):
         return f"rgba(0, 0, 0, {alpha})"
 
 # color legend
-def legend_color(color, alpha=0.45):
+def legend_color(color, alpha=0.6):
     if "rgba" in color:
         return color[:color.rfind(",")] + f", {alpha})"
     return color
 
 
-def legend_rgba(color, alpha_factor=0.65):
+def legend_rgba(color, alpha_factor=0.8):
     """
     Adjust alpha for HTML legend so it visually matches Plotly filled polygons.
     """
@@ -157,14 +157,19 @@ def add_rechtecke_mit_farbverlauf(rechtecke, x_offset, spiegeln=False):
                  2870: "AB65", 3195: "AB60", 3480: "AB55", 3755: "AB50", 3995: "AB45", 4209: "AB40", 4405: "AB35", 4570: "AB30", 4830: "AB20", 4990: "AB10" }
 
     # Update X-axis with labels
+
+    # Update X-axis with labels
     fig.update_layout(
         xaxis=dict(
             title="Summe A + B (%)",
             tickvals=list(x_labels.keys()),
-            ticktext=list(x_labels.values()),
+            ticktext=[
+                f"{ab}<br>CD{str(100 - int(ab[2:])).zfill(2)}"
+                for ab in x_labels.values()
+            ],
             tickangle=0,
-
-        ))
+        )
+    )
 
 
 # Add rectangles
@@ -179,14 +184,14 @@ farbe_to_subklasse = {
     "rgba(0, 158, 115, 0.75)": "Silty Sand",
     "rgba(225, 195, 65, 0.75)": "Loamy Sand",
     "rgba(204, 121, 167, 0.75)": "Sandy Silt",
-    "rgba(70, 70, 70, 0.75)": "Silt",
+    "rgba(150, 135, 110, 0.75)": "Silt",
     "rgba(57, 255, 20, 0.85)": "Clayey Sand",
     "rgba(178, 34, 34, 0.75)": "Sandy Loam",
     "rgba(253, 192, 134, 0.75)": "Loamy Silt",
     "rgba(160, 82, 45, 0.75)": "Sandy Clay",
     "rgba(123, 204, 196, 0.75)": "Loam",
     "rgba(0, 90, 160, 0.75)": "Clay Loam",
-    "rgba(17, 17, 17, 0.85)": "Clay",
+    "rgba(40, 40, 40, 1)": "Clay",
     "rgba(94, 60, 153, 0.75)": "Silty Loam",
 
 }
@@ -228,7 +233,7 @@ for name in ordered_legende:
     else:
         farbe = next((k for k, v in farbe_to_subklasse.items() if v == name), None)
         if farbe:
-            farbe_legende = legend_rgba(farbe, alpha_factor=0.6)
+            farbe_legende = legend_rgba(farbe, alpha_factor=0.7)
            
             legende_text += (
                 f'<span style="color:{farbe_legende}; font-size:56px;">■</span> '
@@ -246,27 +251,35 @@ grouped_hulls_combined = df_hulls_combined.groupby(["Soil texture class", "AB_Va
 # Function to plot convex hulls with different colors based on source file
 def plot_imported_hulls_with_file_colors(grouped_hulls, file_color_mapping):
     for (soil_class, ab_value), group in grouped_hulls:
-        # Extract X and Y coordinates of hull points
+
+        # Extract coordinates
         hull_x = group["X"].values
         hull_y = group["Y"].values
-
 
         hull_x = np.append(hull_x, hull_x[0])
         hull_y = np.append(hull_y, hull_y[0])
 
-
         file_source = group["file_source"].iloc[0]
         color = file_color_mapping.get(file_source, "rgba(0, 0, 0, 0.5)")
 
-        # Plot  convex hull
+        # ✅ Fill-Logik (jetzt korrekt im Scope)
+        if file_source in [convex_hulls_file_11, convex_hulls_file_5]:  # Clay + Silt
+            fill = ensure_transparency(color, alpha=0.72)
+
+        elif file_source in [convex_hulls_file_14, convex_hulls_file_16]:  # Organic soils
+            fill = color
+
+        else:
+            fill = ensure_transparency(color, alpha=0.6)
+
+        # ✅ Plot convex hull
         fig.add_trace(go.Scatter(
             x=hull_x,
             y=hull_y,
             mode="lines",
             line=dict(color=color, width=1.5),
             fill="toself",
-            fillcolor=color if file_source in [convex_hulls_file_14, convex_hulls_file_16]
-            else ensure_transparency(color, alpha=0.45),
+            fillcolor=fill,
             name=f"Class: {soil_class}, AB: {ab_value}"
         ))
 
@@ -420,6 +433,22 @@ fig.update_layout(
     )
 )
 
+x_min = -30
+x_max = rechtecke[-1][0] + rechtecke[-1][1]
+
+fig.add_shape(
+    type="line",
+    x0=x_min,
+    x1=x_max,
+    y0=100,
+    y1=100,
+    line=dict(
+        color="black",
+        width=2
+    )
+)
+
+
 # Show plot
 fig.show()
 
@@ -478,4 +507,3 @@ export_highres_png()
 convert_png_to_tiff_with_dpi(png_path, tiff_path)
 
 print("\n EXPORT KOMPLETT – Dateien gespeichert in:", export_dir)
-
