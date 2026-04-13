@@ -13,7 +13,8 @@ import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
 import numpy as np
-
+import seaborn as sns
+from matplotlib.colors import to_hex
 
 # Largest Remainder Method
 def normalize_to_100_with_remainders(row):
@@ -59,7 +60,7 @@ convex_hulls_file_16 = "data/convex_hull_organicsoils.xlsx"
 # Transparency
 ALPHA_HULL = 0.50
 ALPHA_POINT = 0.5
-ALPHA_LEGEND = 0.5
+ALPHA_LEGEND = 0.70
 
 
 
@@ -70,13 +71,13 @@ color_mapping_files = {
     convex_hulls_file_2: "rgba(57, 255, 20, 0.85)",    
     convex_hulls_file_3: "rgba(178, 34, 34, 0.75)",       
     convex_hulls_file_4: "rgba(253, 192, 134, 0.75)",     
-    convex_hulls_file_5: "rgba(70, 70, 70, 0.75)",      
+    convex_hulls_file_5: "rgba(150, 135, 110, 0.75)",      
     convex_hulls_file_6: "rgba(204, 121, 167, 0.75)",       
     convex_hulls_file_7: "rgba(110, 165, 160, 0.75)",     
     convex_hulls_file_8: "rgba(225, 195, 65, 0.75)",      
     convex_hulls_file_9: "rgba(0, 158, 115, 0.75)",       
     convex_hulls_file_10: "rgba(0, 60, 140, 0.75)",      
-    convex_hulls_file_11: "rgba(17, 17, 17, 0.85)",       
+    convex_hulls_file_11: "rgba(40, 40, 40, 1)",       
     convex_hulls_file_12: "rgba(86, 180, 233, 0.75)",     
     convex_hulls_file_14: "rgba(100, 95, 90, 0.2)",  
     convex_hulls_file_15: "rgba(94, 60, 153, 0.75)",  
@@ -105,11 +106,28 @@ legend_mapping = {
 }
 
 
-# Soil class → color
-soilclass_to_color = {}
+# Cubehelix → Liste von Farben (Plotly braucht hex / rgb)
+cubehelix = sns.cubehelix_palette(
+    n_colors=256,
+    start=0.5,      # Farbstart
+    rot=-0.8,       # wie stark gedreht
+    gamma=1.0,      # Helligkeitsverlauf
+    hue=1.0,        # Farbsättigung
+    light=0.95,
+    dark=0.15
+)
 
-for file_path, soil_class in legend_mapping.items():
-    soilclass_to_color[soil_class] = color_mapping_files[file_path]
+# Umwandeln in Plotly-Format
+cubehelix_colorscale = [to_hex(c) for c in cubehelix]
+
+
+
+# Soil class → color
+soilclass_to_color = {
+    legend_mapping[file]: color
+    for file, color in color_mapping_files.items()
+    if file in legend_mapping
+}
 
 
 # Rectangle data with the classification system up to AB1
@@ -159,7 +177,26 @@ def apply_alpha(color, alpha):
 # Add rectangles with color gradients along the X-axis
 def add_rechtecke_mit_farbverlauf(rechtecke, x_offset, spiegeln=False):
     for i, (y_position, hoehe, label) in enumerate(rechtecke):
+
         breite = i + 1
+
+        # 👉 linker Rand
+        fig.add_trace(go.Scatter(
+            x=[x_offset, x_offset],
+            y=[y_position, y_position + hoehe],
+            mode="lines",
+            line=dict(color="black", width=2),
+            showlegend=False
+        ))
+
+        # 👉 rechter Rand
+        fig.add_trace(go.Scatter(
+            x=[x_offset + breite, x_offset + breite],
+            y=[y_position, y_position + hoehe],
+            mode="lines",
+            line=dict(color="black", width=2),
+            showlegend=False
+        ))
         gradient_steps = 14  # Number of steps in the color gradient
 
 
@@ -183,16 +220,7 @@ def add_rechtecke_mit_farbverlauf(rechtecke, x_offset, spiegeln=False):
             else:
                 x_start, x_end = x_offset, x_offset + breite
 
-        # add rectangle polygon for this gradient step
-        for x_pos in range(1, breite):
-            x_val = x_offset - x_pos if spiegeln else x_offset + x_pos
-            fig.add_trace(go.Scatter(
-                x=[x_val, x_val],
-                y=[y_position, y_position + hoehe],
-                mode="lines",
-                line=dict(color="gray", width=2),
-                showlegend=False
-            ))
+
 
 # Create axis labels
 x_labels = {
@@ -383,7 +411,7 @@ def plot_imported_hulls_with_file_colors(grouped_hulls, file_color_mapping):
             fillcolor=(
                 apply_alpha(color, 0.20)
                 if file_source in [convex_hulls_file_14, convex_hulls_file_16]
-                else apply_alpha(color, 0.50)
+                else apply_alpha(color, 0.70)
             ),
             name=f"Class: {soil_class}, AB: {ab_value}"
         ))
@@ -453,7 +481,8 @@ awc_max = awc_filtered.max()
 
 print(f"📊 AWC (realistic range): min={awc_min:.1f} %, max={awc_max:.1f} %")
 
-
+from matplotlib.colors import PowerNorm
+norm = PowerNorm(gamma=0.75, vmin=awc_min, vmax=awc_max)
 
 # Debug table
 dbg = df_parameters.copy()
@@ -475,14 +504,14 @@ outline_colors = {
     "rgba(0, 158, 115, 0.75)": "Silty Sand",
     "rgba(225, 195, 65, 0.75)": "Loamy Sand",
     "rgba(204, 121, 167, 0.75)": "Sandy Silt",
-    "rgba(70, 70, 70, 0.75)": "Silt",
+    "rgba(150, 135, 110, 0.75)": "Silt",
     "rgba(57, 255, 20, 0.85)": "Clayey Sand",
     "rgba(178, 34, 34, 0.75)": "Sandy Loam",
     "rgba(253, 192, 134, 0.75)": "Loamy Silt",
     "rgba(160, 82, 45, 0.75)": "Sandy Clay",
     "rgba(123, 204, 196, 0.75)": "Loam",
     "rgba(0, 90, 160, 0.75)": "Clay Loam",
-    "rgba(17, 17, 17, 0.85)": "Clay",
+    "rgba(40, 40, 40, 1)": "Clay",
     "rgba(94, 60, 153, 0.75)": "Silty Loam",
     "Organo-Mineral Soils": "rgba(184, 115, 51, 0.95)",
     "Organic Soils": "rgba(120, 85, 60, 0.95)"
@@ -584,7 +613,8 @@ for idx, row in df_parameters.iterrows():
     ring_y.append(y_val)
 
     # Soil-texture color for the inner core (fallback = black)
-    subfeldfarbe = soilclass_to_color.get(bodenklasse, "rgba(0,0,0,0.8)")
+    base_color = soilclass_to_color.get(bodenklasse, "rgba(0,0,0,1)")
+    subfeldfarbe = apply_alpha(base_color, 0.70)  
     ring_colors.append(subfeldfarbe)
 
 
@@ -626,9 +656,9 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="circle",
-        size=32,
+        size=36,
         color="rgba(0,0,0,0)",   
-        line=dict(color="black", width=2)
+        line=dict(color="black", width=3)
     ),
     hoverinfo="skip",
     showlegend=False
@@ -645,9 +675,9 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="circle",
-        size=31,
+        size=35,
         color=np.array(awc_values)[mask_circle],   # AWC values → Viridis colorscale
-        colorscale="Plasma",
+        colorscale="viridis",
         coloraxis="coloraxis",
         opacity=0.90,
         line=dict(width=0)
@@ -685,7 +715,7 @@ fig.add_trace(go.Scatter(
         size=22,
         color=np.array(ring_colors)[mask_circle],   # soil texture class color
         line=dict(color="black", width=1),
-        opacity=0.7
+        opacity=1
     ),
     text=np.array(hover_texts)[mask_circle],
     hovertemplate="%{text}<extra></extra>",
@@ -719,9 +749,9 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="square",
-        size=28,
-        color="rgba(0,0,0,0)",   # transparent fill
-        line=dict(color="black", width=2)
+        size=32,
+        color="rgba(0,0,0,0)", 
+        line=dict(color="black", width=3)
     ),
     hoverinfo="skip",
     showlegend=False
@@ -739,9 +769,9 @@ fig.add_trace(go.Scatter(
     mode="markers",
     marker=dict(
         symbol="square",
-        size=27,
-        color=np.array(awc_values)[mask_square],   # AWC → Viridis scale
-        colorscale="Plasma",
+        size=31,
+        color=np.array(awc_values)[mask_square],   # <- DAS FEHLT
+        colorscale="viridis",
         coloraxis="coloraxis",
         opacity=0.90,
         line=dict(width=0)
@@ -779,7 +809,7 @@ fig.add_trace(go.Scatter(
         size=19,
         color=np.array(ring_colors)[mask_square],   # soil texture class color
         line=dict(color="black", width=1),
-        opacity=0.7
+        opacity=1
     ),
     text=np.array(hover_texts)[mask_square],
     hovertemplate="%{text}<extra></extra>",
@@ -815,7 +845,7 @@ if "highom_x" in globals() and len(highom_x) > 0:
         mode="markers",
         marker=dict(
             symbol="circle",
-            size=32,
+            size=34,
             color="rgba(0,0,0,0)",
             line=dict(color="black", width=2)
         ),
@@ -833,7 +863,7 @@ if "highom_x" in globals() and len(highom_x) > 0:
         mode="markers",
         marker=dict(
             symbol="circle",
-            size=32,
+            size=35,
             color="white",
             line=dict(color="white", width=0),
             opacity=1
@@ -885,7 +915,7 @@ if "highom_x" in globals() and len(highom_x) > 0:
 # Keep only the single global coloraxis for the AWC colorbar.
 fig.update_layout(
     coloraxis=dict(
-        colorscale="Plasma",
+        colorscale="viridis",
         cmin=awc_min,
         cmax=awc_max,
         colorbar=dict(
