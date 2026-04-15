@@ -1,9 +1,9 @@
-# Cantor diagram of Austrian soil texture classes with humus as 4th component (data Kirchdorf)
+# Cantor diagram of Austrian soil texture classes with SOM as 4th component (data Kirchdorf)
 # -------------------------------------------------------------------------
 # Creates an interactive Cantor plot showing:
 #   • AB-rectangles (AB99–AB1)
 #   • Austrian soil texture classes via convex hulls
-#   • Classification of samples based on sand, silt, clay and humus
+#   • Classification of samples based on sand, silt, clay and SOM
 #   • AWC (Available Water Capacity) displayed as color halo
 #   • Inner points colored by soil texture class
 #   • Export to HTML, PNG (Playwright), and TIFF (400 dpi)
@@ -106,18 +106,18 @@ legend_mapping = {
 }
 
 
-# Cubehelix → Liste von Farben (Plotly braucht hex / rgb)
+# Cubehelix 
 cubehelix = sns.cubehelix_palette(
     n_colors=256,
-    start=0.5,      # Farbstart
-    rot=-0.8,       # wie stark gedreht
-    gamma=1.0,      # Helligkeitsverlauf
-    hue=1.0,        # Farbsättigung
+    start=0.5,      # 
+    rot=-0.8,       
+    gamma=1.0,      
+    hue=1.0,        
     light=0.95,
     dark=0.15
 )
 
-# Umwandeln in Plotly-Format
+
 cubehelix_colorscale = [to_hex(c) for c in cubehelix]
 
 
@@ -180,7 +180,7 @@ def add_rechtecke_mit_farbverlauf(rechtecke, x_offset, spiegeln=False):
 
         breite = i + 1
 
-        # 👉 linker Rand
+        
         fig.add_trace(go.Scatter(
             x=[x_offset, x_offset],
             y=[y_position, y_position + hoehe],
@@ -189,7 +189,7 @@ def add_rechtecke_mit_farbverlauf(rechtecke, x_offset, spiegeln=False):
             showlegend=False
         ))
 
-        # 👉 rechter Rand
+     
         fig.add_trace(go.Scatter(
             x=[x_offset + breite, x_offset + breite],
             y=[y_position, y_position + hoehe],
@@ -252,7 +252,7 @@ add_rechtecke_mit_farbverlauf(rechtecke, 0)
 file_path_gilgen = "data/compendium.xlsx"
 df = pd.read_excel(file_path_gilgen, sheet_name='Soil_Kirchdorf')
 
-# 🔒 Original decimal texture values (before LRM)
+#  Original decimal texture values (before LRM)
 df_tex_raw = df[['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']].copy()
 
 
@@ -1272,11 +1272,11 @@ def export_highres_png():
         page.wait_for_timeout(800)  # wait for rendering
         page.screenshot(path=png_path, full_page=True)
         browser.close()
-    print("✅ PNG gespeichert unter:", png_path)
+    print(" PNG gespeichert unter:", png_path)
 
 #  Convert PNG to TIFF with 400 dpi 
 def convert_png_to_tiff_with_dpi(png_path, tiff_path, dpi=(400, 400)):
-    print("🖼️ Konvertiere PNG → TIFF (400 dpi) ...")
+    print(" Konvertiere PNG → TIFF (400 dpi) ...")
     if os.path.exists(png_path):
         img = Image.open(png_path)
         img.save(tiff_path, dpi=dpi)
@@ -1288,4 +1288,4 @@ def convert_png_to_tiff_with_dpi(png_path, tiff_path, dpi=(400, 400)):
 export_highres_png()
 convert_png_to_tiff_with_dpi(png_path, tiff_path)
 
-print("\n🎉 EXPORT KOMPLETT – Dateien gespeichert in:", export_dir)
+print("\n EXPORT KOMPLETT – Dateien gespeichert in:", export_dir)
