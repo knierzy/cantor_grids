@@ -2,7 +2,7 @@
 # Generates an interactive Cantor diagram showing AB rectangles,
 # soil texture subfields, and a Saxton–Rawls (2006) AWC heatmap,
 # with export to HTML, PNG, and high-resolution TIFF.
-# generation time with the current parameter settings is approximately 1 minute.
+# generation time with the current parameter settings is approximately several minutes.
 
 
 import plotly.graph_objects as go
