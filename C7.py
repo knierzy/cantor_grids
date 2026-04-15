@@ -257,7 +257,7 @@ df_parameters['location'] = df.loc[df_parameters.index, 'Unnamed: 7'].values
 
 print("\n=== DEBUG: First entries of df_parameters['location'] ===")
 print(df_parameters["location"].head(20))
-print(f"\n👉 Number of unique locations: {df_parameters['location'].nunique()}")
+print(f"\n Number of unique locations: {df_parameters['location'].nunique()}")
 
 # Show locations that appear multiple times
 duplicates = df_parameters["location"].value_counts()
@@ -730,7 +730,7 @@ class_distribution = {
 # mapping soil class
 klasse_zu_farbe = {v: k for k, v in farbe_to_subklasse.items()}
 
-# 👉 DIESE ZEILE FEHLT
+
 sorted_classes = [name for name in ordered_legende if name not in exclude_classes]
 
 # build legend (Shapes-Version)
