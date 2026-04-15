@@ -65,10 +65,10 @@ def add_rechtecke_horizontal(rechtecke):
         ab_value = int(label.replace("AB", ""))
 
         if ab_value % 5 == 0 or ab_value == 99:
-            ab_tick_vals.append(x_start + breite / 2)  # 🔥 Mitte!
+            ab_tick_vals.append(x_start + breite / 2) 
             ab_tick_text.append(label)
 
-    # 🔥 EINMAL sauber setzen
+ 
     fig.update_layout(
         xaxis=dict(
             tickvals=ab_tick_vals,
@@ -128,7 +128,7 @@ def add_saxton_polygons(fig, rechtecke, saxton_awc,
 
     from plotly.colors import sample_colorscale
 
-    # 🔥 Norm hier definieren
+ 
     norm = PowerNorm(gamma=0.75, vmin=zmin, vmax=zmax)
 
     AB_MIN = 41  
@@ -161,7 +161,7 @@ def add_saxton_polygons(fig, rechtecke, saxton_awc,
 
                 z = saxton_awc(A, D, (C0 + C1) / 2)
 
-                # 🔥 DAS ist die wichtige Änderung
+                
                 t = norm(z)
 
                 color = sample_colorscale(colorscale, t)[0]
@@ -394,7 +394,7 @@ def export_highres_png():
         page.goto(f"file://{os.path.abspath(html_path)}", timeout=0)
         page.screenshot(path=png_path, full_page=True)
         browser.close()
-        print("✅ PNG saved:", png_path)
+        print(" PNG saved:", png_path)
 
 # Convert PNG to TIFF (400 dpi)
 def convert_png_to_tiff_with_dpi(png_path, tiff_path, dpi=(400, 400)):
