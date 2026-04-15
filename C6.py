@@ -262,7 +262,7 @@ def plot_imported_hulls_with_file_colors(grouped_hulls, file_color_mapping):
         file_source = group["file_source"].iloc[0]
         color = file_color_mapping.get(file_source, "rgba(0, 0, 0, 0.5)")
 
-        # ✅ Fill-Logik (jetzt korrekt im Scope)
+       
         if file_source in [convex_hulls_file_11, convex_hulls_file_5]:  # Clay + Silt
             fill = ensure_transparency(color, alpha=0.72)
 
@@ -272,7 +272,7 @@ def plot_imported_hulls_with_file_colors(grouped_hulls, file_color_mapping):
         else:
             fill = ensure_transparency(color, alpha=0.6)
 
-        # ✅ Plot convex hull
+        #  Plot convex hull
         fig.add_trace(go.Scatter(
             x=hull_x,
             y=hull_y,
