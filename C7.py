@@ -1,9 +1,9 @@
-# Cantor diagram of Austrian soil texture classes with humus as 4th component (syntethic data)
+# Cantor diagram of Austrian soil texture classes with SOM as 4th component (syntethic data)
 # -------------------------------------------------------------------------
 # Creates an interactive Cantor plot showing:
 #   • AB-rectangles (AB99–AB1)
 #   • Austrian soil texture classes via convex hulls
-#   • Classification of samples based on sand, silt, clay and humus
+#   • Classification of samples based on sand, silt, clay and SOM
 #   • AWC (Available Water Capacity) displayed as color halo
 #   • Inner points colored by soil texture class
 #   • Export to HTML, PNG (Playwright), and TIFF (400 dpi)
