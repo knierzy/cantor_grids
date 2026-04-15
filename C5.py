@@ -206,7 +206,7 @@ print("len(df_linz) =", len(df_linz))
 print("len(df_linz_params) nach dropna/filter =", len(df_linz_params))
 print(df_linz_params.head(10))
 
-# 👉 HIER EINFÜGE
+
 df_parameters['Herkunft'] = df.loc[df_parameters.index, 'Unnamed: 5'].values
 df_parameters['Index'] = df.loc[df_parameters.index, 'Unnamed: 6'].values
 
@@ -411,8 +411,7 @@ for idx, row in df_parameters.iterrows():
         x_values.append(c)
         y_values.append(y_position_punkt)
         color_values.append(ratio)
-        symbols.append("circle")   # 👈 Pernegg = Kreis
-
+        symbols.append("circle")   
 
 # === Linz/Melk ===
 for _, row in df_linz_params.iterrows():
@@ -440,7 +439,7 @@ mask_cross = symbols_arr == "x"
 
 
 # =========================
-# 🔵 CIRCLES (Pernegg)
+#  CIRCLES (Pernegg)
 # =========================
 
 # 1. Schwarzer Außenring
@@ -541,7 +540,7 @@ fig.add_trace(go.Scatter(
         cmin=0,
         cmax=1,
         coloraxis="coloraxis",
-        line=dict(width=3)   # 🔥 WICHTIG
+        line=dict(width=3)   
     ),
     showlegend=False
 ))
@@ -613,7 +612,7 @@ fig.add_trace(go.Scatter(
 ))
 
 # =========================
-# 🎨 COLORBAR (global!)
+#  COLORBAR (global!)
 # =========================
 
 fig.update_layout(
@@ -950,7 +949,7 @@ def export_highres_png():
         page.wait_for_timeout(800)  
         page.screenshot(path=png_path, full_page=True)
         browser.close()
-    print("✅ PNG gespeichert unter:", png_path)
+    print(" PNG gespeichert unter:", png_path)
 
 #  Convert PNG to TIFF with 400 dpi 
 def convert_png_to_tiff_with_dpi(png_path, tiff_path, dpi=(400, 400)):
@@ -958,12 +957,12 @@ def convert_png_to_tiff_with_dpi(png_path, tiff_path, dpi=(400, 400)):
     if os.path.exists(png_path):
         img = Image.open(png_path)
         img.save(tiff_path, dpi=dpi)
-        print("✅ TIFF gespeichert unter:", tiff_path)
+        print(" TIFF gespeichert unter:", tiff_path)
     else:
-        print("❌ PNG nicht gefunden – TIFF konnte nicht erzeugt werden:", png_path)
+        print(" PNG nicht gefunden – TIFF konnte nicht erzeugt werden:", png_path)
 
 # Execute export sequence 
 export_highres_png()
 convert_png_to_tiff_with_dpi(png_path, tiff_path)
 
-print("\n🎉 EXPORT KOMPLETT – Dateien gespeichert in:", export_dir)
+print("\n EXPORT KOMPLETT – Dateien gespeichert in:", export_dir)
