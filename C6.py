@@ -1,4 +1,4 @@
-#### Cantor diagram for a soil texture classification system, with humus considered as a fourth component, 
+#### Cantor diagram for a soil texture classification system, with SOM considered as a fourth component, 
 #### including organo-mineral and organic soils
 
 import pandas as pd
