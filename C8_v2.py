@@ -124,7 +124,7 @@ from matplotlib.colors import PowerNorm
 
 def add_saxton_polygons(fig, rechtecke, saxton_awc,
                         n_x=120, zmin=3, zmax=35,
-                        colorscale="viridis"):
+                        colorscale="RdBu_r"):
 
     from plotly.colors import sample_colorscale
 
