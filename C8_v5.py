@@ -189,7 +189,7 @@ def add_gray_areas(fig, rechtecke,
                    y1_top=8.5,
                    x_right_start=None,
                    x_right_end=4500,
-                   gradient_steps=1):
+                   gradient_steps=4):
 
     # 1) grauer Streifen oberhalb von SOM/Pyrope 8
     for i, (x_start, breite, label) in enumerate(rechtecke):
