@@ -188,7 +188,15 @@ def add_pyrope8_gray_strip(fig, rechtecke,
                            y1=8.5,
                            gradient_steps=10):
 
-    for x_start, breite, label in rechtecke:
+    for i, (x_start, breite, label) in enumerate(rechtecke):
+
+        hoehe = i + 1
+
+        # nur Rechtecke zeichnen, die bis y=8 reichen
+        if hoehe < y0:
+            continue
+
+        y_top = min(y1, hoehe)
 
         for step in range(gradient_steps):
 
@@ -200,7 +208,7 @@ def add_pyrope8_gray_strip(fig, rechtecke,
 
             fig.add_trace(go.Scatter(
                 x=[x0, x1, x1, x0, x0],
-                y=[y0, y0, y1, y1, y0],
+                y=[y0, y0, y_top, y_top, y0],
                 fill="toself",
                 mode="lines",
                 fillcolor=f"rgba({gray},{gray},{gray},{alpha})",
@@ -208,8 +216,6 @@ def add_pyrope8_gray_strip(fig, rechtecke,
                 hoverinfo="skip",
                 showlegend=False
             ))
-
-
 
 add_saxton_polygons(fig, rechtecke, saxton_awc)
 
