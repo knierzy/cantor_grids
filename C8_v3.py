@@ -185,6 +185,14 @@ def add_saxton_polygons(fig, rechtecke, saxton_awc,
 
 add_saxton_polygons(fig, rechtecke, saxton_awc)
 
+add_pyrope8_gray_strip(
+    fig,
+    rechtecke,
+    y0=8.0,
+    y1=8.5
+)
+
+fig.add_trace(go.Heatmap(
 fig.add_trace(go.Heatmap(
     z=[[3, 35]],                 
     colorscale="plasma",
