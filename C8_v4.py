@@ -196,6 +196,7 @@ def add_pyrope8_gray_strip(fig, rechtecke,
         if hoehe < y0:
             continue
 
+        y_bottom = 0 if hoehe == y0 else y0
         y_top = min(y1, hoehe)
 
         for step in range(gradient_steps):
@@ -208,7 +209,7 @@ def add_pyrope8_gray_strip(fig, rechtecke,
 
             fig.add_trace(go.Scatter(
                 x=[x0, x1, x1, x0, x0],
-                y=[y0, y0, y_top, y_top, y0],
+                y=[y_bottom, y_bottom, y_top, y_top, y_bottom],
                 fill="toself",
                 mode="lines",
                 fillcolor=f"rgba({gray},{gray},{gray},{alpha})",
