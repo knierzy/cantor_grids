@@ -183,21 +183,24 @@ def add_saxton_polygons(fig, rechtecke, saxton_awc,
                     showlegend=False,
                 ))
 
-def add_pyrope8_gray_strip(fig, rechtecke,
-                           y0=0.0,
-                           y1=8.5,
-                           gradient_steps=16):
+def add_gray_areas(fig, rechtecke,
+                   y0_top=8.0,
+                   y1_top=8.5,
+                   x_right_start=None,
+                   x_right_end=4500,
+                   gradient_steps=16):
 
+    # 1) grauer Streifen oberhalb von SOM/Pyrope 8
     for i, (x_start, breite, label) in enumerate(rechtecke):
 
-        AB = int(label.replace("AB", ""))
+        hoehe = i + 1
 
-        # erst rechts nach AB40, also AB39, AB38, ...
-        if AB >= 40:
+        if hoehe < y0_top:
             continue
 
-        for step in range(gradient_steps):
+        y_top = min(y1_top, hoehe)
 
+        for step in range(gradient_steps):
             x0 = x_start + breite * step / gradient_steps
             x1 = x_start + breite * (step + 1) / gradient_steps
 
@@ -206,7 +209,7 @@ def add_pyrope8_gray_strip(fig, rechtecke,
 
             fig.add_trace(go.Scatter(
                 x=[x0, x1, x1, x0, x0],
-                y=[y0, y0, y1, y1, y0],
+                y=[y0_top, y0_top, y_top, y_top, y0_top],
                 fill="toself",
                 mode="lines",
                 fillcolor=f"rgba({gray},{gray},{gray},{alpha})",
@@ -214,14 +217,39 @@ def add_pyrope8_gray_strip(fig, rechtecke,
                 hoverinfo="skip",
                 showlegend=False
             ))
+
+    # 2) zusätzlicher grauer Bereich rechts von AB40 = AB39-Bereich
+    last_x_start, last_width, last_label = rechtecke[-1]
+
+    if x_right_start is None:
+        x_right_start = last_x_start + last_width
+
+    for step in range(gradient_steps):
+        x0 = x_right_start + (x_right_end - x_right_start) * step / gradient_steps
+        x1 = x_right_start + (x_right_end - x_right_start) * (step + 1) / gradient_steps
+
+        gray = int(80 + 150 * step / (gradient_steps - 1))
+        alpha = 0.75 - 0.25 * step / (gradient_steps - 1)
+
+        fig.add_trace(go.Scatter(
+            x=[x0, x1, x1, x0, x0],
+            y=[0, 0, y1_top, y1_top, 0],
+            fill="toself",
+            mode="lines",
+            fillcolor=f"rgba({gray},{gray},{gray},{alpha})",
+            line=dict(width=0),
+            hoverinfo="skip",
+            showlegend=False
+        ))
             
 add_saxton_polygons(fig, rechtecke, saxton_awc)
 
-add_pyrope8_gray_strip(
+add_gray_areas(
     fig,
     rechtecke,
-    y0=8.0,
-    y1=8.5
+    y0_top=8.0,
+    y1_top=8.5,
+    x_right_end=4500
 )
 
 
