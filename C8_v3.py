@@ -208,7 +208,31 @@ fig.add_trace(go.Heatmap(
     hoverinfo="skip"
 ))
 
+def add_pyrope8_gray_strip(fig, rechtecke,
+                           y0=8.0,
+                           y1=8.5,
+                           gradient_steps=10):
 
+    for x_start, breite, label in rechtecke:
+
+        for step in range(gradient_steps):
+
+            x0 = x_start + breite * step / gradient_steps
+            x1 = x_start + breite * (step + 1) / gradient_steps
+
+            gray = int(180 + 40 * step / (gradient_steps - 1))
+            alpha = 0.45 - 0.25 * step / (gradient_steps - 1)
+
+            fig.add_trace(go.Scatter(
+                x=[x0, x1, x1, x0, x0],
+                y=[y0, y0, y1, y1, y0],
+                fill="toself",
+                mode="lines",
+                fillcolor=f"rgba({gray},{gray},{gray},{alpha})",
+                line=dict(width=0),
+                hoverinfo="skip",
+                showlegend=False
+            ))
 
 
 
