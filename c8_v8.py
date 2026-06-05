@@ -125,7 +125,7 @@ from matplotlib.colors import PowerNorm
 
 def add_saxton_polygons(fig, rechtecke, saxton_awc,
                         n_x=120, zmin=3, zmax=35,
-                        colorscale="YlGnBu"):
+                        colorscale="YlGnBu_r"):
 
     from plotly.colors import sample_colorscale
 
@@ -258,7 +258,7 @@ add_gray_areas(
 
 fig.add_trace(go.Heatmap(
     z=[[3, 35]],                 
-    colorscale="YlGnBu",
+    colorscale="YlGnBu_r",
     showscale=True,
     colorbar=dict(
         title=dict(
