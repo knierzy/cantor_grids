@@ -203,8 +203,8 @@ def add_pyrope8_gray_strip(fig, rechtecke,
             x0 = x_start + breite * step / gradient_steps
             x1 = x_start + breite * (step + 1) / gradient_steps
 
-            gray = int(180 + 40 * step / (gradient_steps - 1))
-            alpha = 0.45 - 0.25 * step / (gradient_steps - 1)
+            gray = int(80 + 150 * step / (gradient_steps - 1))
+            alpha = 0.75 - 0.25 * step / (gradient_steps - 1)
 
             fig.add_trace(go.Scatter(
                 x=[x0, x1, x1, x0, x0],
