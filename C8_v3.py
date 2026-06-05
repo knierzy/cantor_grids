@@ -192,7 +192,7 @@ add_pyrope8_gray_strip(
     y1=8.5
 )
 
-fig.add_trace(go.Heatmap(
+
 fig.add_trace(go.Heatmap(
     z=[[3, 35]],                 
     colorscale="plasma",
