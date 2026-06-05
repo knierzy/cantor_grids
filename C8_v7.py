@@ -449,8 +449,8 @@ os.makedirs(EXPORT_DIR, exist_ok=True)
 
 # Paths (relative, GitHub-safe)
 html_path = os.path.join(EXPORT_DIR, "cantor_export_interaktiv10.html")
-png_path  = os.path.join(EXPORT_DIR, "cantor_switch3.png")
-tiff_path = os.path.join(EXPORT_DIR, "cantor_switch3_400dpi.tiff")
+png_path  = os.path.join(EXPORT_DIR, "cantor_switch4.png")
+tiff_path = os.path.join(EXPORT_DIR, "cantor_switch4_400dpi.tiff")
 
 # Write interactive HTML
 fig.write_html(html_path, full_html=True, include_plotlyjs="cdn")
