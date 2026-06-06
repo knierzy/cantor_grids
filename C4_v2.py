@@ -366,6 +366,26 @@ fig.add_shape(
     )
 )
 
+
+fig.add_annotation(
+    x=0.02,
+    y=0.98,
+    xref="paper",
+    yref="paper",
+    text=legende_text,
+    showarrow=False,
+    xanchor="left",
+    yanchor="top",
+    align="left",
+    bgcolor="white",
+    bordercolor="black",
+    borderwidth=2,
+    font=dict(size=24, color="black")
+)
+
+
+
+
 # show plot
 fig.show()
 
