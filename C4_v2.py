@@ -170,7 +170,7 @@ ordered_hulls = [
 
 # Legend for Diagram
 legende_text = (
-    '<span style="font-size:50px; font-weight:bold;">'
+    '<span style="font-size:38px; font-weight:bold;">'
     'Garnet Provenance Groups'
     '</span><br><br>'
 )
