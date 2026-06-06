@@ -170,7 +170,7 @@ ordered_hulls = [
 
 # Legend for Diagram
 legende_text = (
-    '<span style="font-size:38px; font-weight:bold;">'
+    '<span style="font-size:32px; font-weight:bold;">'
     'Garnet Provenance Groups'
     '</span><br><br>'
 )
@@ -183,8 +183,8 @@ for file_path in ordered_hulls:
     )
 
     legende_text += (
-        f'<span style="color:{color}; font-size:70px;">■</span> '
-        f'<span style="font-size:30px; font-weight:bold;">{hull_name}</span>'
+        f'<span style="color:{color}; font-size:50px;">■</span> '
+        f'<span style="font-size:24px; font-weight:bold;">{hull_name}</span>'
         f'<br><br>'
     )
 
