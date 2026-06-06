@@ -376,7 +376,7 @@ fig.add_shape(
 
 
 fig.add_annotation(
-    x=0.08,
+    x=0.04,
     y=0.92,
     xref="paper",
     yref="paper",
