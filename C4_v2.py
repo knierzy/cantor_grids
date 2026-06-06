@@ -184,8 +184,8 @@ for file_path in ordered_hulls:
 
     legende_text += (
         f'<span style="color:{color}; font-size:50px;">■</span> '
-        f'<span style="font-size:24px; font-weight:bold;">{hull_name}</span>'
-        f'<br><br>'
+        f'<span style="font-size:28px; font-weight:bold;">{hull_name}</span>'
+        f'<br>'
     )
 
 
