@@ -427,7 +427,7 @@ for _, row in df_linz_params.iterrows():
         color_values.append(ratio)
         symbols.append("x")
 
-#  HIER EINFÜGEN (direkt nach den Schleifen!)
+
 
 x_vals = np.array(x_values)
 y_vals = np.array(y_values)
@@ -466,7 +466,7 @@ fig.add_trace(go.Scatter(
         symbol="circle",
         size=18,
         color=ratios[mask_circle],
-        colorscale="YlGnBu",
+        colorscale="Inferno",
         cmin=0,
         cmax=1,
         coloraxis="coloraxis",
@@ -501,7 +501,7 @@ fig.add_trace(go.Scatter(
         symbol="circle",
         size=1,
         color=ratios[mask_circle],
-        colorscale="YlGnBu",
+        colorscale="Inferno",
         cmin=0,
         cmax=1,
         line=dict(color="black", width=1)
@@ -536,7 +536,7 @@ fig.add_trace(go.Scatter(
         symbol="diamond",
         size=21,
         color=ratios[mask_cross],
-        colorscale="YlGnBu",
+        colorscale="Inferno",
         cmin=0,
         cmax=1,
         coloraxis="coloraxis",
@@ -554,7 +554,7 @@ fig.add_trace(go.Scatter(
         symbol="diamond",
         size=18,
         color=ratios[mask_cross],
-        colorscale="YlGnBu",
+        colorscale="Inferno",
         cmin=0,
         cmax=1,
         coloraxis="coloraxis",
@@ -589,7 +589,7 @@ fig.add_trace(go.Scatter(
         symbol="diamond",
         size=1,
         color=ratios[mask_cross],
-        colorscale="YlGnBu",
+        colorscale="Inferno",
         cmin=0,
         cmax=1,
         line=dict(color="black", width=1)
@@ -617,7 +617,7 @@ fig.add_trace(go.Scatter(
 
 fig.update_layout(
     coloraxis=dict(
-        colorscale="YlGnBu",
+        colorscale="Inferno",
         cmin=0,
         cmax=1,
         colorbar=dict(
