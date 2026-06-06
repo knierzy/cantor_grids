@@ -168,18 +168,25 @@ ordered_hulls = [
     convex_hulls_file_8,
 ]
 
-# Prepare legend text
+# Legend for Diagram
+legende_text = (
+    '<span style="font-size:50px; font-weight:bold;">'
+    'Garnet Provenance Groups'
+    '</span><br><br>'
+)
 
 for file_path in ordered_hulls:
     color = color_mapping_files[file_path]
-    hull_name = legend_mapping.get(file_path, file_path.split("\\")[-1].split(".")[0])
-    legende_text += (
-        f'<span style="color:{color}; font-size:70px;">■</span> '
-        f'<span style="font-size:38px; font-weight:bold;">{hull_name}</span>'
-        f'<br><br>'
-        f'<span style="font-size:6px;">&nbsp;</span>'
+    hull_name = legend_mapping.get(
+        file_path,
+        file_path.split("\\")[-1].split(".")[0]
     )
 
+    legende_text += (
+        f'<span style="color:{color}; font-size:70px;">■</span> '
+        f'<span style="font-size:30px; font-weight:bold;">{hull_name}</span>'
+        f'<br><br>'
+    )
 
 
 
