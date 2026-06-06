@@ -90,8 +90,8 @@ def add_rechtecke_mit_farbverlauf(rechtecke, x_offset, spiegeln=False):
         # gradient_steps = 14  # Number of steps in the color gradient
         gradient_steps = 5 if i >= 90 else 10  # Number of steps in the color gradient
         
-        grau_start = 155  # darker gray at the bottom
-        grau_ende = 220  # brighter gray at the top
+        grau_start = 200  # darker gray at the bottom
+        grau_ende = 230  # brighter gray at the top
 
         for step in range(gradient_steps):
             # Calculate the gray value within an AB-rectangle
