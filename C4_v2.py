@@ -376,8 +376,8 @@ fig.add_shape(
 
 
 fig.add_annotation(
-    x=0.04,
-    y=0.92,
+    x=0.03,
+    y=0.94,
     xref="paper",
     yref="paper",
     text=legende_text,
