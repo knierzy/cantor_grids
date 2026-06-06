@@ -172,7 +172,7 @@ ordered_hulls = [
 legende_text = (
     '<span style="font-size:32px; font-weight:bold;">'
     'Garnet Provenance Groups'
-    '</span><br><br>'
+    f'<br><span style="font-size:10px;">&nbsp;</span>'
 )
 
 for file_path in ordered_hulls:
