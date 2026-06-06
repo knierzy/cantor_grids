@@ -87,8 +87,9 @@ def ensure_transparency(color, alpha=0.7):
 def add_rechtecke_mit_farbverlauf(rechtecke, x_offset, spiegeln=False):
     for i, (y_position, hoehe, label) in enumerate(rechtecke):
         breite = i + 1
-        gradient_steps = 14  # Number of steps in the color gradient
-
+        # gradient_steps = 14  # Number of steps in the color gradient
+        gradient_steps = 5 if i >= 90 else 10  # Number of steps in the color gradient
+        
         grau_start = 155  # darker gray at the bottom
         grau_ende = 220  # brighter gray at the top
 
