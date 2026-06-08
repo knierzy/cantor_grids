@@ -326,12 +326,11 @@ for x in x_values:
     )
 
 # Rotate the plot 90 degrees by swapping X and Y data
-# Rotation
+
 for trace in fig.data:
     trace.x, trace.y = trace.y, trace.x
 
-# 
-# NACH der Rotation!
+
 x_min = fig.layout.xaxis.range[0]  
 
 fig.add_shape(
@@ -358,7 +357,6 @@ fig.update_layout(
 )
 
 
-# nach der Rotation!
 x_min = fig.layout.xaxis.range[0]
 x_max = fig.layout.xaxis.range[1]
 
