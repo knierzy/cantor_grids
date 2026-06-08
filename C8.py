@@ -41,7 +41,7 @@ def add_rechtecke_horizontal(rechtecke):
     for i, (x_start, breite, label) in enumerate(rechtecke):
         hoehe = i + 1  
 
-        # Rechteck
+        # rectangle
         fig.add_trace(go.Scatter(
             x=[x_start, x_start + breite, x_start + breite, x_start, x_start],
             y=[0, 0, hoehe, hoehe, 0],
@@ -52,7 +52,7 @@ def add_rechtecke_horizontal(rechtecke):
             showlegend=False
         ))
 
-        # horizontale Linien
+        # horizontal lines 
         for y in range(1, hoehe):
             fig.add_trace(go.Scatter(
                 x=[x_start, x_start + breite],
@@ -62,7 +62,7 @@ def add_rechtecke_horizontal(rechtecke):
                 showlegend=False
             ))
 
-        # Tick-Logik direkt hier sammeln
+        # ticks
         ab_value = int(label.replace("AB", ""))
 
         if ab_value % 5 == 0 or ab_value == 99:
@@ -191,7 +191,7 @@ def add_gray_areas(fig, rechtecke,
                    x_right_end=4500,
                    gradient_steps=16):
 
-    # 1) grauer Streifen oberhalb von SOM/Pyrope 8
+    # 1) Gray band above SOM/Pyrope 8
     for i, (x_start, breite, label) in enumerate(rechtecke):
 
         hoehe = i + 1
@@ -219,7 +219,7 @@ def add_gray_areas(fig, rechtecke,
                 showlegend=False
             ))
 
-        # 2) AB39 komplett grau bis Pyrope 8
+        # 2) AB39 entirely gray up to Pyrope 8
 
     for x_start, breite, label in rechtecke:
 
@@ -447,7 +447,6 @@ from PIL import Image
 EXPORT_DIR = "exports"
 os.makedirs(EXPORT_DIR, exist_ok=True)
 
-# Paths (relative, GitHub-safe)
 html_path = os.path.join(EXPORT_DIR, "cantor_export_interaktiv10.html")
 png_path  = os.path.join(EXPORT_DIR, "cantor_grid.png")
 tiff_path = os.path.join(EXPORT_DIR, "cantor_grid_400dpi.tiff")
