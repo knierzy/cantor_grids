@@ -162,7 +162,7 @@ def add_rechtecke_mit_farbverlauf(rechtecke, x_offset, spiegeln=False):
             ))
 
 
-# === Create axis labels (GLOBAL, NOT inside function!) ===
+#  Create axis labels (GLOBAL, NOT inside function!) ===
 x_labels = {
     50: "AB99", 440: "AB95", 915: "AB90", 1350: "AB85",
     1760: "AB80", 2158: "AB75", 2540: "AB70",
@@ -171,7 +171,7 @@ x_labels = {
     4405: "AB35", 4570: "AB30", 4830: "AB20",
 }
 
-# === Update X-axis with labels ===
+#  Update X-axis with labels ===
 fig.update_layout(
     xaxis=dict(
         title="Summe A + B (%)",
@@ -398,7 +398,7 @@ custom_colorscale = [
 x_values, y_values, color_values = [], [], []
 symbols = []   
 
-# === Pernegg ===
+# = Pernegg =
 for idx, row in df_parameters.iterrows():
     a = row['Unnamed: 1']
     b = row['Unnamed: 2']
@@ -413,7 +413,7 @@ for idx, row in df_parameters.iterrows():
         color_values.append(ratio)
         symbols.append("circle")   
 
-# === Linz/Melk ===
+# = Linz/Melk =
 for _, row in df_linz_params.iterrows():
     a = row['Unnamed: 1']
     b = row['Unnamed: 2']
@@ -427,7 +427,6 @@ for _, row in df_linz_params.iterrows():
         color_values.append(ratio)
         symbols.append("x")
 
-#  HIER EINFÜGEN (direkt nach den Schleifen!)
 
 x_vals = np.array(x_values)
 y_vals = np.array(y_values)
@@ -438,11 +437,11 @@ mask_circle = symbols_arr == "circle"
 mask_cross = symbols_arr == "x"
 
 
-# =========================
-#  CIRCLES (Pernegg)
-# =========================
 
-# 1. Schwarzer Außenring
+#  CIRCLES (Pernegg)
+
+
+# 1. Outer black ring
 fig.add_trace(go.Scatter(
     x=x_vals[mask_circle],
     y=y_vals[mask_circle],
@@ -457,7 +456,7 @@ fig.add_trace(go.Scatter(
     showlegend=False
 ))
 
-# 2. Farbiger Halo
+# 2. Colored Halo
 fig.add_trace(go.Scatter(
     x=x_vals[mask_circle],
     y=y_vals[mask_circle],
@@ -477,7 +476,7 @@ fig.add_trace(go.Scatter(
     showlegend=False
 ))
 
-# 3. Weißer Cutout
+# 3. White Cutout
 fig.add_trace(go.Scatter(
     x=x_vals[mask_circle],
     y=y_vals[mask_circle],
@@ -492,7 +491,7 @@ fig.add_trace(go.Scatter(
     showlegend=False
 ))
 
-# 4. Innerer Farbpunkt
+# 4. Inner colored dot
 fig.add_trace(go.Scatter(
     x=x_vals[mask_circle],
     y=y_vals[mask_circle],
@@ -509,7 +508,7 @@ fig.add_trace(go.Scatter(
     showlegend=False
 ))
 
-# 5.  central point
+# 5.  Central point
 fig.add_trace(go.Scatter(
     x=x_vals[mask_circle],
     y=y_vals[mask_circle],
@@ -523,9 +522,9 @@ fig.add_trace(go.Scatter(
     showlegend=False
 ))
 
-# =========================
+
 # X (Linz/Melk)
-# =========================
+
 
 # 1. Black frame
 fig.add_trace(go.Scatter(
@@ -597,7 +596,7 @@ fig.add_trace(go.Scatter(
     showlegend=False
 ))
 
-# 5. Schwarzer Mittelpunkt
+# 5. Central point
 fig.add_trace(go.Scatter(
     x=x_vals[mask_cross],
     y=y_vals[mask_cross],
@@ -611,9 +610,9 @@ fig.add_trace(go.Scatter(
     showlegend=False
 ))
 
-# =========================
+
 #  COLORBAR (global!)
-# =========================
+
 
 fig.update_layout(
     coloraxis=dict(
@@ -705,11 +704,10 @@ for trace in fig.data:
     trace.x, trace.y = trace.y, trace.x
 
 
-# definieren                #march26
 x_min = -30
 x_max = rechtecke[-1][0] + rechtecke[-1][1]
 
-# verwenden
+
 fig.add_shape(
     type="line",
     x0=x_min,
@@ -806,7 +804,6 @@ df_linz_params = classify_dataset(df_linz_params, means, sigmas) # LMF
 # Classification using Mahalanobis (diagonal covariance)
 
  
-
 # Summary
 summary_pf = df_parameters["Nearest_Subfield_Mahalanobis"].value_counts()
 summary_lmf = df_linz_params["Nearest_Subfield_Mahalanobis"].value_counts()
@@ -824,7 +821,7 @@ print(pd.DataFrame({
     "LMF %": summary_lmf_pct
 }))
 
-#  (Optional) small diagnostic output
+#  small diagnostic output
 print("\nCheck Spalten-Reihenfolge:")
 print("Means cols:", list(means.columns))
 print("Sigmas cols:", list(sigmas.columns))
@@ -846,7 +843,7 @@ for file_path in ordered_hulls:
     count_lmf = summary_lmf.get(hull_name, 0)
     pct_lmf = summary_lmf_pct.get(hull_name, 0)
 
-    legend_text += (   #jetzt korrekt innerhalb der Schleife
+    legend_text += (  
         f'<span style="color:{color}; font-size:62px;">■</span> '
         f'<span style="font-size:35px; font-weight:bold;">{hull_name}</span> '
         f'<span style="font-size:30px;">'
@@ -905,7 +902,6 @@ fig.add_shape(
         width=2
     )
 )
-
 
 
 
