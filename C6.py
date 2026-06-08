@@ -45,9 +45,6 @@ color_mapping_files = {
     convex_hulls_file_16: "rgba(100, 95, 90, 0.2)",
 }
 
-
-
-
 # Rectangle data with the classification system up to AB1
 rechtecke = [
     (0, 100, "AB99"), (100, 99, "AB98"), (199, 98, "AB97"), (297, 97, "AB96"), (394, 96, "AB95"),
