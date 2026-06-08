@@ -60,7 +60,7 @@ convex_hulls_file_16 = "data/convex_hull_organicsoils.xlsx"
 # Transparency
 ALPHA_HULL = 0.50
 ALPHA_POINT = 0.5
-ALPHA_LEGEND = 0.70
+ALPHA_LEGEND = 0.60
 
 
 
@@ -411,7 +411,7 @@ def plot_imported_hulls_with_file_colors(grouped_hulls, file_color_mapping):
             fillcolor=(
                 apply_alpha(color, 0.20)
                 if file_source in [convex_hulls_file_14, convex_hulls_file_16]
-                else apply_alpha(color, 0.70)
+                else apply_alpha(color, 0.60)
             ),
             name=f"Class: {soil_class}, AB: {ab_value}"
         ))
@@ -614,7 +614,7 @@ for idx, row in df_parameters.iterrows():
 
     # Soil-texture color for the inner core (fallback = black)
     base_color = soilclass_to_color.get(bodenklasse, "rgba(0,0,0,1)")
-    subfeldfarbe = apply_alpha(base_color, 0.70)  
+    subfeldfarbe = apply_alpha(base_color, 0.60)  
     ring_colors.append(subfeldfarbe)
 
 
@@ -677,7 +677,7 @@ fig.add_trace(go.Scatter(
         symbol="circle",
         size=35,
         color=np.array(awc_values)[mask_circle],   # AWC values → Viridis colorscale
-        colorscale="viridis",
+        colorscale="YlGnBu",
         coloraxis="coloraxis",
         opacity=0.90,
         line=dict(width=0)
@@ -771,7 +771,7 @@ fig.add_trace(go.Scatter(
         symbol="square",
         size=31,
         color=np.array(awc_values)[mask_square],   # <- DAS FEHLT
-        colorscale="viridis",
+        colorscale="YlGnBu",
         coloraxis="coloraxis",
         opacity=0.90,
         line=dict(width=0)
@@ -915,7 +915,7 @@ if "highom_x" in globals() and len(highom_x) > 0:
 # Keep only the single global coloraxis for the AWC colorbar.
 fig.update_layout(
     coloraxis=dict(
-        colorscale="viridis",
+        colorscale="YlGnBu",
         cmin=awc_min,
         cmax=awc_max,
         colorbar=dict(
