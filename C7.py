@@ -17,7 +17,7 @@ from PIL import Image
 import os
 show_points = True
 
-# Largest Remainder Method (Hare–Niemeyer) 
+# Largest Remainder Method 
 def normalize_to_100_with_remainders(row):
     cols = ['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
     values = row[cols].astype(float).to_numpy()
@@ -37,7 +37,6 @@ def normalize_to_100_with_remainders(row):
 
     row[cols] = ints
     return row
-
 
 
 # file paths
@@ -77,8 +76,6 @@ color_mapping_files = {
 }
 
 
-
-
 # Rectangle data with the classification system up to AB1
 rechtecke = [
     (0, 100, "AB99"), (100, 99, "AB98"), (199, 98, "AB97"), (297, 97, "AB96"), (394, 96, "AB95"),
@@ -105,7 +102,6 @@ rechtecke = [
 
 # Set up diagram
 fig = go.Figure()
-
 
 
 def apply_alpha(color, alpha):
@@ -726,7 +722,7 @@ class_distribution = {
     for name in ordered_legende
 }
 
-# mapping soil class
+
 # mapping soil class
 klasse_zu_farbe = {v: k for k, v in farbe_to_subklasse.items()}
 
@@ -736,8 +732,6 @@ sorted_classes = [name for name in ordered_legende if name not in exclude_classe
 # build legend (Shapes-Version)
 y_start = 7.9
 dy = 0.45
-
-
 
 # Adjust layout to center
 fig.update_layout(
@@ -876,7 +870,7 @@ fig.add_shape(
     x1=260,
     y0=7.95 - len(sorted_classes)*0.40 - 0.2,
     y1=8.2,
-    fillcolor="rgba(255,255,255,1.0)",  # jetzt komplett deckend!
+    fillcolor="rgba(255,255,255,1.0)", 
     line=dict(color="black", width=1),
     layer="above"
 )
@@ -888,7 +882,7 @@ for i, name in enumerate(sorted_classes):
 
     y = y_start - i * dy
 
-    # Rechteck (Legendensymbol)
+    # rectangle
     fig.add_shape(
         type="rect",
         x0=20,
@@ -899,7 +893,7 @@ for i, name in enumerate(sorted_classes):
         line=dict(color="black", width=1)
     )
 
-    # Text
+    # text
     fig.add_annotation(
         x=70,
         y=y,
@@ -909,9 +903,6 @@ for i, name in enumerate(sorted_classes):
         yanchor="middle",
         font=dict(size=32, color="black")
     )
-
-
-
 
 
 # Show plot
