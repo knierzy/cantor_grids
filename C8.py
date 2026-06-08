@@ -23,8 +23,9 @@ rechtecke = [
     (3220, 60, "AB59"), (3280, 59, "AB58"), (3339, 58, "AB57"), (3397, 57, "AB56"), (3454, 56, "AB55"),
     (3510, 55, "AB54"), (3565, 54, "AB53"), (3619, 53, "AB52"), (3672, 52, "AB51"), (3724, 51, "AB50"),
     (3775, 50, "AB49"), (3825, 49, "AB48"), (3874, 48, "AB47"), (3922, 47, "AB46"), (3969, 46, "AB45"),
-    (4015, 45, "AB44"), (4060, 44, "AB43"), (4104, 43, "AB42"), (4147, 42, "AB41"), (4189, 41, "AB40"),
-
+    (4015, 45, "AB44"), (4060, 44, "AB43"), (4104, 43, "AB42"), (4147, 42, "AB41"), (4189, 41, "AB40"), 
+    (4230, 40, "AB39"),
+  
 ]
 
 # Set up diagram
@@ -124,14 +125,14 @@ from matplotlib.colors import PowerNorm
 
 def add_saxton_polygons(fig, rechtecke, saxton_awc,
                         n_x=120, zmin=3, zmax=35,
-                        colorscale="viridis"):
+                        colorscale="YlGnBu"):
 
     from plotly.colors import sample_colorscale
 
  
     norm = PowerNorm(gamma=0.75, vmin=zmin, vmax=zmax)
 
-    AB_MIN = 41  
+    AB_MIN = 40  
 
     for ab_index, (x_start, breite, label) in enumerate(rechtecke):
 
@@ -183,11 +184,81 @@ def add_saxton_polygons(fig, rechtecke, saxton_awc,
                     showlegend=False,
                 ))
 
+def add_gray_areas(fig, rechtecke,
+                   y0_top=8.0,
+                   y1_top=8.5,
+                   x_right_start=None,
+                   x_right_end=4500,
+                   gradient_steps=16):
+
+    # 1) grauer Streifen oberhalb von SOM/Pyrope 8
+    for i, (x_start, breite, label) in enumerate(rechtecke):
+
+        hoehe = i + 1
+
+        if hoehe < y0_top:
+            continue
+
+        y_top = min(y1_top, hoehe)
+
+        for step in range(gradient_steps):
+            x0 = x_start + breite * step / gradient_steps
+            x1 = x_start + breite * (step + 1) / gradient_steps
+
+            gray = int(80 + 150 * step / (gradient_steps - 1))
+            alpha = 0.75 - 0.25 * step / (gradient_steps - 1)
+
+            fig.add_trace(go.Scatter(
+                x=[x0, x1, x1, x0, x0],
+                y=[y0_top, y0_top, y_top, y_top, y0_top],
+                fill="toself",
+                mode="lines",
+                fillcolor=f"rgba({gray},{gray},{gray},{alpha})",
+                line=dict(width=0),
+                hoverinfo="skip",
+                showlegend=False
+            ))
+
+        # 2) AB39 komplett grau bis Pyrope 8
+
+    for x_start, breite, label in rechtecke:
+
+        if label != "AB39":
+            continue
+
+        for step in range(gradient_steps):
+
+            x0 = x_start + breite * step / gradient_steps
+            x1 = x_start + breite * (step + 1) / gradient_steps
+
+            gray = int(80 + 150 * step / (gradient_steps - 1))
+            alpha = 0.75 - 0.25 * step / (gradient_steps - 1)
+
+            fig.add_trace(go.Scatter(
+                x=[x0, x1, x1, x0, x0],
+                y=[0, 0, 8.0, 8.0, 0],
+                fill="toself",
+                mode="lines",
+                fillcolor=f"rgba({gray},{gray},{gray},{alpha})",
+                line=dict(width=0),
+                hoverinfo="skip",
+                showlegend=False
+            ))
+            
 add_saxton_polygons(fig, rechtecke, saxton_awc)
+
+add_gray_areas(
+    fig,
+    rechtecke,
+    y0_top=8.0,
+    y1_top=8.5,
+    x_right_end=4500
+)
+
 
 fig.add_trace(go.Heatmap(
     z=[[3, 35]],                 
-    colorscale="viridis",
+    colorscale="YlGnBu",
     showscale=True,
     colorbar=dict(
         title=dict(
@@ -207,6 +278,7 @@ fig.add_trace(go.Heatmap(
     opacity=0,                   
     hoverinfo="skip"
 ))
+
 
 # Global layout and axis styling
 
@@ -377,8 +449,8 @@ os.makedirs(EXPORT_DIR, exist_ok=True)
 
 # Paths (relative, GitHub-safe)
 html_path = os.path.join(EXPORT_DIR, "cantor_export_interaktiv10.html")
-png_path  = os.path.join(EXPORT_DIR, "cantor_switch2.png")
-tiff_path = os.path.join(EXPORT_DIR, "cantor_switch2_400dpi.tiff")
+png_path  = os.path.join(EXPORT_DIR, "cantor_grid.png")
+tiff_path = os.path.join(EXPORT_DIR, "cantor_grid_400dpi.tiff")
 
 # Write interactive HTML
 fig.write_html(html_path, full_html=True, include_plotlyjs="cdn")
