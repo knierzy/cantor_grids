@@ -168,17 +168,25 @@ ordered_hulls = [
     convex_hulls_file_8,
 ]
 
-# Prepare legend text
+# Legend for Diagram
+legende_text = (
+    '<span style="font-size:34px; font-weight:bold;">'
+    'Garnet Provenance Groups'
+     f'<br><br>'
+)
 
 for file_path in ordered_hulls:
     color = color_mapping_files[file_path]
-    hull_name = legend_mapping.get(file_path, file_path.split("\\")[-1].split(".")[0])
-    legende_text += (
-        f'<span style="color:{color}; font-size:50px;">■</span> '
-        f'<span style="font-size:32px; font-weight:bold;">{hull_name}</span><br>'
-        f'<span style="font-size:6px;">&nbsp;</span>'
+    hull_name = legend_mapping.get(
+        file_path,
+        file_path.split("\\")[-1].split(".")[0]
     )
 
+    legende_text += (
+        f'<span style="color:{color}; font-size:65px;">■</span> '
+        f'<span style="font-size:32px; font-weight:bold;">{hull_name}</span>'
+        f'<br><br>'
+    )
 
 
 
@@ -366,6 +374,26 @@ fig.add_shape(
     )
 )
 
+
+fig.add_annotation(
+    x=0.02,
+    y=0.92,
+    xref="paper",
+    yref="paper",
+    text=legende_text,
+    showarrow=False,
+    xanchor="left",
+    yanchor="top",
+    align="left",
+    bgcolor="rgba(255,255,255,0.95)",
+    bordercolor="black",
+    borderwidth=3,
+    font=dict(size=30, color="black")
+)
+
+
+
+
 # show plot
 fig.show()
 
@@ -423,4 +451,3 @@ export_highres_png()
 convert_png_to_tiff_with_dpi(png_path, tiff_path)
 
 print("\n EXPORT KOMPLETT – Dateien gespeichert in:", export_dir)
-
