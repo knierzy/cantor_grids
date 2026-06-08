@@ -63,8 +63,6 @@ ALPHA_POINT = 0.5
 ALPHA_LEGEND = 0.60
 
 
-
-
 # color mappings
 color_mapping_files = {
     convex_hulls_file_1: "rgba(160, 82, 45, 0.75)",       
@@ -83,8 +81,6 @@ color_mapping_files = {
     convex_hulls_file_15: "rgba(94, 60, 153, 0.75)",  
     convex_hulls_file_16: "rgba(100, 95, 90, 0.2)",
 }
-
-
 
 
 legend_mapping = {
@@ -910,9 +906,7 @@ if "highom_x" in globals() and len(highom_x) > 0:
     ))
 
 
-
-
-# Keep only the single global coloraxis for the AWC colorbar.
+# Keep only the single global coloraxis 
 fig.update_layout(
     coloraxis=dict(
         colorscale="YlGnBu",
@@ -929,7 +923,7 @@ fig.update_layout(
     )
 )
 
-# Add a vertical annotation for the colorbar title
+# Add a vertical annotation for colorbar title
 fig.add_annotation(
     text="Available Water Capacity (Vol.%)",
     xref="paper", yref="paper",
@@ -1026,8 +1020,6 @@ class_distribution = {
     for name in ordered_legende
 }
 
-
-
 # build legend text
 legende_text = (
     "<span style='font-size:34px; font-weight:bold;'>Soil texture classes</span><br><br>"
@@ -1067,7 +1059,6 @@ legende_text += (
     "<span style='font-size:40px;'>■</span> "
     "<span style='font-size:25px;'>Deep soil (70–200 cm)</span>"
 )
-
 
 
 # Adjust layout to center
@@ -1142,8 +1133,6 @@ for x in x_values:
 # rotate plot
 for trace in fig.data:
     trace.x, trace.y = trace.y, trace.x
-
-
 
 
 # legend after rotation
@@ -1235,7 +1224,7 @@ fig.show()
 
 
 
-#                EXPORT SECTION (HTML / PNG / TIFF)
+#  EXPORT SECTION (HTML / PNG / TIFF)
 
 
 import os
