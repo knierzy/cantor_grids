@@ -246,7 +246,7 @@ add_rechtecke_mit_farbverlauf(rechtecke, 0)
 
 # Load data from Excel file (relative path for GitHub)
 file_path_gilgen = "data/compendium_X.xlsx"
-df = pd.read_excel(file_path_gilgen, sheet_name='Soil_Kirchdorf')
+df = pd.read_excel(file_path_gilgen, sheet_name='Soil_Vöcklabruck')
 
 #  Original decimal texture values (before LRM)
 df_tex_raw = df[['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']].copy()
