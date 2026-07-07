@@ -829,7 +829,7 @@ print("Points cols: ['Alm','Spe','Pyr','Gro']")
 
 legend_text = (
     "<span style='font-size:45px; font-weight:bold;'>Garnet Provenance Groups</span><br>"
-    "<span style='font-size:34px; font-style:italic;'>Classification based on Mahalanobis distance</span><br><br>"
+    "<span style='font-size:26px; font-style:italic;'>Classification based on standardized Mahalanobis distance using a diagonal covariance matrix</span><br><br>"
     "<span style='font-size:30px;'>Symbols: circles = mica schist (MS) Pernegg; diamonds = Linz–Melk Formation (LMF)</span><br><br>"
 )
 
