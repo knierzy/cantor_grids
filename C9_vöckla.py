@@ -248,6 +248,32 @@ add_rechtecke_mit_farbverlauf(rechtecke, 0)
 file_path_gilgen = "data/compendium_X.xlsx"
 df = pd.read_excel(file_path_gilgen, sheet_name='Soil_Vöcklabruck')
 
+# Normalize mineral texture fractions to include SOM as 4th component
+# Excel columns:
+# Unnamed: 1 = Sand
+# Unnamed: 2 = Silt
+# Unnamed: 3 = Humus / SOM
+# Unnamed: 4 = Clay
+
+texture_cols = ['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 4']
+humus_col = 'Unnamed: 3'
+
+mineral_factor = (100 - df[humus_col]) / 100
+
+df[texture_cols] = df[texture_cols].multiply(mineral_factor, axis=0)
+
+# Optional check
+df['check_sum_ABCD'] = (
+    df['Unnamed: 1'] +
+    df['Unnamed: 2'] +
+    df['Unnamed: 3'] +
+    df['Unnamed: 4']
+)
+
+print(df[['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4', 'check_sum_ABCD']].head(20))
+
+
+
 #  Original decimal texture values (before LRM)
 df_tex_raw = df[['Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']].copy()
 
